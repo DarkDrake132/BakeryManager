@@ -4,9 +4,75 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BakeryManager"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         TextElement.FontWeight="Regular"
+         TextElement.FontSize="13"
+         TextOptions.TextFormattingMode="Ideal"
+         TextOptions.TextRenderingMode="Auto"
+            
+        Background="White"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+         Title="CakeShopApp" Height="850" Width="1200">
+    <DockPanel LastChildFill="True">
+        <DockPanel DockPanel.Dock="Left">
+            <StackPanel DockPanel.Dock="Top" Height="auto" Width="110" Orientation="Vertical" Margin="5">
+                <!--icon-->
+                <Image Source="pack://application:,,,/Assets/Icon.png" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Width="70"/>
+                <!--Home button-->
+                <Button Margin="10 30 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}"  Width="90" Height="90" Command="{Binding HomeCommand}">
+                    <Border CornerRadius="15" Margin="0"  Background="{Binding Source={StaticResource Global},Path=HomeColor}" Width="90" Height="90">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="StorefrontOutline" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}"/>
+                            <TextBlock Text="Home" Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </Button>
+                <!--Recipts List button-->
+                <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}"  Width="90" Height="90" Command="{Binding InvoiceListCommand}">
+                    <Border CornerRadius="15" Margin="0"  Background="{Binding Source={StaticResource Global},Path=InvoiceListColor}" Width="90" Height="90">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="PlaylistEdit" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}"/>
+                            <TextBlock Text="Invoices"  TextAlignment="Center" Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}" FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </Button>
+                <!--Cakes button-->
+                <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}"  Width="90" Height="90" Command="{Binding CakesCommand}">
+                    <Border CornerRadius="15" Margin="0"  Background="{Binding Source={StaticResource Global},Path=CakesColor}" Width="90" Height="90">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Cupcake" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}"/>
+                            <TextBlock Text="Cakes" Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}" FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </Button>
+                <!--Statistic button-->
+                <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Width="90" Height="90" Command="{Binding StatisticCommand}">
+                    <Border CornerRadius="15"  Background="{Binding Source={StaticResource Global},Path=StatisticColor}"  Width="90" Height="90">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="ChartLine" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=StatisticTextColor}" />
+                            <TextBlock Text="Statistic" Foreground="{Binding Source={StaticResource Global},Path=StatisticTextColor}"  FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </Button>
+                <!--Setting button-->
+                <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Width="90" Height="90" Command="{Binding SettingCommand}">
+                    <Border CornerRadius="15"  Background="{Binding Source={StaticResource Global},Path=SettingColor}"  Width="90" Height="90">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="CogOutline" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}" />
+                            <TextBlock Text="Setting" Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}"  FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </Button>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom" Height="30" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock FontSize="15" Foreground="Gray" Text="Version: "></TextBlock>
+                <TextBlock FontSize="15" Foreground="Gray" Text="{Binding VersionTextBlock}"></TextBlock>
+            </StackPanel>
+        </DockPanel>
+
+        <ContentControl Grid.Column="1" DockPanel.Dock="Right" Margin="10 0" Content="{Binding Source={StaticResource Global},Path=CurrentPageViewModel}">
+
+        </ContentControl>
+    </DockPanel>
 </Window>

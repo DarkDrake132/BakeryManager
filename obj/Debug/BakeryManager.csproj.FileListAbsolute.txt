@@ -1,0 +1,5 @@
+C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\BakeryManager.csprojAssemblyReference.cache
+C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\MainWindow.g.cs
+C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\App.g.cs
+C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\BakeryManager_MarkupCompile.cache
+C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\BakeryManager_MarkupCompile.lref
