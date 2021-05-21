@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows;
 using System.Configuration;
-using CakeShopApp.ViewModels;
+using BakeryManager.ViewModels;
 
 namespace CakeShopApp
 {

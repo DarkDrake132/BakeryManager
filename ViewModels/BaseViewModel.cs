@@ -11,7 +11,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace CakeShopApp.ViewModels
+namespace BakeryManager.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

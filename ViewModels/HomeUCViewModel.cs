@@ -1,23 +1,22 @@
-﻿using CakeShopApp.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CakeShopApp.Models;
+using BakeryManager.Models;
 using System.Windows.Input;
 using System.Data.Entity.Validation;
 using System.Windows.Controls;
 using System.Globalization;
 
-namespace CakeShopApp.ViewModels
+namespace BakeryManager.ViewModels
 {
     class HomeUCViewModel : BaseViewModel
     {
         #region variables
         private static HomeUCViewModel _instance = null;
         private static object m_lock = new object();
-        private List<string> _listSort = new List<string>() { 
+        private List<string> _listSort = new List<string>() {
             "Bán chạy",
             "Hàng mới",
             "A-Z",
@@ -78,9 +77,15 @@ namespace CakeShopApp.ViewModels
         public AsyncObservableCollection<string> Sorts { get => _sorts; set { _sorts = value; OnPropertyChanged(); } }
 
         private string _selectedSort;
-        public string SelectedSort { get => _selectedSort; set { _selectedSort = value;
+        public string SelectedSort
+        {
+            get => _selectedSort; set
+            {
+                _selectedSort = value;
                 CallSearch();
-                OnPropertyChanged(); } }
+                OnPropertyChanged();
+            }
+        }
 
         // make invoice
 
@@ -109,15 +114,16 @@ namespace CakeShopApp.ViewModels
                 _isOpenCheckOutDialog = value;
                 if (value == true)
                 {
-                    Invoice newinvoice = new Invoice() { Name = "", Phone = "", PaymentMethod = 1, CreatedDate = DateTime.Now, Status = "", Total = 0, };
-                    DataProvider.Ins.DB.Invoices.Add(newinvoice);
-                    DataProvider.Ins.DB.SaveChanges();
-                    CheckOutId = newinvoice.Id;
+                    //Invoice newinvoice = new Invoice() { Name = "", Phone = "", PaymentMethod = 1, CreatedDate = DateTime.Now, Status = "", Total = 0, };
+                    //DataProvider.Ins.DB.Invoices.Add(newinvoice);
+                    //DataProvider.Ins.DB.SaveChanges();
+                    //CheckOutId = newinvoice.Id;
                     CheckOutDetails = new AsyncObservableCollection<dynamic>();
                     CheckOutDateShip = DateTime.Now;
                     foreach (var invoicedetail in InvoiceDetails)
                     {
-                        CheckOutDetails.Add(new { 
+                        CheckOutDetails.Add(new
+                        {
                             Name = invoicedetail.ProductName,
                             Quantity = invoicedetail.Amount + invoicedetail.GiftAmount,
                             Price = invoicedetail.ProductPrice,
@@ -158,42 +164,46 @@ namespace CakeShopApp.ViewModels
         }
 
         private string _checkOutCustomerName;
-        public string CheckOutCustomerName 
-        { 
-            get => _checkOutCustomerName; 
-            set 
-            { 
+        public string CheckOutCustomerName
+        {
+            get => _checkOutCustomerName;
+            set
+            {
                 _checkOutCustomerName = value;
                 IsEnabledSecondCheckoutButton = IsCheckOut();
                 if (value != null)
                 {
                     IsValidName = true;
                 }
-                OnPropertyChanged(); 
-            } 
+                OnPropertyChanged();
+            }
         }
 
         private string _checkOutPhone;
-        public string CheckOutPhone 
-        { 
+        public string CheckOutPhone
+        {
             get => _checkOutPhone;
-            set 
-            { 
+            set
+            {
                 _checkOutPhone = value;
                 IsEnabledSecondCheckoutButton = IsCheckOut();
                 if (value != null)
                 {
                     IsValidPhone = true;
                 }
-                OnPropertyChanged(); 
-            } 
+                OnPropertyChanged();
+            }
         }
 
         private AsyncObservableCollection<dynamic> _checkOutDetails;
         public AsyncObservableCollection<dynamic> CheckOutDetails { get => _checkOutDetails; set { _checkOutDetails = value; OnPropertyChanged(); } }
 
         private string _checkOutCash;
-        public string CheckOutCash { get => _checkOutCash; set { _checkOutCash = value;
+        public string CheckOutCash
+        {
+            get => _checkOutCash; set
+            {
+                _checkOutCash = value;
                 if (CheckOutCash != null && IsValidName == true && IsValidPhone == true && IsValidCheckoutOff == true)
                 {
                     IsEnabledSecondCheckoutButton = IsCheckOut();
@@ -203,48 +213,76 @@ namespace CakeShopApp.ViewModels
                 {
                     IsValidCheckoutCash = true;
                 }
-                OnPropertyChanged(); } }
+                OnPropertyChanged();
+            }
+        }
 
         private string _checkOutChange;
         public string CheckOutChange { get => _checkOutChange; set { _checkOutChange = value; OnPropertyChanged(); } }
 
         private DateTime _checkOutDateShip;
-        public DateTime CheckOutDateShip { get => _checkOutDateShip; set { _checkOutDateShip = value;
+        public DateTime CheckOutDateShip
+        {
+            get => _checkOutDateShip; set
+            {
+                _checkOutDateShip = value;
                 IsValidCheckoutDate = true;
                 IsEnabledSecondCheckoutButton = IsCheckOut();
-                OnPropertyChanged(); } }
+                OnPropertyChanged();
+            }
+        }
 
         private string _checkOutAddress;
-        public string CheckOutAddress { get => _checkOutAddress; set { _checkOutAddress = value;
+        public string CheckOutAddress
+        {
+            get => _checkOutAddress; set
+            {
+                _checkOutAddress = value;
                 if (value != null)
                 {
                     IsValidCheckoutAdress = true;
                 }
                 IsEnabledSecondCheckoutButton = IsCheckOut();
-                OnPropertyChanged(); }
+                OnPropertyChanged();
+            }
         }
 
         private string _checkOutPrePaid;
-        public string CheckOutPrePaid { get => _checkOutPrePaid; set { _checkOutPrePaid = value;
+        public string CheckOutPrePaid
+        {
+            get => _checkOutPrePaid; set
+            {
+                _checkOutPrePaid = value;
                 if (CheckOutPrePaid != null)
                 {
                     CheckOutPostPaid = (int.Parse(CheckOutTotal) - int.Parse(CheckOutPrePaid)).ToString();
                     IsValidCheckoutPrePaid = true;
                 }
                 IsEnabledSecondCheckoutButton = IsCheckOut();
-                OnPropertyChanged(); }
+                OnPropertyChanged();
+            }
         }
 
         private string _checkOutPostPaid;
         public string CheckOutPostPaid { get => _checkOutPostPaid; set { _checkOutPostPaid = value; OnPropertyChanged(); } }
 
         private bool _isDelivery;
-        public bool IsDelivery { get => _isDelivery; set { _isDelivery = value;
+        public bool IsDelivery
+        {
+            get => _isDelivery; set
+            {
+                _isDelivery = value;
                 IsEnabledSecondCheckoutButton = IsCheckOut();
-                OnPropertyChanged(); } }
+                OnPropertyChanged();
+            }
+        }
 
         private int _checkOutOff;
-        public int CheckOutOff { get => _checkOutOff; set { _checkOutOff = value;
+        public int CheckOutOff
+        {
+            get => _checkOutOff; set
+            {
+                _checkOutOff = value;
                 if (value != null)
                 {
                     IsValidCheckoutOff = true;
@@ -258,7 +296,7 @@ namespace CakeShopApp.ViewModels
                         if (detail.Discount < CheckOutOff)
                         {
                             CheckOutDetails.RemoveAt(i);
-                            CheckOutDetails.Insert( i, new
+                            CheckOutDetails.Insert(i, new
                             {
                                 Name = detail.ProductName,
                                 Quantity = detail.Amount + detail.GiftAmount,
@@ -275,7 +313,9 @@ namespace CakeShopApp.ViewModels
                     CheckOutCash = CheckOutCash;
                     CheckOutPrePaid = CheckOutPrePaid;
                 }
-                OnPropertyChanged(); } }
+                OnPropertyChanged();
+            }
+        }
 
         private string _checkOutTotal;
         public string CheckOutTotal { get => _checkOutTotal; set { _checkOutTotal = value; OnPropertyChanged(); } }
@@ -330,15 +370,15 @@ namespace CakeShopApp.ViewModels
                 Name = "Tất cả",
                 PickIcon = "ArrowExpandAll"
             });
-            foreach (var category in DataProvider.Ins.DB.Categories)
-            {
-                Categories.Add(new
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                    PickIcon = "FoodCroissant"
-                });
-            }
+            //foreach (var category in DataProvider.Ins.DB.Categories)
+            //{
+            //    Categories.Add(new
+            //    {
+            //        Id = category.Id,
+            //        Name = category.Name,
+            //        PickIcon = "FoodCroissant"
+            //    });
+            //}
             SelectedCategory = Categories.ElementAt(0);
 
             Sorts = new AsyncObservableCollection<string>();
@@ -384,44 +424,44 @@ namespace CakeShopApp.ViewModels
             {
                 if (bool.Parse(param) == true)
                 {
-                    Invoice newinvoice = DataProvider.Ins.DB.Invoices.Find(CheckOutId);
-                    newinvoice.Name = CheckOutCustomerName;
-                    newinvoice.Phone = (CheckOutPhone == null) ? "" : CheckOutPhone;
-                    newinvoice.CreatedDate = DateTime.Now;
-                    newinvoice.PaymentMethod = (IsDelivery == true) ? 2 : 1;
-                    newinvoice.Status = (IsDelivery == true) ? "Chờ giao hàng" : "Đã thanh toán";
-                    newinvoice.Total = int.Parse(CheckOutTotal);
-                    if (newinvoice.PaymentMethod == 1)
-                    {
-                        DirectPayment newdirectpayment = new DirectPayment() { InvoiceId = newinvoice.Id, Cash = int.Parse(CheckOutCash), Change = int.Parse(CheckOutChange), };
-                        DataProvider.Ins.DB.DirectPayments.Add(newdirectpayment);
-                    }
-                    else
-                    {
-                        DeliveryPayment newdeliverypayment = new DeliveryPayment() { InvoiceId = newinvoice.Id, Address = CheckOutAddress, ShippingDate = CheckOutDateShip, PrePaid = int.Parse(CheckOutPrePaid), PostPaid = int.Parse(CheckOutPostPaid), };
-                        DataProvider.Ins.DB.DeliveryPayments.Add(newdeliverypayment);
-                    }
-                    foreach (var invoicedetail in InvoiceDetails)
-                    {
-                        newinvoice.InvoiceDetails.Add(new InvoiceDetail
-                        {
-                            InvoiceId = CheckOutId,
-                            ProductId = invoicedetail.ProductId,
-                            Amount = invoicedetail.Amount,
-                            Discount = (invoicedetail.Discount > CheckOutOff) ? invoicedetail.Discount : CheckOutOff,
-                            GiftAmount = invoicedetail.GiftAmount,
-                        });
-                        DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount = DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount - (invoicedetail.Amount + invoicedetail.GiftAmount);
-                    }
-                    DataProvider.Ins.DB.SaveChanges();
-                    InvoiceDetails = new AsyncObservableCollection<DetailInList>();
-                    DetailInListTotalPrice = "0";
-                    CallSearch();
+                    //Invoice newinvoice = DataProvider.Ins.DB.Invoices.Find(CheckOutId);
+                    //newinvoice.Name = CheckOutCustomerName;
+                    //newinvoice.Phone = (CheckOutPhone == null) ? "" : CheckOutPhone;
+                    //newinvoice.CreatedDate = DateTime.Now;
+                    //newinvoice.PaymentMethod = (IsDelivery == true) ? 2 : 1;
+                    //newinvoice.Status = (IsDelivery == true) ? "Chờ giao hàng" : "Đã thanh toán";
+                    //newinvoice.Total = int.Parse(CheckOutTotal);
+                    //if (newinvoice.PaymentMethod == 1)
+                    //{
+                    //    DirectPayment newdirectpayment = new DirectPayment() { InvoiceId = newinvoice.Id, Cash = int.Parse(CheckOutCash), Change = int.Parse(CheckOutChange), };
+                    //    DataProvider.Ins.DB.DirectPayments.Add(newdirectpayment);
+                    //}
+                    //else
+                    //{
+                    //    DeliveryPayment newdeliverypayment = new DeliveryPayment() { InvoiceId = newinvoice.Id, Address = CheckOutAddress, ShippingDate = CheckOutDateShip, PrePaid = int.Parse(CheckOutPrePaid), PostPaid = int.Parse(CheckOutPostPaid), };
+                    //    DataProvider.Ins.DB.DeliveryPayments.Add(newdeliverypayment);
+                    //}
+                    //foreach (var invoicedetail in InvoiceDetails)
+                    //{
+                    //    newinvoice.InvoiceDetails.Add(new InvoiceDetail
+                    //    {
+                    //        InvoiceId = CheckOutId,
+                    //        ProductId = invoicedetail.ProductId,
+                    //        Amount = invoicedetail.Amount,
+                    //        Discount = (invoicedetail.Discount > CheckOutOff) ? invoicedetail.Discount : CheckOutOff,
+                    //        GiftAmount = invoicedetail.GiftAmount,
+                    //    });
+                    //    DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount = DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount - (invoicedetail.Amount + invoicedetail.GiftAmount);
+                    //}
+                    //DataProvider.Ins.DB.SaveChanges();
+                    //InvoiceDetails = new AsyncObservableCollection<DetailInList>();
+                    //DetailInListTotalPrice = "0";
+                    //CallSearch();
                 }
                 else
                 {
-                    DataProvider.Ins.DB.Invoices.Remove(DataProvider.Ins.DB.Invoices.Find(CheckOutId));
-                    DataProvider.Ins.DB.SaveChanges();
+                    //DataProvider.Ins.DB.Invoices.Remove(DataProvider.Ins.DB.Invoices.Find(CheckOutId));
+                    //DataProvider.Ins.DB.SaveChanges();
                 }
                 IsOpenCheckOutDialog = false;
             });
@@ -488,172 +528,172 @@ namespace CakeShopApp.ViewModels
             Products = new AsyncObservableCollection<dynamic>();
             if (SelectedCategory.Id == 0)
             {
-                switch (_listSort.IndexOf(SelectedSort))
-                {
-                    case 0:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.ImportAmount - x.InStockAmount))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                    case 1:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.ImportDate))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                    case 2:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderBy(x => x.Name))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                    case 3:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.Name))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                    case 4:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderBy(x => x.SellPrice))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                    case 5:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.SellPrice))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                }
-            }
-            else
-            {
-                int categoryid = SelectedCategory.Id;
-                switch (_listSort.IndexOf(SelectedSort))
-                {
-                    case 0:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.ImportAmount - x.InStockAmount))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                    case 1:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.ImportDate))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                    case 2:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderBy(x => x.Name))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                    case 3:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.Name))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                    case 4:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderBy(x => x.SellPrice))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                    case 5:
-                        Products = new AsyncObservableCollection<dynamic>();
-                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.SellPrice))
-                        {
-                            Products.Add(new
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-                                Price = product.SellPrice.ToString(),
-                            });
-                        }
-                        break;
-                }
+            //    switch (_listSort.IndexOf(SelectedSort))
+            //    {
+            //        case 0:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.ImportAmount - x.InStockAmount))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //        case 1:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.ImportDate))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //        case 2:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderBy(x => x.Name))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //        case 3:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.Name))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //        case 4:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderBy(x => x.SellPrice))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //        case 5:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.SellPrice))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //    }
+            //}
+            //else
+            //{
+            //    int categoryid = SelectedCategory.Id;
+            //    switch (_listSort.IndexOf(SelectedSort))
+            //    {
+            //        case 0:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.ImportAmount - x.InStockAmount))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //        case 1:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.ImportDate))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //        case 2:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderBy(x => x.Name))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //        case 3:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.Name))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //        case 4:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderBy(x => x.SellPrice))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //        case 5:
+            //            Products = new AsyncObservableCollection<dynamic>();
+            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.SellPrice))
+            //            {
+            //                Products.Add(new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+            //                    Price = product.SellPrice.ToString(),
+            //                });
+            //            }
+            //            break;
+            //    }
             }
             var tmp = Products.ToList();
             foreach (var product in tmp)
@@ -695,15 +735,15 @@ namespace CakeShopApp.ViewModels
 
         #endregion
         private bool _isEnabledCheckoutButton;
-        public bool IsEnabledCheckoutButton 
-        { 
-            get => _isEnabledCheckoutButton; 
-            set 
-            { 
-                _isEnabledCheckoutButton = value; 
-                HomeUCViewModel.GetInstance().IsEnabledFirstCheckoutButton = IsEnabledCheckoutButton; 
-                OnPropertyChanged(); 
-            } 
+        public bool IsEnabledCheckoutButton
+        {
+            get => _isEnabledCheckoutButton;
+            set
+            {
+                _isEnabledCheckoutButton = value;
+                HomeUCViewModel.GetInstance().IsEnabledFirstCheckoutButton = IsEnabledCheckoutButton;
+                OnPropertyChanged();
+            }
         }
         #region properties
         private int _productId;
@@ -719,51 +759,51 @@ namespace CakeShopApp.ViewModels
         public string ProductPrice { get => _productPrice; set { _productPrice = value; OnPropertyChanged(); } }
 
         private int _amount;
-        public int Amount 
-        { 
-            get => _amount; 
-            set 
-            { 
+        public int Amount
+        {
+            get => _amount;
+            set
+            {
                 _amount = value;
                 if (IsValidDiscount == true && IsValidGiftAmount == true)
                 {
                     IsEnabledCheckoutButton = true;
                 }
                 IsValidAmount = true;
-                OnPropertyChanged(); 
-            } 
+                OnPropertyChanged();
+            }
         }
 
         private int _discount;
-        public int Discount 
+        public int Discount
         {
-            get => _discount; 
+            get => _discount;
             set
-            { 
+            {
                 _discount = value;
                 if (IsValidAmount == true && IsValidGiftAmount == true)
                 {
                     IsEnabledCheckoutButton = true;
                 }
                 IsValidDiscount = true;
-                OnPropertyChanged(); 
-            } 
+                OnPropertyChanged();
+            }
         }
 
         private int _giftAmount;
-        public int GiftAmount 
-        { 
-            get => _giftAmount; 
-            set 
-            { 
+        public int GiftAmount
+        {
+            get => _giftAmount;
+            set
+            {
                 _giftAmount = value;
                 if (IsValidDiscount == true && IsValidAmount == true)
                 {
                     IsEnabledCheckoutButton = true;
                 }
                 IsValidGiftAmount = true;
-                OnPropertyChanged(); 
-            } 
+                OnPropertyChanged();
+            }
         }
 
         private string _summaryPrice;
