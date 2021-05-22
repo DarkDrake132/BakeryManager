@@ -4,6 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BakeryManager"
+        xmlns:viewmodels="clr-namespace:BakeryManager.ViewModels"
+        xmlns:uc="clr-namespace:BakeryManager.Views.UC"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
          TextElement.FontWeight="Regular"
          TextElement.FontSize="13"
@@ -12,6 +15,8 @@
             
         Background="White"
         WindowStartupLocation="CenterScreen"
+        
+        DataContext="{StaticResource MVM}"
         mc:Ignorable="d"
          Title="CakeShopApp" Height="850" Width="1200">
     <DockPanel LastChildFill="True">

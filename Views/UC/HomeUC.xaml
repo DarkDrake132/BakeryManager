@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BakeryManager.Views.UC"
+             xmlns:vm="clr-namespace:BakeryManager.ViewModels"
+             
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:models="clr-namespace:BakeryManager.Models" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              TextElement.FontWeight="Regular"

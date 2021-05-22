@@ -24,3 +24,5 @@ C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debu
 C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\BakeryManager.csproj.CopyComplete
 C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\BakeryManager.exe
 C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\BakeryManager.pdb
+C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\Views\UC\HomeUC.g.cs
+C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\GeneratedInternalTypeHelper.g.cs
