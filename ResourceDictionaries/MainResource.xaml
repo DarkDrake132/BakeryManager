@@ -3,4 +3,5 @@
                     xmlns:viewmodel="clr-namespace:BakeryManager.ViewModels">
     <viewmodel:HomeUCViewModel x:Key="HUCVM"/>
     <viewmodel:CakesUCViewModel x:Key="CKUCVM"/>
+    <viewmodel:InvoiceListUCViewModel x:Key="ILUCVM"/>
 </ResourceDictionary>

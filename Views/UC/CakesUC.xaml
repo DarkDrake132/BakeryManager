@@ -1,0 +1,641 @@
+﻿<UserControl x:Class="BakeryManager.Views.UC.CakesUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BakeryManager.Views.UC"
+             xmlns:models="clr-namespace:BakeryManager.Models"
+             xmlns:vm="clr-namespace:BakeryManager.ViewModels"
+             
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+            
+            Background="White"
+            DataContext="{StaticResource CKUCVM}"
+
+            mc:Ignorable="d" 
+            d:DesignHeight="850" d:DesignWidth="1100">
+    <UserControl.Resources>
+        <models:BytesToBitMapConverter x:Key="ImageConverter"/>
+        <models:NumberToVNDConverter x:Key="MoneyComverter"/>
+        <models:DateConverter x:Key="DateConverter"/>
+        <ResourceDictionary x:Key="Dialogbox">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <Style x:Key="HolderButton" TargetType="Border">
+            <Setter Property="Width" Value="auto"></Setter>
+            <Setter Property="Height" Value="auto"></Setter>
+            <Setter Property="CornerRadius" Value="50"></Setter>
+            <Setter Property="Background" Value="WhiteSmoke"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="SaddleBrown"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid>
+
+        <!--Thêm sản phẩm-->
+
+        <materialDesign:DialogHost IsOpen="{Binding IsOpenAddProductDialog}"
+                    Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
+                    DialogMargin="8" Panel.ZIndex="1"
+                                       Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DockPanel}},Path=ActualWidth}"
+                                        Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DockPanel}},Path=ActualHeight}">
+
+            <!--Nội dung dialog thêm sản phẩm-->
+            <materialDesign:DialogHost.DialogContent>
+
+                <StackPanel Margin="16">
+                    <TextBlock>
+                               THÊM SẢN PHẨM MỚI
+                    </TextBlock>
+                    <Grid Width="800" Height="400">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Margin="30 10">
+                            <TextBox Margin="5 10"
+                                  materialDesign:HintAssist.Hint="Tên bánh"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                  VerticalAlignment="Center"
+                                  FontSize="20">
+                                <TextBox.Text>
+                                    <Binding Path="NewProductName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                        <Binding.ValidationRules>
+                                            <vm:IsNotNullStringRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <i:Interaction.Triggers>
+                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                        <i:InvokeCommandAction Command="{Binding DisableName}"/>
+                                    </vm:RoutedEventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+
+                            <ComboBox Margin="5 10"
+                                  materialDesign:HintAssist.Hint="Loại bánh"
+                                  materialDesign:HintAssist.HintOpacity=".26" SelectedItem="{Binding SelectedNewProductCategory, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding NewProductCategoriesList}"
+                                  IsEditable="True" DisplayMemberPath="Name">
+                            </ComboBox>
+
+                            <TextBox Margin="5 10"
+                                  materialDesign:HintAssist.Hint="Số lượng nhập vào"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                  VerticalAlignment="Center"
+                                  FontSize="20">
+                                <TextBox.Text>
+                                    <Binding Path="NewProductImportAmount" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                        <Binding.ValidationRules>
+                                            <vm:IsOnlyContainNumberRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <i:Interaction.Triggers>
+                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                        <i:InvokeCommandAction Command="{Binding DisableAmount}"/>
+                                    </vm:RoutedEventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+
+                            <TextBox Margin="5 10"
+                                  materialDesign:HintAssist.Hint="Giá nhập"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                  VerticalAlignment="Center"
+                                  FontSize="20">
+                                <TextBox.Text>
+                                    <Binding Path="NewProductImportPrice" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                        <Binding.ValidationRules>
+                                            <vm:IsOnlyContainNumberRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <i:Interaction.Triggers>
+                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                        <i:InvokeCommandAction Command="{Binding DisableImportPrice}"/>
+                                    </vm:RoutedEventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+
+                            <TextBox Margin="5 10"
+                                  materialDesign:HintAssist.Hint="Giá bán"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                  VerticalAlignment="Center"
+                                  FontSize="20">
+                                <TextBox.Text>
+                                    <Binding Path="NewProductSellPrice" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                        <Binding.ValidationRules>
+                                            <vm:IsOnlyContainNumberRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <i:Interaction.Triggers>
+                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                        <i:InvokeCommandAction Command="{Binding DisableSellPrice}"/>
+                                    </vm:RoutedEventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="30,10">
+
+                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="1" Grid.Column="1" Margin="10,0"
+                                 MaxLines="4"
+                                 materialDesign:HintAssist.Hint="Mô tả"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 VerticalAlignment="Center" Text="{Binding NewProductDescription}" Height="130" Width="450"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Thêm ảnh" Width="100"  Command="{Binding AddImageCommand}"></Button>
+                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Đặt làm ảnh chính" Width="150"  Command="{Binding SetThumbnailCommand}" IsEnabled="{Binding IsEnabledSetImageButton}"></Button>
+                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Xóa" Width="60"  Command="{Binding DeleteImageCommand}" IsEnabled="{Binding IsEnabledDeleteImageButton}"></Button>
+
+                            </StackPanel>
+                            <ListView ItemsSource="{Binding NewProductImages}" SelectedItem="{Binding SelectedNewProductImage}" BorderBrush="SaddleBrown" BorderThickness="1" Background="LightGray">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="SaddleBrown" Height="120" Width="120" HorizontalAlignment="Left">
+                                                <Image Source="{Binding ByteImage, Converter={StaticResource ImageConverter}}" Width="110" Height="110" Margin="5"/>
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsThumbnail}" Value="true">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsThumbnail}" Value="false">
+                                                                <Setter Property="Visibility" Value="Hidden" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                                <materialDesign:PackIcon Kind="CheckboxMarkedCircle" Foreground="Green"/>
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel></WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                            </ListView>
+                        </StackPanel>
+
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button
+                                  Style="{StaticResource MaterialDesignFlatButton}"
+                                  IsDefault="True"
+                                  Margin="0 8 8 0"
+                                  Command="{Binding AddProductCommand}"  
+                                  CommandParameter="true"
+                                  IsEnabled="{Binding IsEnabledAcceptButton}">
+                            ACCEPT
+                        </Button>
+                        <Button
+                                  Style="{StaticResource MaterialDesignFlatButton}"
+                                  IsCancel="True"
+                                  Margin="0 8 8 0"
+                                  Command="{Binding AddProductCommand}"  CommandParameter="false">
+                            CANCEL
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+
+        <!--sửa sản phẩm-->
+
+        <materialDesign:DialogHost IsOpen="{Binding IsOpenUpdateProductDialog}"
+                                        Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
+                                        DialogMargin="8" Panel.ZIndex="2">
+
+            <!--Nội dung dialog sửa sản phẩm-->
+            <materialDesign:DialogHost.DialogContent>
+
+                <StackPanel Margin="16">
+                    <TextBlock>
+                                                   CHỈNH SỬA SẢN PHẨM
+                    </TextBlock>
+                    <Grid Width="800" Height="400">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Margin="30 10">
+                            <TextBox Margin="5 10"
+                                                              materialDesign:HintAssist.Hint="Tên bánh"
+                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                              VerticalAlignment="Center"
+                                                              FontSize="20">
+                                <TextBox.Text>
+                                    <Binding Path="NewProductName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                        <Binding.ValidationRules>
+                                            <vm:IsNotNullStringRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <i:Interaction.Triggers>
+                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                        <i:InvokeCommandAction Command="{Binding DisableName}"/>
+                                    </vm:RoutedEventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+
+                            <ComboBox Margin="5 10"
+                                                              materialDesign:HintAssist.Hint="Loại bánh"
+                                                              materialDesign:HintAssist.HintOpacity=".26" SelectedItem="{Binding SelectedNewProductCategory}" ItemsSource="{Binding NewProductCategoriesList}"
+                                                              IsEditable="True" DisplayMemberPath="Name">
+                            </ComboBox>
+
+                            <TextBox Margin="5 10"
+                                                              materialDesign:HintAssist.Hint="Số lượng nhập vào"
+                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                              VerticalAlignment="Center"
+                                                              FontSize="20">
+                                <TextBox.Text>
+                                    <Binding Path="NewProductImportAmount" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                        <Binding.ValidationRules>
+                                            <vm:IsOnlyContainNumberRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <i:Interaction.Triggers>
+                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                        <i:InvokeCommandAction Command="{Binding DisableAmount}"/>
+                                    </vm:RoutedEventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+
+                            <TextBox Margin="5 10"
+                                                              materialDesign:HintAssist.Hint="Giá nhập"
+                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                              VerticalAlignment="Center"
+                                                              FontSize="20">
+                                <TextBox.Text>
+                                    <Binding Path="NewProductImportPrice" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                        <Binding.ValidationRules>
+                                            <vm:IsOnlyContainNumberRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <i:Interaction.Triggers>
+                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                        <i:InvokeCommandAction Command="{Binding DisableImportPrice}"/>
+                                    </vm:RoutedEventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+
+                            <TextBox Margin="5 10"
+                                                              materialDesign:HintAssist.Hint="Giá bán"
+                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                              VerticalAlignment="Center"
+                                                              FontSize="20">
+                                <TextBox.Text>
+                                    <Binding Path="NewProductSellPrice" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                        <Binding.ValidationRules>
+                                            <vm:IsOnlyContainNumberRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <i:Interaction.Triggers>
+                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                        <i:InvokeCommandAction Command="{Binding DisableSellPrice}"/>
+                                    </vm:RoutedEventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="30,10">
+
+                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="1" Grid.Column="1" Margin="10,0"
+                                                             MaxLines="4"
+                                                             materialDesign:HintAssist.Hint="Mô tả"
+                                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                             VerticalAlignment="Center" Text="{Binding NewProductDescription}" Height="130" Width="450"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Thêm ảnh" Width="100"  Command="{Binding AddImageCommand}"></Button>
+                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Đặt làm ảnh chính" Width="150"  Command="{Binding SetThumbnailCommand}" IsEnabled="{Binding IsEnabledSetImageButton}"></Button>
+                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Xóa" Width="60"  Command="{Binding DeleteImageCommand}" IsEnabled="{Binding IsEnabledDeleteImageButton}"></Button>
+
+                            </StackPanel>
+                            <ListView ItemsSource="{Binding NewProductImages}" SelectedItem="{Binding SelectedNewProductImage}" BorderBrush="SaddleBrown" BorderThickness="1" Background="LightGray">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="SaddleBrown" Height="120" Width="120" HorizontalAlignment="Left">
+                                                <Image Source="{Binding ByteImage, Converter={StaticResource ImageConverter}}" Width="110" Height="110" Margin="5"/>
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsThumbnail}" Value="true">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsThumbnail}" Value="false">
+                                                                <Setter Property="Visibility" Value="Hidden" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                                                            <materialDesign:PackIcon Kind="CheckboxMarkedCircle" Foreground="Green"/>
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel></WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                            </ListView>
+                        </StackPanel>
+
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button
+                                                          Style="{StaticResource MaterialDesignFlatButton}"
+                                                          IsDefault="True"
+                                                          Margin="0 8 8 0"
+                                                          Command="{Binding EditProductCommand}"  CommandParameter="true" IsEnabled="{Binding IsEnabledAcceptButton}">
+                            ACCEPT
+                        </Button>
+                        <Button
+                                                          Style="{StaticResource MaterialDesignFlatButton}"
+                                                          IsCancel="True"
+                                                          Margin="0 8 8 0"
+                                                          Command="{Binding EditProductCommand}"  CommandParameter="false">
+                            CANCEL
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+        <!--Hiển thị-->
+
+        <materialDesign:DialogHost IsOpen="{Binding IsOpenProductDialog}"
+                                        Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
+                                        DialogMargin="8" Panel.ZIndex="2">
+
+            <!--Nội dung dialog sửa sản phẩm-->
+            <materialDesign:DialogHost.DialogContent>
+
+                <StackPanel Margin="16">
+                    <TextBlock>
+                                                   THÔNG TIN SẢN PHẨM
+                    </TextBlock>
+                    <Grid Width="900" Height="700">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Vertical" Grid.Column="0">
+                                <TextBox Margin="5 10"
+                                  materialDesign:HintAssist.Hint="Tên bánh"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                  VerticalAlignment="Center"
+                                  FontSize="15" Text="{Binding DetailProductName}" IsReadOnly="True">
+                                </TextBox>
+                                <TextBox Margin="5 10"
+                                  materialDesign:HintAssist.Hint="Loại bánh"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                  VerticalAlignment="Center"
+                                  FontSize="15" Text="{Binding DetailProductCategory}" IsReadOnly="True">
+                                </TextBox>
+                                <TextBox Margin="5 10"
+                                  materialDesign:HintAssist.Hint="Ngày tạo"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                  VerticalAlignment="Center"
+                                  FontSize="15" Text="{Binding DetailProductCreateDate, Converter={StaticResource DateConverter}}" IsReadOnly="True">
+                                </TextBox>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Margin="5 10" Grid.Column="0"
+                                      materialDesign:HintAssist.Hint="Tổng số nhập"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                      VerticalAlignment="Center"
+                                        FontSize="15" Text="{Binding DetailProductImportAmount}" IsReadOnly="True">
+                                    </TextBox>
+                                    <TextBox Margin="5 10" Grid.Column="1"
+                                      materialDesign:HintAssist.Hint="Tồn kho"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                      VerticalAlignment="Center"
+                                        FontSize="15" Text="{Binding DetailProductInStockAmount}" IsReadOnly="True">
+                                    </TextBox>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Margin="5 10" Grid.Column="0"
+                                      materialDesign:HintAssist.Hint="Tổng số bán"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                      VerticalAlignment="Center"
+                                        FontSize="15" Text="{Binding DetailProductSellAmount}" IsReadOnly="True">
+                                    </TextBox>
+                                    <TextBox Margin="5 10" Grid.Column="1"
+                                  materialDesign:HintAssist.Hint="Số người mua"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                  VerticalAlignment="Center"
+                                  FontSize="15" Text="{Binding DetailProductNumBuy}" IsReadOnly="True">
+                                    </TextBox>
+                                </Grid>
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="SaddleBrown">ẢNH</TextBlock>
+                            <Border Name="Mask2"
+                                    Background="White"
+                                    BorderBrush="SaddleBrown"
+                                    BorderThickness="2"
+                                    CornerRadius="30" Margin="20" Height="300" Grid.Column="1">
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Margin="0" Command="{Binding PrevImageCommand}" CommandParameter="{Binding ElementName=ImageHolder}" Visibility="{Binding ChangeImageVisibility}">
+                                        <Border Style="{StaticResource HolderButton}">
+                                            <materialDesign:PackIcon Kind="ChevronLeft" Width="35" Height="35" Foreground="SaddleBrown" />
+                                        </Border>
+                                    </Button>
+                                    <Image x:Name="ImageHolder" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" Source="{Binding ImageHolder, Converter={StaticResource ImageConverter}}" Width="330" Height="280"/>
+                                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Command="{Binding NextImageCommand}"  CommandParameter="{Binding ElementName=ImageHolder}" Visibility="{Binding ChangeImageVisibility}">
+                                        <Border Style="{StaticResource HolderButton}">
+                                            <materialDesign:PackIcon Kind="ChevronRight" Width="35" Height="35" Foreground="SaddleBrown" />
+                                        </Border>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                        <TextBlock Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="SaddleBrown">MÔ TẢ</TextBlock>
+                        <Grid Grid.Row="1" Width="900">
+                            <Border Name="Mask1"
+                                    Background="White"
+                                    BorderBrush="SaddleBrown"
+                                    BorderThickness="2"
+                                    CornerRadius="30" Margin="20" Height="300" Grid.Row="0" Padding="10">
+                                <TextBlock Text="{Binding DetailProductDescription}" Grid.Row="0" FontSize="15" FontWeight="Medium" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap">
+                                </TextBlock>
+                            </Border>
+
+                        </Grid>
+
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button
+                                                          Style="{StaticResource MaterialDesignFlatButton}"
+                                                          IsDefault="True"
+                                                          IsCancel="True"
+                                                          Margin="0 8 8 0"
+                                                          Command="{Binding CloseDetaiProductCommand}"  CommandParameter="true">
+                            CLOSE
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+        <!--Hiển thị-->
+
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Height="75" Orientation="Horizontal">
+                <!--Search Bar-->
+                <Border BorderThickness="1" BorderBrush="SaddleBrown" CornerRadius="10" Margin="5 10 20 10">
+                    <StackPanel  Orientation="Horizontal" Margin="10">
+                        <materialDesign:PackIcon Foreground="Gray" VerticalAlignment="Center" Kind="Magnify" Width="30" Height="30" />
+                        <TextBox DockPanel.Dock="Right"
+                            VerticalAlignment="Center"
+                            Width="250"
+                            Height="30"
+                            AcceptsReturn="True"
+                            materialDesign:HintAssist.Hint="Search for cake"
+                            Text="{Binding Search,UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                </Border>
+
+                <!--Nút thêm sản phẩm-->
+                <Button Width="170" Height="55" Background="White" BorderThickness="1" BorderBrush="SaddleBrown"  ToolTip="Add New Cake" HorizontalAlignment="Left"
+                        Command="{Binding ClickAddProductButtonCommand}" VerticalAlignment="Top" Margin="10">
+                    <materialDesign:PackIcon Foreground="SaddleBrown"  Width="50" Height="40" Kind="Plus"/>
+                </Button>
+            </StackPanel>
+
+            <!--Categories Tree-->
+            <StackPanel DockPanel.Dock="Right" Width="230" Margin="0 10" >
+                <TextBlock FontSize="20" HorizontalAlignment="Right" FontWeight="Medium" Text="Categories Tree"></TextBlock>
+                <Grid Height="2" Background="SaddleBrown" Margin="10 10 0 5"></Grid>
+                <TreeView x:Name="categories" Padding="0" ItemsSource="{Binding Categories}" FlowDirection="RightToLeft" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectedItemChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeCategoryCommand}" CommandParameter="{Binding ElementName=categories, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type vm:Root}" ItemsSource="{Binding Child}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text=" [" Foreground="Blue" />
+                                <TextBlock Text="{Binding Count}" Foreground="Blue" />
+                                <TextBlock Text="]" Foreground="Blue" />
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                        <DataTemplate DataType="{x:Type vm:RootChild}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
+            </StackPanel>
+
+            <!--Product ListView-->
+            <ListView x:Name="ProductsListView"
+            ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="False">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn
+                        Width="110"
+                        Header="Image">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100" Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"></Image>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn
+                        Header="Name" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap"  FontSize="15" FontWeight="Medium" Margin="10 5" Foreground="SaddleBrown" Text="{Binding Name}" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn
+                        Header="Import $" Width="160">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="20" FontWeight="Medium" Margin="10 0" Text="{Binding ImportPrice, Converter={StaticResource MoneyComverter}}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn
+                        Header="Sell $" Width="160">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="20" FontWeight="Medium" Margin="10 0" Text="{Binding Price, Converter={StaticResource MoneyComverter}}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn
+                        Header="In Stock" Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="30 0" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Medium" Text="{Binding InStock}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn
+                        Header="Options" Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                        <Button Margin="10 5" Height="auto" BorderBrush="SaddleBrown" Background="Gray" BorderThickness="1" Padding="0" HorizontalAlignment="Right"
+                                                Command="{Binding ElementName=ProductsListView, Path=DataContext.ClickEditProductButtonCommand}" CommandParameter="{Binding Id}" ToolTip="Edit">
+                                            <materialDesign:PackIcon Width="40" Height="40" Kind="Pencil" Background="SaddleBrown" />
+                                        </Button>
+                                        <Button Height="auto" Margin="10 5" BorderBrush="Red" Background="Transparent" BorderThickness="1" Padding="0" HorizontalAlignment="Right"
+                                                Command="{Binding ElementName=ProductsListView, Path=DataContext.DeleteProductCommand}" CommandParameter="{Binding}" ToolTip="Delete">
+                                            <materialDesign:PackIcon Width="40" Height="40" Kind="CloseCircle" Background="Red" />
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DockPanel>
+
+    </Grid>
+</UserControl>

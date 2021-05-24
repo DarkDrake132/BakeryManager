@@ -1,4 +1,4 @@
-﻿//using BakeryManager.Model;
+﻿using BakeryManager.Model;
 using BakeryManager.Models;
 using Microsoft.Win32;
 using System;

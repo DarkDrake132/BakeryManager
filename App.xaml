@@ -11,7 +11,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Brown.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ResourceDictionaries/CommonStyle.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/ResourceDictionaries/MainResource.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ResourceDictionaries/MainResource.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
