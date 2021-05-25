@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\App.xaml
-71143231832
+8-751908134
 
-20-1932561817
+221580850156
 33-1283872366
-MainWindow.xaml;ResourceDictionaries\CommonStyle.xaml;ResourceDictionaries\MainResource.xaml;Views\UC\CakesUC.xaml;Views\UC\HomeUC.xaml;Views\UC\InvoiceListUC.xaml;Views\UC\StatisticsUC.xaml;
+MainWindow.xaml;ResourceDictionaries\CommonStyle.xaml;ResourceDictionaries\MainResource.xaml;Views\UC\CakesUC.xaml;Views\UC\HomeUC.xaml;Views\UC\InvoiceListUC.xaml;Views\UC\SettingUC.xaml;Views\UC\StatisticsUC.xaml;
 
 True
 

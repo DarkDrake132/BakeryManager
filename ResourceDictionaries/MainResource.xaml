@@ -5,4 +5,6 @@
     <viewmodel:CakesUCViewModel x:Key="CKUCVM"/>
     <viewmodel:InvoiceListUCViewModel x:Key="ILUCVM"/>
     <viewmodel:StatisticsUCViewModel x:Key="SUCVM"/>
+    <viewmodel:SettingUCViewModel x:Key="SETUCVM"/>
+    
 </ResourceDictionary>
