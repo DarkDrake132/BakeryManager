@@ -10,7 +10,7 @@ using System.Windows;
 using System.Configuration;
 using BakeryManager.ViewModels;
 
-namespace CakeShopApp
+namespace BakeryManager
 {
     public class Global : INotifyPropertyChanged
     {
