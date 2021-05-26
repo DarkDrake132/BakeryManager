@@ -125,6 +125,8 @@
     <Compile Include="ViewModels\CakesUCViewModel.cs" />
     <Compile Include="ViewModels\HomeUCViewModel.cs" />
     <Compile Include="ViewModels\InvoiceListUCViewModel.cs" />
+    <Compile Include="ViewModels\SettingUCViewModel.cs" />
+    <Compile Include="ViewModels\StatisticsUCViewModel.cs" />
     <Compile Include="Views\UC\CakesUC.xaml.cs">
       <DependentUpon>CakesUC.xaml</DependentUpon>
     </Compile>
@@ -133,6 +135,12 @@
     </Compile>
     <Compile Include="Views\UC\InvoiceListUC.xaml.cs">
       <DependentUpon>InvoiceListUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UC\SettingUC.xaml.cs">
+      <DependentUpon>SettingUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UC\StatisticsUC.xaml.cs">
+      <DependentUpon>StatisticsUC.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -164,6 +172,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UC\InvoiceListUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UC\SettingUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UC\StatisticsUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

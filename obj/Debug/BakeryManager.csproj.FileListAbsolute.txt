@@ -7,3 +7,4 @@ C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debu
 C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\BakeryManager_MarkupCompile.lref
 C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\BakeryManager.csprojAssemblyReference.cache
 C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\Views\UC\InvoiceListUC.g.cs
+C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\Views\UC\StatisticsUC.g.cs
