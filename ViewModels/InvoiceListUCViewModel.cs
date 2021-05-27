@@ -1,5 +1,5 @@
-﻿using CakeShopApp.Model;
-using CakeShopApp.Models;
+﻿//using CakeShopApp.Model;
+using BakeryManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

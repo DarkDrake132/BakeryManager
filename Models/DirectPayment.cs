@@ -7,23 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CakeShopApp.Models
+namespace BakeryManager.Models
 {
-    using CakeShopApp.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class DirectPayment : BaseViewModel
+    public partial class DirectPayment
     {
-        private int _invoiceId;
-        public int InvoiceId { get => _invoiceId; set { _invoiceId = value; OnPropertyChanged(); } }
-
-        private int _cash;
-        public int Cash { get => _cash; set { _cash = value; OnPropertyChanged(); } }
-
-        private int _change;
-        public int Change { get => _change; set { _change = value; OnPropertyChanged(); } }
-
+        public int InvoiceId { get; set; }
+        public int Cash { get; set; }
+        public int Change { get; set; }
+    
         public virtual Invoice Invoice { get; set; }
     }
 }

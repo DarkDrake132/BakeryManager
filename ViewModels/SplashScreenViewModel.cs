@@ -6,7 +6,7 @@ using System.Windows;
 using System.Configuration;
 using System.Windows.Input;
 using System.Collections.Generic;
-using CakeShopApp.Model;
+using BakeryManager.Model;
 
 namespace BakeryManager.ViewModels
 {

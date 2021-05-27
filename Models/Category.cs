@@ -7,26 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CakeShopApp.Models
+namespace BakeryManager.Models
 {
-    using CakeShopApp.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class Category : BaseViewModel
+    public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()
         {
             this.Products = new HashSet<Product>();
         }
-
-        private int _id;
-        public int Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-
-        private string _name;
-        public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
-
+    
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }

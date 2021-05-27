@@ -26,11 +26,11 @@ namespace BakeryManager.Models
             }
         }
 
-        public CakeShopAppDBEntities DB { get; set; }
+        public Entities1 DB { get; set; }
 
         public DataProvider()
         {
-            DB = new CakeShopAppDBEntities();
+            DB = new Entities1();
         }
     }
 }

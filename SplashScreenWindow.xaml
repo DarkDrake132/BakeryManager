@@ -22,12 +22,12 @@
         Title="SplashScreen" Height="600" Width="900" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" WindowStyle="None" 
         Name="SplashScreenWindow">
-    <Window.Resources>
-        <!--<ObjectDataProvider x:Key="themeColor"
+    <!--<Window.Resources>
+        <ObjectDataProvider x:Key="themeColor"
                       ObjectType="{x:Type local:Global}"
                       MethodName="GetInstance" />
-        <model:BytesToBitMapConverter x:Key="ImageConverter" />-->
-    </Window.Resources>
+        <model:BytesToBitMapConverter x:Key="ImageConverter" />
+    </Window.Resources>-->
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" CommandParameter="{Binding ElementName=SplashScreenWindow}"></i:InvokeCommandAction>

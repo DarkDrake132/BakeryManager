@@ -7,30 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CakeShopApp.Models
+namespace BakeryManager.Models
 {
-    using CakeShopApp.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class InvoiceDetail : BaseViewModel
+    public partial class InvoiceDetail
     {
-        private int _invoiceId;
-        public int InvoiceId { get => _invoiceId; set { _invoiceId = value; OnPropertyChanged(); } }
-
-        private int _productId;
-        public int ProductId { get => _productId; set { _productId = value; OnPropertyChanged(); } }
-
-        private int _amount;
-        public int Amount { get => _amount; set { _amount = value; OnPropertyChanged(); } }
-
-        private int _discount;
-        public int Discount { get => _discount; set { _discount = value; OnPropertyChanged(); } }
-
-        private int _giftAmount;
-        public int GiftAmount { get => _giftAmount; set { _giftAmount = value; OnPropertyChanged(); } }
-
-
+        public int InvoiceId { get; set; }
+        public int ProductId { get; set; }
+        public int Amount { get; set; }
+        public int Discount { get; set; }
+        public int GiftAmount { get; set; }
+    
         public virtual Invoice Invoice { get; set; }
         public virtual Product Product { get; set; }
     }
