@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace BakeryManager.Models
+namespace CakeShopApp.Models
 {
     public class BytesToBitMapConverter : IValueConverter
     {
