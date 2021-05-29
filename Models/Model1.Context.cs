@@ -13,10 +13,10 @@ namespace BakeryManager.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities1 : DbContext
+    public partial class BakeryManagerEntities : DbContext
     {
-        public Entities1()
-            : base("name=Entities1")
+        public BakeryManagerEntities()
+            : base("name=BakeryManagerEntities")
         {
         }
     

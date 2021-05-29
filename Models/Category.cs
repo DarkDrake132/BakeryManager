@@ -9,20 +9,24 @@
 
 namespace BakeryManager.Models
 {
+    using BakeryManager.ViewModels;
     using System;
     using System.Collections.Generic;
-    
-    public partial class Category
+
+    public partial class Category : BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()
         {
             this.Products = new HashSet<Product>();
         }
-    
-        public int Id { get; set; }
-        public string Name { get; set; }
-    
+
+        private int _id;
+        public int Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+
+        private string _name;
+        public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }

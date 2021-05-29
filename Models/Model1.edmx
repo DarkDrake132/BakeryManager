@@ -78,78 +78,6 @@
           <Property Name="SellPrice" Type="int" Nullable="false" />
           <Property Name="IsHidden" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="fk_deliveryPayment_invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="DeliveryPayment" Type="Self.DeliveryPayment" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DeliveryPayment">
-              <PropertyRef Name="InvoiceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_directPayment_invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="DirectPayment" Type="Self.DirectPayment" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DirectPayment">
-              <PropertyRef Name="InvoiceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_invoiceDetail_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="InvoiceDetail" Type="Self.InvoiceDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceDetail">
-              <PropertyRef Name="InvoiceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_invoiceDetail_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="InvoiceDetail" Type="Self.InvoiceDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceDetail">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_photo_product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Photo" Type="Self.Photo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Photo">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_product_category">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CAKESHOPAPPDBMDFModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryPayment" EntityType="Self.DeliveryPayment" Schema="dbo" store:Type="Tables" />
@@ -158,30 +86,6 @@
           <EntitySet Name="InvoiceDetail" EntityType="Self.InvoiceDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Photo" EntityType="Self.Photo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="fk_deliveryPayment_invoice" Association="Self.fk_deliveryPayment_invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
-            <End Role="DeliveryPayment" EntitySet="DeliveryPayment" />
-          </AssociationSet>
-          <AssociationSet Name="fk_directPayment_invoice" Association="Self.fk_directPayment_invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
-            <End Role="DirectPayment" EntitySet="DirectPayment" />
-          </AssociationSet>
-          <AssociationSet Name="fk_invoiceDetail_Invoice" Association="Self.fk_invoiceDetail_Invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
-            <End Role="InvoiceDetail" EntitySet="InvoiceDetail" />
-          </AssociationSet>
-          <AssociationSet Name="fk_invoiceDetail_Product" Association="Self.fk_invoiceDetail_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="InvoiceDetail" EntitySet="InvoiceDetail" />
-          </AssociationSet>
-          <AssociationSet Name="fk_photo_product" Association="Self.fk_photo_product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Photo" EntitySet="Photo" />
-          </AssociationSet>
-          <AssociationSet Name="fk_product_category" Association="Self.fk_product_category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -194,7 +98,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="Self.fk_product_category" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="DeliveryPayment">
           <Key>
@@ -206,7 +109,6 @@
           <Property Name="ShippingFee" Type="Int32" Nullable="false" />
           <Property Name="PrePaid" Type="Int32" Nullable="false" />
           <Property Name="PostPaid" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Invoice" Relationship="Self.fk_deliveryPayment_invoice" FromRole="DeliveryPayment" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="DirectPayment">
           <Key>
@@ -215,7 +117,6 @@
           <Property Name="InvoiceId" Type="Int32" Nullable="false" />
           <Property Name="Cash" Type="Int32" Nullable="false" />
           <Property Name="Change" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Invoice" Relationship="Self.fk_directPayment_invoice" FromRole="DirectPayment" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -228,9 +129,6 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Total" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DeliveryPayment" Relationship="Self.fk_deliveryPayment_invoice" FromRole="Invoice" ToRole="DeliveryPayment" />
-          <NavigationProperty Name="DirectPayment" Relationship="Self.fk_directPayment_invoice" FromRole="Invoice" ToRole="DirectPayment" />
-          <NavigationProperty Name="InvoiceDetails" Relationship="Self.fk_invoiceDetail_Invoice" FromRole="Invoice" ToRole="InvoiceDetail" />
         </EntityType>
         <EntityType Name="InvoiceDetail">
           <Key>
@@ -242,8 +140,6 @@
           <Property Name="Amount" Type="Int32" Nullable="false" />
           <Property Name="Discount" Type="Int32" Nullable="false" />
           <Property Name="GiftAmount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Invoice" Relationship="Self.fk_invoiceDetail_Invoice" FromRole="InvoiceDetail" ToRole="Invoice" />
-          <NavigationProperty Name="Product" Relationship="Self.fk_invoiceDetail_Product" FromRole="InvoiceDetail" ToRole="Product" />
         </EntityType>
         <EntityType Name="Photo">
           <Key>
@@ -253,7 +149,6 @@
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="OrderNumber" Type="Int32" Nullable="false" />
           <Property Name="ImageBytes" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Product" Relationship="Self.fk_photo_product" FromRole="Photo" ToRole="Product" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -269,83 +164,8 @@
           <Property Name="InStockAmount" Type="Int32" Nullable="false" />
           <Property Name="SellPrice" Type="Int32" Nullable="false" />
           <Property Name="IsHidden" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="Self.fk_product_category" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="InvoiceDetails" Relationship="Self.fk_invoiceDetail_Product" FromRole="Product" ToRole="InvoiceDetail" />
-          <NavigationProperty Name="Photos" Relationship="Self.fk_photo_product" FromRole="Product" ToRole="Photo" />
         </EntityType>
-        <Association Name="fk_product_category">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_deliveryPayment_invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="DeliveryPayment" Type="Self.DeliveryPayment" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DeliveryPayment">
-              <PropertyRef Name="InvoiceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_directPayment_invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="DirectPayment" Type="Self.DirectPayment" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DirectPayment">
-              <PropertyRef Name="InvoiceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_invoiceDetail_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="InvoiceDetail" Type="Self.InvoiceDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceDetail">
-              <PropertyRef Name="InvoiceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_invoiceDetail_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="InvoiceDetail" Type="Self.InvoiceDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="InvoiceDetail">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_photo_product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Photo" Type="Self.Photo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Photo">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BakeryManagerEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="DeliveryPayments" EntityType="Self.DeliveryPayment" />
           <EntitySet Name="DirectPayments" EntityType="Self.DirectPayment" />
@@ -353,37 +173,13 @@
           <EntitySet Name="InvoiceDetails" EntityType="Self.InvoiceDetail" />
           <EntitySet Name="Photos" EntityType="Self.Photo" />
           <EntitySet Name="Products" EntityType="Self.Product" />
-          <AssociationSet Name="fk_product_category" Association="Self.fk_product_category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="fk_deliveryPayment_invoice" Association="Self.fk_deliveryPayment_invoice">
-            <End Role="Invoice" EntitySet="Invoices" />
-            <End Role="DeliveryPayment" EntitySet="DeliveryPayments" />
-          </AssociationSet>
-          <AssociationSet Name="fk_directPayment_invoice" Association="Self.fk_directPayment_invoice">
-            <End Role="Invoice" EntitySet="Invoices" />
-            <End Role="DirectPayment" EntitySet="DirectPayments" />
-          </AssociationSet>
-          <AssociationSet Name="fk_invoiceDetail_Invoice" Association="Self.fk_invoiceDetail_Invoice">
-            <End Role="Invoice" EntitySet="Invoices" />
-            <End Role="InvoiceDetail" EntitySet="InvoiceDetails" />
-          </AssociationSet>
-          <AssociationSet Name="fk_invoiceDetail_Product" Association="Self.fk_invoiceDetail_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="InvoiceDetail" EntitySet="InvoiceDetails" />
-          </AssociationSet>
-          <AssociationSet Name="fk_photo_product" Association="Self.fk_photo_product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Photo" EntitySet="Photos" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CAKESHOPAPPDBMDFModelStoreContainer" CdmEntityContainer="Entities1">
+        <EntityContainerMapping StorageEntityContainer="CAKESHOPAPPDBMDFModelStoreContainer" CdmEntityContainer="BakeryManagerEntities">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="CAKESHOPAPPDB.MDFModel.Category">
               <MappingFragment StoreEntitySet="Category">

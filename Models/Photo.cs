@@ -9,15 +9,21 @@
 
 namespace BakeryManager.Models
 {
+    using BakeryManager.ViewModels;
     using System;
     using System.Collections.Generic;
-    
-    public partial class Photo
+
+    public partial class Photo : BaseViewModel
     {
-        public int ProductId { get; set; }
-        public int OrderNumber { get; set; }
-        public byte[] ImageBytes { get; set; }
-    
+        private int _productId;
+        public int ProductId { get => _productId; set { _productId = value; OnPropertyChanged(); } }
+
+        private int _orderNumber;
+        public int OrderNumber { get => _orderNumber; set { _orderNumber = value; OnPropertyChanged(); } }
+
+        private byte[] _imageBytes;
+        public byte[] ImageBytes { get => _imageBytes; set { _imageBytes = value; OnPropertyChanged(); } }
+
         public virtual Product Product { get; set; }
     }
 }

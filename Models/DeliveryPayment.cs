@@ -9,18 +9,30 @@
 
 namespace BakeryManager.Models
 {
+    using BakeryManager.ViewModels;
     using System;
     using System.Collections.Generic;
-    
-    public partial class DeliveryPayment
+
+    public partial class DeliveryPayment : BaseViewModel
     {
-        public int InvoiceId { get; set; }
-        public string Address { get; set; }
-        public System.DateTime ShippingDate { get; set; }
-        public int ShippingFee { get; set; }
-        public int PrePaid { get; set; }
-        public int PostPaid { get; set; }
-    
+        private int _invoiceId;
+        public int InvoiceId { get => _invoiceId; set { _invoiceId = value; OnPropertyChanged(); } }
+
+        private string _address;
+        public string Address { get => _address; set { _address = value; OnPropertyChanged(); } }
+
+        private System.DateTime _shippingDate;
+        public System.DateTime ShippingDate { get => _shippingDate; set { _shippingDate = value; OnPropertyChanged(); } }
+
+        private int _shippingFee;
+        public int ShippingFee { get => _shippingFee; set { _shippingFee = value; OnPropertyChanged(); } }
+
+        private int _prePaid;
+        public int PrePaid { get => _prePaid; set { _prePaid = value; OnPropertyChanged(); } }
+
+        private int _postPaid;
+        public int PostPaid { get => _postPaid; set { _postPaid = value; OnPropertyChanged(); } }
+
         public virtual Invoice Invoice { get; set; }
     }
 }

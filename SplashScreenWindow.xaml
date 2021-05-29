@@ -21,7 +21,7 @@
         DataContext="{StaticResource SSVM}"
         Title="SplashScreen" Height="600" Width="900" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" WindowStyle="None" 
-        Name="SplashScreenWindow">
+        Name="SplashScreen">
     <Window.Resources>
         <!--<ObjectDataProvider x:Key="themeColor"
                       ObjectType="{x:Type local:Global}"

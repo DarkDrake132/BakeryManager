@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BakeryManager.Models;
 
-namespace BakeryManager.Models
+namespace BakeryManager.Model
 {
     public class DataProvider
     {
@@ -26,11 +27,11 @@ namespace BakeryManager.Models
             }
         }
 
-        public Entities1 DB { get; set; }
+        public BakeryManagerEntities DB { get; set; }
 
         public DataProvider()
         {
-            DB = new Entities1();
+            DB = new BakeryManagerEntities();
         }
     }
 }
