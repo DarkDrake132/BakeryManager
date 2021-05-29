@@ -1,4 +1,4 @@
-﻿using CakeShopApp;
+﻿using BakeryManager.Model;
 using System;
 using System.Linq;
 using System.Timers;
@@ -6,7 +6,7 @@ using System.Windows;
 using System.Configuration;
 using System.Windows.Input;
 using System.Collections.Generic;
-using BakeryManager.Model;
+using BakeryManager;
 
 namespace BakeryManager.ViewModels
 {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:BakeryManager"
-
+        
           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -22,18 +22,18 @@
         Title="SplashScreen" Height="600" Width="900" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" WindowStyle="None" 
         Name="SplashScreenWindow">
-    <!--<Window.Resources>
-        <ObjectDataProvider x:Key="themeColor"
+    <Window.Resources>
+        <!--<ObjectDataProvider x:Key="themeColor"
                       ObjectType="{x:Type local:Global}"
                       MethodName="GetInstance" />
-        <model:BytesToBitMapConverter x:Key="ImageConverter" />
-    </Window.Resources>-->
+        <model:BytesToBitMapConverter x:Key="ImageConverter" />-->
+    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" CommandParameter="{Binding ElementName=SplashScreenWindow}"></i:InvokeCommandAction>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
+    
     <Border VerticalAlignment="Bottom" HorizontalAlignment="Center"
                         CornerRadius="10" Height="600" Width="900"  RenderOptions.BitmapScalingMode="HighQuality">
         <Border.Background>
@@ -43,7 +43,7 @@
                 </ImageBrush.RelativeTransform>
             </ImageBrush>
         </Border.Background>
-
+        
         <Grid Background="{x:Null}">
             <!--Middle Frame-->
             <DockPanel HorizontalAlignment="Right" Margin="0 0 60 0" Background="White" Width="350">
