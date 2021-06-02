@@ -1,4 +1,4 @@
-﻿<Window x:Class="BakeryManager.SplashScreenWindow"
+﻿<Window x:Class="BakeryManager.SplashScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,7 +21,7 @@
         DataContext="{StaticResource SSVM}"
         Title="SplashScreen" Height="600" Width="900" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" WindowStyle="None" 
-        Name="SplashScreen">
+        Name="SplashScreenWindow">
     <Window.Resources>
         <!--<ObjectDataProvider x:Key="themeColor"
                       ObjectType="{x:Type local:Global}"

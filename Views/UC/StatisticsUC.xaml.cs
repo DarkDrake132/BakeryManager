@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BakeryManager.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace BakeryManager.Views.UC
     /// </summary>
     public partial class StatisticsUC : UserControl
     {
+        private StatisticsUCViewModel Viewmodel { get; set; }
         public StatisticsUC()
         {
             InitializeComponent();
+            this.DataContext = Viewmodel = new StatisticsUCViewModel();
         }
     }
 }

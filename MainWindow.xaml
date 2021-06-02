@@ -18,7 +18,42 @@
         
         DataContext="{StaticResource MVM}"
         mc:Ignorable="d"
-         Title="CakeShopApp" Height="850" Width="1200">
+         Title="BakeryManager" Height="850" Width="1200">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:HomeUCViewModel}">
+            <uc:HomeUC DataContext="{Binding}"/>
+            <!-- This is a UserControl -->
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:CakesUCViewModel}">
+            <uc:CakesUC DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:StatisticsUCViewModel}">
+            <uc:StatisticsUC DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:SettingUCViewModel}">
+            <uc:SettingUC DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:InvoiceListUCViewModel}">
+            <uc:InvoiceListUC DataContext="{Binding}"/>
+        </DataTemplate>
+        <!--
+        <DataTemplate DataType="{x:Type viewmodels:ThemeUCViewModel}">
+            <uc:ThemeUC DataContext="{Binding}"/>
+            -->
+        <!-- This is a UserControl -->
+        <!--
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:AboutUCViewModel}">
+            <uc:AboutUC DataContext="{Binding}"/>
+            -->
+        <!-- This is a UserControl -->
+        <!--
+        </DataTemplate>-->
+        <ObjectDataProvider x:Key="Global"
+                      ObjectType="{x:Type local:Global}"
+                      MethodName="GetInstance" />
+    </Window.Resources>
     <DockPanel LastChildFill="True">
         <DockPanel DockPanel.Dock="Left">
             <StackPanel DockPanel.Dock="Top" Height="auto" Width="110" Orientation="Vertical" Margin="5">
