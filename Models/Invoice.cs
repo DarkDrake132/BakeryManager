@@ -9,25 +9,39 @@
 
 namespace BakeryManager.Models
 {
+    using BakeryManager.ViewModels;
     using System;
     using System.Collections.Generic;
-    
-    public partial class Invoice
+
+    public partial class Invoice : BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Invoice()
         {
             this.InvoiceDetails = new HashSet<InvoiceDetail>();
         }
-    
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Phone { get; set; }
-        public int PaymentMethod { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public string Status { get; set; }
-        public int Total { get; set; }
-    
+
+        private int _id;
+        public int Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+
+        private string _name;
+        public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
+
+        private string _phone;
+        public string Phone { get => _phone; set { _phone = value; OnPropertyChanged(); } }
+
+        private int _paymentMethod;
+        public int PaymentMethod { get => _paymentMethod; set { _paymentMethod = value; OnPropertyChanged(); } }
+
+        private System.DateTime _createdDate;
+        public System.DateTime CreatedDate { get => _createdDate; set { _createdDate = value; OnPropertyChanged(); } }
+
+        private string _status;
+        public string Status { get => _status; set { _status = value; OnPropertyChanged(); } }
+
+        private int _total;
+        public int Total { get => _total; set { _total = value; OnPropertyChanged(); } }
+
         public virtual DeliveryPayment DeliveryPayment { get; set; }
         public virtual DirectPayment DirectPayment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

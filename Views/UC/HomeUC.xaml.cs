@@ -21,6 +21,7 @@ namespace BakeryManager.Views.UC
     /// </summary>
     public partial class HomeUC : UserControl
     {
+
         private HomeUCViewModel Viewmodel { get; set; }
 
         public HomeUC()
@@ -28,5 +29,6 @@ namespace BakeryManager.Views.UC
             InitializeComponent();
             this.DataContext = Viewmodel = HomeUCViewModel.GetInstance();
         }
+
     }
 }

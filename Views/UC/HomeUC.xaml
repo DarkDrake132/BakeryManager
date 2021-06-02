@@ -18,11 +18,13 @@
 
             mc:Ignorable="d" 
             d:DesignHeight="850" d:DesignWidth="1100">
+
     <UserControl.Resources>
         <models:BytesToBitMapConverter x:Key="ImageConverter"/>
         <models:NumberToVNDConverter x:Key="MoneyConverter"/>
         <models:DateConverter x:Key="DateConverter"/>
     </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -548,3 +550,4 @@
         </materialDesign:DialogHost>
     </Grid>
 </UserControl>
+

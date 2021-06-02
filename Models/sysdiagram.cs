@@ -9,21 +9,15 @@
 
 namespace BakeryManager.Models
 {
-    using BakeryManager.ViewModels;
     using System;
     using System.Collections.Generic;
-
-    public partial class DirectPayment : BaseViewModel
+    
+    public partial class sysdiagram
     {
-        private int _invoiceId;
-        public int InvoiceId { get => _invoiceId; set { _invoiceId = value; OnPropertyChanged(); } }
-
-        private int _cash;
-        public int Cash { get => _cash; set { _cash = value; OnPropertyChanged(); } }
-
-        private int _change;
-        public int Change { get => _change; set { _change = value; OnPropertyChanged(); } }
-
-        public virtual Invoice Invoice { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
