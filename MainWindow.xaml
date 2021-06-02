@@ -1,118 +1,552 @@
-﻿<Window x:Class="BakeryManager.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BakeryManager"
-        xmlns:viewmodels="clr-namespace:BakeryManager.ViewModels"
-        xmlns:uc="clr-namespace:BakeryManager.Views.UC"
-        
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-         TextElement.FontWeight="Regular"
-         TextElement.FontSize="13"
-         TextOptions.TextFormattingMode="Ideal"
-         TextOptions.TextRenderingMode="Auto"
+﻿<UserControl x:Class="BakeryManager.Views.UC.HomeUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BakeryManager.Views.UC"
+             xmlns:vm="clr-namespace:BakeryManager.ViewModels"
+             
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:models="clr-namespace:BakeryManager.Models" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
             
-        Background="White"
-        WindowStartupLocation="CenterScreen"
-        
-        DataContext="{StaticResource MVM}"
-        mc:Ignorable="d"
-         Title="BakeryManager" Height="850" Width="1200">
-    <Window.Resources>
-        <DataTemplate DataType="{x:Type viewmodels:HomeUCViewModel}">
-            <uc:HomeUC DataContext="{Binding}"/>
-            <!-- This is a UserControl -->
-        </DataTemplate>
+            Background="White"
+            DataContext="{StaticResource HUCVM}"
 
-        <DataTemplate DataType="{x:Type viewmodels:CakesUCViewModel}">
-            <uc:CakesUC DataContext="{Binding}"/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:StatisticsUCViewModel}">
-            <uc:StatisticsUC DataContext="{Binding}"/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:SettingUCViewModel}">
-            <uc:SettingUC DataContext="{Binding}"/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:InvoiceListUCViewModel}">
-            <uc:InvoiceListUC DataContext="{Binding}"/>
-        </DataTemplate>
-        <!--
-        <DataTemplate DataType="{x:Type viewmodels:ThemeUCViewModel}">
-            <uc:ThemeUC DataContext="{Binding}"/>
-            -->
-        <!-- This is a UserControl -->
-        <!--
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:AboutUCViewModel}">
-            <uc:AboutUC DataContext="{Binding}"/>
-            -->
-        <!-- This is a UserControl -->
-        <!--
-        </DataTemplate>-->
-        <ObjectDataProvider x:Key="Global"
-                      ObjectType="{x:Type local:Global}"
-                      MethodName="GetInstance" />
-    </Window.Resources>
-    <DockPanel LastChildFill="True">
-        <DockPanel DockPanel.Dock="Left">
-            <StackPanel DockPanel.Dock="Top" Height="auto" Width="110" Orientation="Vertical" Margin="5">
-                <!--icon-->
-                <Image Source="pack://application:,,,/Assets/Icon.png" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Width="70"/>
-                <!--Home button-->
-                <Button Margin="10 30 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}"  Width="90" Height="90" Command="{Binding HomeCommand}">
-                    <Border CornerRadius="15" Margin="0"  Background="{Binding Source={StaticResource Global},Path=HomeColor}" Width="90" Height="90">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="StorefrontOutline" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}"/>
-                            <TextBlock Text="Home" Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
-                        </StackPanel>
-                    </Border>
-                </Button>
-                <!--Recipts List button-->
-                <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}"  Width="90" Height="90" Command="{Binding InvoiceListCommand}">
-                    <Border CornerRadius="15" Margin="0"  Background="{Binding Source={StaticResource Global},Path=InvoiceListColor}" Width="90" Height="90">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="PlaylistEdit" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}"/>
-                            <TextBlock Text="Invoices"  TextAlignment="Center" Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}" FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
-                        </StackPanel>
-                    </Border>
-                </Button>
-                <!--Cakes button-->
-                <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}"  Width="90" Height="90" Command="{Binding CakesCommand}">
-                    <Border CornerRadius="15" Margin="0"  Background="{Binding Source={StaticResource Global},Path=CakesColor}" Width="90" Height="90">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="Cupcake" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}"/>
-                            <TextBlock Text="Cakes" Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}" FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
-                        </StackPanel>
-                    </Border>
-                </Button>
-                <!--Statistic button-->
-                <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Width="90" Height="90" Command="{Binding StatisticCommand}">
-                    <Border CornerRadius="15"  Background="{Binding Source={StaticResource Global},Path=StatisticColor}"  Width="90" Height="90">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="ChartLine" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=StatisticTextColor}" />
-                            <TextBlock Text="Statistic" Foreground="{Binding Source={StaticResource Global},Path=StatisticTextColor}"  FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
-                        </StackPanel>
-                    </Border>
-                </Button>
-                <!--Setting button-->
-                <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Width="90" Height="90" Command="{Binding SettingCommand}">
-                    <Border CornerRadius="15"  Background="{Binding Source={StaticResource Global},Path=SettingColor}"  Width="90" Height="90">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="CogOutline" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}" />
-                            <TextBlock Text="Setting" Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}"  FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
-                        </StackPanel>
-                    </Border>
-                </Button>
+            mc:Ignorable="d" 
+            d:DesignHeight="850" d:DesignWidth="1100">
+
+    <UserControl.Resources>
+        <models:BytesToBitMapConverter x:Key="ImageConverter"/>
+        <models:NumberToVNDConverter x:Key="MoneyConverter"/>
+        <models:DateConverter x:Key="DateConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Background="#fbf7f0">
+            <!-- First bar -->
+            <DockPanel LastChildFill="False">
+                <TextBlock DockPanel.Dock="Left" Text="Order Menu" VerticalAlignment="Center" FontSize="30" Margin="20 0" FontWeight="Medium"></TextBlock>
+                <Border DockPanel.Dock="Right" BorderThickness="0" Background="White" CornerRadius="10" Margin="10 10 20 10">
+                    <StackPanel  Orientation="Horizontal" Margin="10">
+                        <materialDesign:PackIcon Foreground="Gray" VerticalAlignment="Center" Kind="Magnify" Width="30" Height="30" />
+                        <TextBox DockPanel.Dock="Right"
+                            VerticalAlignment="Center"
+                            Width="200"
+                            Height="30"
+                            AcceptsReturn="True"
+                            materialDesign:HintAssist.Hint="Search for cake"
+                            Text="{Binding Search,UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+            <!--pick to bar-->
+            <ListView Name="Categories" Margin="0 20 0 0" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.CanContentScroll="False">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Button Background="{x:Null}" BorderBrush="{x:Null}"  Width="100" Height="150" Padding="0"
+                                 Command="{Binding ElementName=Categories, Path=DataContext.ChangeCategoryCommand}" CommandParameter="{Binding}">
+                            <Border Background="White" CornerRadius="15" Margin="0">
+                                <StackPanel Orientation="Vertical" Width="100" Height="150">
+                                    <Border Height="80" CornerRadius="10" Margin="10" BorderBrush="Gray" BorderThickness="1">
+                                        <materialDesign:PackIcon Foreground="Black"
+                                                             Width="50" Height="50" Kind="{Binding PickIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.7"/>
+                                    </Border>
+                                    <TextBlock Foreground="Black"  VerticalAlignment="Center" Text="{Binding Name}" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="15" FontWeight="Medium"></TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </Button>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+            <!--3 bar-->
+            <DockPanel LastChildFill="False">
+                <TextBlock DockPanel.Dock="Left" Text="Order Menu" VerticalAlignment="Center" FontSize="30" Margin="20 0" FontWeight="Medium"></TextBlock>
+                <Border DockPanel.Dock="Right" BorderThickness="0" Background="White" CornerRadius="10" Margin="10 10 20 10">
+                    <StackPanel  Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="Sort To: " VerticalAlignment="Center" FontSize="20" Foreground="Gray"></TextBlock>
+                        <ComboBox FontSize="15" FontWeight="Medium" DockPanel.Dock="Right" ItemsSource="{Binding Sorts}" SelectedItem="{Binding SelectedSort}"
+                            VerticalAlignment="Center"
+                            Width="150"
+                            Height="30">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+
+            <!--List Item-->
+            <ListView Name="Products" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" HorizontalAlignment="Left"  Width="660" Height="450" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Button Background="{x:Null}" BorderBrush="{x:Null}"  Width="195" Height="250" Padding="0"
+                                 Command="{Binding ElementName=Products, Path=DataContext.AddToCartCommand}" CommandParameter="{Binding}">
+                            <Border Background="White" CornerRadius="15" Margin="0" Width="195" Height="250">
+                                <Grid Width="195">
+                                    <Border VerticalAlignment="Top" Height="170" CornerRadius="10" Margin="10" BorderBrush="Gray" BorderThickness="1">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Bottom" Margin="0 0 0 5">
+                                        <TextBlock Foreground="Black"  VerticalAlignment="Bottom" Text="{Binding Name}" HorizontalAlignment="Center" TextAlignment="Center" FontSize="13" TextWrapping="Wrap" FontWeight="Medium"></TextBlock>
+                                        <TextBlock Foreground="Black"  VerticalAlignment="Bottom" Text="{Binding Price, Converter={StaticResource MoneyConverter}}" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Button>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </StackPanel>
+        <!--Right Panel-->
+        <Grid Grid.Column="1">
+            <StackPanel  VerticalAlignment="Top">
+                <!-- First bar -->
+                <DockPanel LastChildFill="False" Margin="20">
+                    <TextBlock DockPanel.Dock="Left" Text="Cart" VerticalAlignment="Center" FontSize="30" Margin="20 0" FontWeight="Medium"></TextBlock>
+                </DockPanel>
+
+                <!--Cart List-->
+                <ListView x:Name="Invoice" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="600" ItemsSource="{Binding InvoiceDetails}" ScrollViewer.CanContentScroll="False">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical"  Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}},Path=ActualWidth}">
+                                <DockPanel MinWidth="350" LastChildFill="True" HorizontalAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="5">
+                                        <Border CornerRadius="10" Width="50" Height="50">
+                                            <Border.Background>
+                                                <ImageBrush RenderOptions.BitmapScalingMode="Fant"
+                                                ImageSource="{Binding ProductThumbnail, Converter={StaticResource ImageConverter}}">
+                                                </ImageBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <StackPanel Margin="10" Width="200">
+                                            <TextBlock Text="{Binding ProductName}" FontWeight="Medium" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding ProductPrice, Converter={StaticResource MoneyConverter}}"></TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <Button Width="30" Height="30" Margin="5 0" Foreground="White" Background="Red" BorderThickness="0" Padding="0" DockPanel.Dock="Right"
+                                                    Command="{Binding ElementName=Invoice, Path=DataContext.DeleteDetailInListCommand}" CommandParameter="{Binding }">
+                                        <materialDesign:PackIcon Kind="CartRemove" />
+                                    </Button>
+                                </DockPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10 0">
+                                    <StackPanel Orientation="Horizontal" Margin="5">
+                                        <materialDesign:PackIcon Kind="PackageVariantClosed" VerticalAlignment="Center" Width="20" Height="20" />
+                                        <TextBox  
+                                          Margin="10 0"
+                                          Width="50" VerticalAlignment="Center" TextAlignment="Right"
+                                          materialDesign:HintAssist.HelperText="Số lượng">
+                                            <TextBox.Text>
+                                                <Binding Path="Amount" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                                    <Binding.ValidationRules>
+                                                        <vm:IsOnlyContainNumberRule/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                            <i:Interaction.Triggers>
+                                                <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                                    <i:InvokeCommandAction Command="{Binding DisableAmount}"/>
+                                                </vm:RoutedEventTrigger>
+                                                <i:EventTrigger EventName="LostFocus">
+                                                    <i:InvokeCommandAction Command="{Binding ElementName=Invoice, Path=DataContext.LoadPrice}"  CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="5">
+                                        <materialDesign:PackIcon Kind="Sale" VerticalAlignment="Center" Width="20" Height="20" />
+                                        <TextBox  
+                                          Margin="10 0"
+                                          Width="50" VerticalAlignment="Center" TextAlignment="Right"
+                                          materialDesign:HintAssist.HelperText="Giảm giá">
+                                            <TextBox.Text>
+                                                <Binding Path="Discount" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                                    <Binding.ValidationRules>
+                                                        <vm:IsOnlyContainNumberRule/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                            <i:Interaction.Triggers>
+                                                <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                                    <i:InvokeCommandAction Command="{Binding DisableDiscount}"/>
+                                                </vm:RoutedEventTrigger>
+                                                <i:EventTrigger EventName="LostFocus">
+                                                    <i:InvokeCommandAction Command="{Binding ElementName=Invoice, Path=DataContext.LoadPrice}"  CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="5">
+                                        <materialDesign:PackIcon Kind="GiftOutline" VerticalAlignment="Center" Width="20" Height="20" />
+                                        <TextBox  
+                                          Margin="10 0"
+                                          Width="50" VerticalAlignment="Center" TextAlignment="Right"
+                                          materialDesign:HintAssist.HelperText="Tặng">
+                                            <TextBox.Text>
+                                                <Binding Path="GiftAmount" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                                    <Binding.ValidationRules>
+                                                        <vm:IsOnlyContainNumberRule/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                            <i:Interaction.Triggers>
+                                                <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                                    <i:InvokeCommandAction Command="{Binding DisableGiftAmount}"/>
+                                                </vm:RoutedEventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </TextBox>
+                                    </StackPanel>
+
+                                </StackPanel>
+                                <Border Margin="0 20 0 0" BorderBrush="SaddleBrown" BorderThickness="2" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+                                        <TextBlock Text="Tổng: " FontSize="15" FontWeight="Medium" VerticalAlignment="Center"  ></TextBlock>
+                                        <TextBlock  Text="{Binding SummaryPrice, Converter={StaticResource MoneyConverter}}" VerticalAlignment="Center" FontSize="15" FontWeight="Medium" ></TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
-            <StackPanel DockPanel.Dock="Bottom" Height="30" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock FontSize="15" Foreground="Gray" Text="Version: "></TextBlock>
-                <TextBlock FontSize="15" Foreground="Gray" Text="{Binding VersionTextBlock}"></TextBlock>
-            </StackPanel>
-        </DockPanel>
+        </Grid>
+        <!--Check out Dialog-->
+        <materialDesign:DialogHost Grid.Column="0" Panel.ZIndex="1" Grid.ColumnSpan="2" IsOpen="{Binding IsOpenCheckOutDialog}"
+                    Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
+                    DialogMargin="8">
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Height="auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock FontSize="20" FontWeight="Medium" Margin="10">
+                            Invoice
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="17" FontWeight="Medium" Margin="10" Text="ID: "/>
+                            <TextBlock FontSize="17" FontWeight="Medium" Margin="10" Text="{Binding CheckOutId}"></TextBlock>
+                        </StackPanel>
+                        <TextBox
+                              Margin="10"
+                              x:Name="CusNameTextBox"
+                              materialDesign:HintAssist.Hint="Customer Name: ">
+                            <TextBox.Text>
+                                <Binding Path="CheckOutCustomerName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                    <Binding.ValidationRules>
+                                        <vm:IsNotNullStringRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <i:Interaction.Triggers>
+                                <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                    <i:InvokeCommandAction Command="{Binding DisableName}"/>
+                                </vm:RoutedEventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <TextBox
+                              Margin="10"
+                              x:Name="CusPhoneTextBox"
+                              materialDesign:HintAssist.Hint="Phone: ">
+                            <TextBox.Text>
+                                <Binding Path="CheckOutPhone" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                    <Binding.ValidationRules>
+                                        <vm:IsOnlyContainNumberRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <i:Interaction.Triggers>
+                                <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                    <i:InvokeCommandAction Command="{Binding DisablePhone}"/>
+                                </vm:RoutedEventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <Border BorderBrush="SaddleBrown" BorderThickness="2" Padding="5" CornerRadius="10">
+                            <ListView
+                            ItemsSource="{Binding CheckOutDetails}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
+                                    DisplayMemberBinding="{Binding Name}"
+                                    Header="Name" />
+                                        <GridViewColumn
+                                        DisplayMemberBinding="{Binding Quantity}"
+                                        Header="Quantity" />
+                                        <GridViewColumn
+                                            DisplayMemberBinding="{Binding Price, Converter={StaticResource MoneyConverter}}"
+                                            Header="Price" />
+                                        <GridViewColumn
+                                        DisplayMemberBinding="{Binding Total, Converter={StaticResource MoneyConverter}}"
+                                        Header="Total">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <ComboBox
+                                                    Width="100">
+                                                        <ComboBoxItem
+                                                        Content="Test" />
+                                                        <ComboBoxItem
+                                                            Content="Test2" />
+                                                        <ComboBoxItem
+                                                            Content="Test3" />
+                                                    </ComboBox>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Border>
+                    </StackPanel>
 
-        <ContentControl Grid.Column="1" DockPanel.Dock="Right" Margin="10 0" Content="{Binding Source={StaticResource Global},Path=CurrentPageViewModel}">
+                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                        <Border CornerRadius="10" BorderThickness="2" BorderBrush="SaddleBrown" Margin="5">
+                            <materialDesign:Flipper Margin="10">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="IsFlippedChanged">
+                                        <i:InvokeCommandAction Command="{Binding ChangedFlippedCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <materialDesign:Flipper.FrontContent>
+                                    <StackPanel Margin="10 20">
+                                        <Button
+                                          Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                          Margin="5"
+                                          Width="190">
+                                            DELIVERY...
+                                        </Button>
+                                        <StackPanel Orientation="Horizontal" Margin="10">
 
-        </ContentControl>
-    </DockPanel>
-</Window>
+                                            <TextBlock VerticalAlignment="Center" Text="Cash: " FontSize="15" FontWeight="Medium"></TextBlock>
+                                            <TextBox Width="100"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center">
+                                                <TextBox.Text>
+                                                    <Binding Path="CheckOutCash" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                                        <Binding.ValidationRules>
+                                                            <vm:IsOnlyContainNumberRule/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                                <i:Interaction.Triggers>
+                                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                                        <i:InvokeCommandAction Command="{Binding DisableCheckoutCash}"/>
+                                                    </vm:RoutedEventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </TextBox>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Margin="10">
+                                            <TextBlock VerticalAlignment="Center" Text="Change: " FontSize="15" FontWeight="Medium"></TextBlock>
+                                            <TextBox Width="100" Text="{Binding CheckOutChange, Converter={StaticResource MoneyConverter}}"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center" IsReadOnly="True"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </materialDesign:Flipper.FrontContent>
+                                <materialDesign:Flipper.BackContent>
+                                    <Grid
+                                      Height="auto"
+                                      Width="auto">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+                                           Height="Auto" />
+                                            <RowDefinition
+                                            Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <materialDesign:ColorZone
+                                        Mode="Accent"
+                                        Padding="5">
+                                            <StackPanel
+                                         Orientation="Horizontal">
+                                                <Button
+                                                Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                                HorizontalAlignment="Left">
+                                                    <materialDesign:PackIcon
+                                              Kind="ArrowLeft"
+                                              HorizontalAlignment="Right" />
+                                                </Button>
+                                                <TextBlock
+                                                Margin="5 0 0 0"
+                                                VerticalAlignment="Center">
+                                              DELIVERY INFORMATION
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </materialDesign:ColorZone>
+                                        <Grid
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Top"
+                                        Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}},Path=ActualWidth}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <DatePicker Grid.Row="0"
+                                                Margin="5"
+                                              Width="auto" FontSize="20"
+                                              materialDesign:HintAssist.Hint="Create Date"
+                                                        Foreground="SaddleBrown"
+                                                        Background="White"
+                                              Style="{StaticResource MaterialDesignOutlinedDatePicker}">
+                                                <DatePicker.SelectedDate>
+                                                    <Binding Path="CheckOutDateShip" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                                        <Binding.ValidationRules>
+                                                            <vm:IsFutureRule/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </DatePicker.SelectedDate>
+                                                <i:Interaction.Triggers>
+                                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                                        <i:InvokeCommandAction Command="{Binding DisableCheckoutDate}"/>
+                                                    </vm:RoutedEventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </DatePicker>
+                                            <TextBox
+                                          materialDesign:HintAssist.Hint="Address"
+                                          Margin="0 12 0 0"
+                                            Grid.Row="1">
+                                                <TextBox.Text>
+                                                    <Binding Path="CheckOutAddress" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                                        <Binding.ValidationRules>
+                                                            <vm:IsNotNullStringRule/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                                <i:Interaction.Triggers>
+                                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                                        <i:InvokeCommandAction Command="{Binding DisableCheckoutAdress}"/>
+                                                    </vm:RoutedEventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </TextBox>
+                                            <TextBox
+                                          Grid.Row="2"
+                                          materialDesign:HintAssist.Hint="PrePaid"
+                                          materialDesign:HintAssist.IsFloating="True"
+                                          Margin="0 10 0 0">
+                                                <TextBox.Text>
+                                                    <Binding Path="CheckOutPrePaid" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                                        <Binding.ValidationRules>
+                                                            <vm:IsNotNullStringRule/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                                <i:Interaction.Triggers>
+                                                    <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                                        <i:InvokeCommandAction Command="{Binding DisableCheckoutPrePaid}"/>
+                                                    </vm:RoutedEventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </TextBox>
+                                            <TextBox
+                                          Grid.Row="4" Text="{Binding CheckOutPostPaid, Converter={StaticResource MoneyConverter}}"
+                                          materialDesign:HintAssist.Hint="PostPaid"
+                                          materialDesign:HintAssist.IsFloating="True"
+                                          Margin="0 10 0 0" IsReadOnly="True">
+                                            </TextBox>
+                                        </Grid>
+                                    </Grid>
+                                </materialDesign:Flipper.BackContent>
+                            </materialDesign:Flipper>
+                        </Border>
+                        <Border BorderBrush="SaddleBrown" BorderThickness="2" Background="{x:Null}" CornerRadius="10" Margin="5">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <TextBlock VerticalAlignment="Center" Text="% Off: " FontSize="15" FontWeight="Medium"></TextBlock>
+                                    <TextBox Width="100"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                      VerticalAlignment="Center">
+                                        <TextBox.Text>
+                                            <Binding Path="CheckOutOff" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                                                <Binding.ValidationRules>
+                                                    <vm:IsPercentRule/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                        <i:Interaction.Triggers>
+                                            <vm:RoutedEventTrigger RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                                <i:InvokeCommandAction Command="{Binding DisableCheckoutOff}"/>
+                                            </vm:RoutedEventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <TextBlock VerticalAlignment="Center" Text="Total: " FontSize="15" FontWeight="Medium"></TextBlock>
+                                    <TextBox Width="100" Text="{Binding CheckOutTotal, Converter={StaticResource MoneyConverter}}"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                      VerticalAlignment="Center" IsReadOnly="True"/>
+
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1"  Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Bottom" Margin="0 0 20 20">
+                        <Button
+                                  Style="{StaticResource MaterialDesignFlatButton}"
+                                  IsDefault="True"
+                                  Margin="0 8 8 0"
+                                FontSize="20"
+                                  Command="{Binding AddInvoiceCommand}"  CommandParameter="true"
+                                IsEnabled="{Binding IsEnabledSecondCheckoutButton}">
+                            CHECKOUT
+                        </Button>
+                        <Button
+                                          Style="{StaticResource MaterialDesignFlatButton}"
+                                          IsCancel="True"
+                                          Margin="0 8 8 0"
+                                        FontSize="20"
+                                          Command="{Binding AddInvoiceCommand}"  CommandParameter="false">
+                            CANCEL
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Height="100"
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                        ToolTip="Thanh toán đơn hàng"
+                    IsEnabled="{Binding IsEnabledFirstCheckoutButton}"
+                    Margin="0 0 30 0">
+                <Border CornerRadius="10" Background="SaddleBrown">
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="Check Out: " FontSize="25" ></TextBlock>
+                        <TextBlock Text="{Binding DetailInListTotalPrice, Converter={StaticResource MoneyConverter}}" FontSize="25" ></TextBlock>
+                    </StackPanel>
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10"></DropShadowEffect>
+                    </Border.Effect>
+                </Border>
+            </Button>
+
+        </materialDesign:DialogHost>
+    </Grid>
+</UserControl>

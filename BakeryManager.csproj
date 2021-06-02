@@ -269,8 +269,12 @@
     <Resource Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Icon.png" />
-    <Resource Include="Assets\SplashBG.png" />
+    <Resource Include="Assets\Icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\SplashBG.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
