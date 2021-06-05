@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BakeryManager.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -114,10 +115,10 @@ namespace BakeryManager.ViewModels
                 _isOpenCheckOutDialog = value;
                 if (value == true)
                 {
-                    //Invoice newinvoice = new Invoice() { Name = "", Phone = "", PaymentMethod = 1, CreatedDate = DateTime.Now, Status = "", Total = 0, };
-                    //DataProvider.Ins.DB.Invoices.Add(newinvoice);
-                    //DataProvider.Ins.DB.SaveChanges();
-                    //CheckOutId = newinvoice.Id;
+                    Invoice newinvoice = new Invoice() { Name = "", Phone = "", PaymentMethod = 1, CreatedDate = DateTime.Now, Status = "", Total = 0, };
+                    DataProvider.Ins.DB.Invoices.Add(newinvoice);
+                    DataProvider.Ins.DB.SaveChanges();
+                    CheckOutId = newinvoice.Id;
                     CheckOutDetails = new AsyncObservableCollection<dynamic>();
                     CheckOutDateShip = DateTime.Now;
                     foreach (var invoicedetail in InvoiceDetails)
@@ -370,15 +371,15 @@ namespace BakeryManager.ViewModels
                 Name = "Tất cả",
                 PickIcon = "ArrowExpandAll"
             });
-            //foreach (var category in DataProvider.Ins.DB.Categories)
-            //{
-            //    Categories.Add(new
-            //    {
-            //        Id = category.Id,
-            //        Name = category.Name,
-            //        PickIcon = "FoodCroissant"
-            //    });
-            //}
+            foreach (var category in DataProvider.Ins.DB.Categories)
+            {
+                Categories.Add(new
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    PickIcon = "FoodCroissant"
+                });
+            }
             SelectedCategory = Categories.ElementAt(0);
 
             Sorts = new AsyncObservableCollection<string>();
@@ -424,44 +425,44 @@ namespace BakeryManager.ViewModels
             {
                 if (bool.Parse(param) == true)
                 {
-                    //Invoice newinvoice = DataProvider.Ins.DB.Invoices.Find(CheckOutId);
-                    //newinvoice.Name = CheckOutCustomerName;
-                    //newinvoice.Phone = (CheckOutPhone == null) ? "" : CheckOutPhone;
-                    //newinvoice.CreatedDate = DateTime.Now;
-                    //newinvoice.PaymentMethod = (IsDelivery == true) ? 2 : 1;
-                    //newinvoice.Status = (IsDelivery == true) ? "Chờ giao hàng" : "Đã thanh toán";
-                    //newinvoice.Total = int.Parse(CheckOutTotal);
-                    //if (newinvoice.PaymentMethod == 1)
-                    //{
-                    //    DirectPayment newdirectpayment = new DirectPayment() { InvoiceId = newinvoice.Id, Cash = int.Parse(CheckOutCash), Change = int.Parse(CheckOutChange), };
-                    //    DataProvider.Ins.DB.DirectPayments.Add(newdirectpayment);
-                    //}
-                    //else
-                    //{
-                    //    DeliveryPayment newdeliverypayment = new DeliveryPayment() { InvoiceId = newinvoice.Id, Address = CheckOutAddress, ShippingDate = CheckOutDateShip, PrePaid = int.Parse(CheckOutPrePaid), PostPaid = int.Parse(CheckOutPostPaid), };
-                    //    DataProvider.Ins.DB.DeliveryPayments.Add(newdeliverypayment);
-                    //}
-                    //foreach (var invoicedetail in InvoiceDetails)
-                    //{
-                    //    newinvoice.InvoiceDetails.Add(new InvoiceDetail
-                    //    {
-                    //        InvoiceId = CheckOutId,
-                    //        ProductId = invoicedetail.ProductId,
-                    //        Amount = invoicedetail.Amount,
-                    //        Discount = (invoicedetail.Discount > CheckOutOff) ? invoicedetail.Discount : CheckOutOff,
-                    //        GiftAmount = invoicedetail.GiftAmount,
-                    //    });
-                    //    DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount = DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount - (invoicedetail.Amount + invoicedetail.GiftAmount);
-                    //}
-                    //DataProvider.Ins.DB.SaveChanges();
-                    //InvoiceDetails = new AsyncObservableCollection<DetailInList>();
-                    //DetailInListTotalPrice = "0";
-                    //CallSearch();
+                    Invoice newinvoice = DataProvider.Ins.DB.Invoices.Find(CheckOutId);
+                    newinvoice.Name = CheckOutCustomerName;
+                    newinvoice.Phone = (CheckOutPhone == null) ? "" : CheckOutPhone;
+                    newinvoice.CreatedDate = DateTime.Now;
+                    newinvoice.PaymentMethod = (IsDelivery == true) ? 2 : 1;
+                    newinvoice.Status = (IsDelivery == true) ? "Chờ giao hàng" : "Đã thanh toán";
+                    newinvoice.Total = int.Parse(CheckOutTotal);
+                    if (newinvoice.PaymentMethod == 1)
+                    {
+                        DirectPayment newdirectpayment = new DirectPayment() { InvoiceId = newinvoice.Id, Cash = int.Parse(CheckOutCash), Change = int.Parse(CheckOutChange), };
+                        DataProvider.Ins.DB.DirectPayments.Add(newdirectpayment);
+                    }
+                    else
+                    {
+                        DeliveryPayment newdeliverypayment = new DeliveryPayment() { InvoiceId = newinvoice.Id, Address = CheckOutAddress, ShippingDate = CheckOutDateShip, PrePaid = int.Parse(CheckOutPrePaid), PostPaid = int.Parse(CheckOutPostPaid), };
+                        DataProvider.Ins.DB.DeliveryPayments.Add(newdeliverypayment);
+                    }
+                    foreach (var invoicedetail in InvoiceDetails)
+                    {
+                        newinvoice.InvoiceDetails.Add(new InvoiceDetail
+                        {
+                            InvoiceId = CheckOutId,
+                            ProductId = invoicedetail.ProductId,
+                            Amount = invoicedetail.Amount,
+                            Discount = (invoicedetail.Discount > CheckOutOff) ? invoicedetail.Discount : CheckOutOff,
+                            GiftAmount = invoicedetail.GiftAmount,
+                        });
+                        DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount = DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount - (invoicedetail.Amount + invoicedetail.GiftAmount);
+                    }
+                    DataProvider.Ins.DB.SaveChanges();
+                    InvoiceDetails = new AsyncObservableCollection<DetailInList>();
+                    DetailInListTotalPrice = "0";
+                    CallSearch();
                 }
                 else
                 {
-                    //DataProvider.Ins.DB.Invoices.Remove(DataProvider.Ins.DB.Invoices.Find(CheckOutId));
-                    //DataProvider.Ins.DB.SaveChanges();
+                    DataProvider.Ins.DB.Invoices.Remove(DataProvider.Ins.DB.Invoices.Find(CheckOutId));
+                    DataProvider.Ins.DB.SaveChanges();
                 }
                 IsOpenCheckOutDialog = false;
             });
@@ -528,172 +529,172 @@ namespace BakeryManager.ViewModels
             Products = new AsyncObservableCollection<dynamic>();
             if (SelectedCategory.Id == 0)
             {
-            //    switch (_listSort.IndexOf(SelectedSort))
-            //    {
-            //        case 0:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.ImportAmount - x.InStockAmount))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //        case 1:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.ImportDate))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //        case 2:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderBy(x => x.Name))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //        case 3:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.Name))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //        case 4:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderBy(x => x.SellPrice))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //        case 5:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.SellPrice))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //    }
-            //}
-            //else
-            //{
-            //    int categoryid = SelectedCategory.Id;
-            //    switch (_listSort.IndexOf(SelectedSort))
-            //    {
-            //        case 0:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.ImportAmount - x.InStockAmount))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //        case 1:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.ImportDate))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //        case 2:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderBy(x => x.Name))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //        case 3:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.Name))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //        case 4:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderBy(x => x.SellPrice))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //        case 5:
-            //            Products = new AsyncObservableCollection<dynamic>();
-            //            foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.SellPrice))
-            //            {
-            //                Products.Add(new
-            //                {
-            //                    Id = product.Id,
-            //                    Name = product.Name,
-            //                    Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
-            //                    Price = product.SellPrice.ToString(),
-            //                });
-            //            }
-            //            break;
-            //    }
+                switch (_listSort.IndexOf(SelectedSort))
+                {
+                    case 0:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.ImportAmount - x.InStockAmount))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                    case 1:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.ImportDate))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                    case 2:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderBy(x => x.Name))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                    case 3:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.Name))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                    case 4:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderBy(x => x.SellPrice))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                    case 5:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0).OrderByDescending(x => x.SellPrice))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                int categoryid = SelectedCategory.Id;
+                switch (_listSort.IndexOf(SelectedSort))
+                {
+                    case 0:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.ImportAmount - x.InStockAmount))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                    case 1:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.ImportDate))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                    case 2:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderBy(x => x.Name))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                    case 3:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.Name))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                    case 4:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderBy(x => x.SellPrice))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                    case 5:
+                        Products = new AsyncObservableCollection<dynamic>();
+                        foreach (var product in DataProvider.Ins.DB.Products.Where(x => x.IsHidden == 0 && x.CategoryId == categoryid).OrderByDescending(x => x.SellPrice))
+                        {
+                            Products.Add(new
+                            {
+                                Id = product.Id,
+                                Name = product.Name,
+                                Thumbnail = (product.Photos.Count == 0) ? null : product.Photos.ToList()[0].ImageBytes,
+                                Price = product.SellPrice.ToString(),
+                            });
+                        }
+                        break;
+                }
             }
             var tmp = Products.ToList();
             foreach (var product in tmp)

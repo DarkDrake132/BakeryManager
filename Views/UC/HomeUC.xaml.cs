@@ -29,6 +29,5 @@ namespace BakeryManager.Views.UC
             InitializeComponent();
             this.DataContext = Viewmodel = HomeUCViewModel.GetInstance();
         }
-
     }
 }
