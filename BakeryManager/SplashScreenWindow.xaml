@@ -48,8 +48,8 @@
             <!--Middle Frame-->
             <DockPanel HorizontalAlignment="Right" Margin="0 0 60 0" Background="White" Width="350">
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Background="White">
-                    <Image Source="/Assets/Icon.png" Width="120" Height="120" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Top" Margin="0 50 0 0"/>
-                    <TextBlock FontWeight="Bold" Text="Cake Shop" HorizontalAlignment="Center" Margin="0 20" VerticalAlignment="Top"  Foreground="SaddleBrown" FontSize="50"/>
+                    <Image Source="/Assets/Icon.png" Width="150" Height="150" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Top" Margin="0 30 0 0"/>
+                    <TextBlock FontWeight="Bold" Text="Bakery Manager" HorizontalAlignment="Center" Margin="0 20" VerticalAlignment="Top"  Foreground="SaddleBrown" FontSize="40"/>
                     <!--Cake description-->
                     <TextBlock Text="{Binding CakeName}" FontSize="25" FontWeight="Medium" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <Border HorizontalAlignment="Center" Width="400"  Height="210" CornerRadius="20" BorderThickness="2" Background="Transparent" Padding="5">

@@ -32,7 +32,7 @@
         <StackPanel HorizontalAlignment="Left" Orientation="Vertical" VerticalAlignment="Top">
             <materialDesign:Card UniformCornerRadius="5" Margin="10 0 0 10">
                 <StackPanel Orientation="Vertical" Margin="20">
-                    <TextBlock Text=" About We Split Application" FontSize="40" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="About BakeryManager Application" FontSize="40" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
 
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
