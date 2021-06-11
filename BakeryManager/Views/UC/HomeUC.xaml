@@ -29,7 +29,7 @@
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical" Background="#fbf7f0">
+        <StackPanel Orientation="Vertical" Background="#FDD8be">
             <!-- First bar -->
             <DockPanel LastChildFill="False">
                 <TextBlock DockPanel.Dock="Left" Text="Order Menu" VerticalAlignment="Center" FontSize="30" Margin="20 0" FontWeight="Medium"></TextBlock>
