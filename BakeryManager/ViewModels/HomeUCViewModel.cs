@@ -327,6 +327,7 @@ namespace BakeryManager.ViewModels
         public ICommand DeleteDetailInListCommand { get; set; }
         public ICommand LoadPrice { get; set; }
         public ICommand AddInvoiceCommand { get; set; }
+        public ICommand CancelInvoiceCommand { get; set; }
         public ICommand AddToCartCommand { get; set; }
         public ICommand ChangeCategoryCommand { get; set; }
         public ICommand ChangedFlippedCommand { get; set; }
@@ -421,10 +422,8 @@ namespace BakeryManager.ViewModels
                     DetailInListTotalPrice = (int.Parse(DetailInListTotalPrice) + int.Parse(invoicedetail.SummaryPrice)).ToString();
                 }
             });
-            AddInvoiceCommand = new RelayCommand<string>((param) => { return true; }, (param) =>
+            AddInvoiceCommand = new RelayCommand<Grid>((param) => { return true; }, (param) =>
             {
-                if (bool.Parse(param) == true)
-                {
                     Invoice newinvoice = DataProvider.Ins.DB.Invoices.Find(CheckOutId);
                     newinvoice.Name = CheckOutCustomerName;
                     newinvoice.Phone = (CheckOutPhone == null) ? "" : CheckOutPhone;
@@ -432,40 +431,55 @@ namespace BakeryManager.ViewModels
                     newinvoice.PaymentMethod = (IsDelivery == true) ? 2 : 1;
                     newinvoice.Status = (IsDelivery == true) ? "Chờ giao hàng" : "Đã thanh toán";
                     newinvoice.Total = int.Parse(CheckOutTotal);
-                    if (newinvoice.PaymentMethod == 1)
-                    {
-                        DirectPayment newdirectpayment = new DirectPayment() { InvoiceId = newinvoice.Id, Cash = int.Parse(CheckOutCash), Change = int.Parse(CheckOutChange), };
-                        DataProvider.Ins.DB.DirectPayments.Add(newdirectpayment);
-                    }
-                    else
-                    {
-                        DeliveryPayment newdeliverypayment = new DeliveryPayment() { InvoiceId = newinvoice.Id, Address = CheckOutAddress, ShippingDate = CheckOutDateShip, PrePaid = int.Parse(CheckOutPrePaid), PostPaid = int.Parse(CheckOutPostPaid), };
-                        DataProvider.Ins.DB.DeliveryPayments.Add(newdeliverypayment);
-                    }
-                    foreach (var invoicedetail in InvoiceDetails)
-                    {
-                        newinvoice.InvoiceDetails.Add(new InvoiceDetail
-                        {
-                            InvoiceId = CheckOutId,
-                            ProductId = invoicedetail.ProductId,
-                            Amount = invoicedetail.Amount,
-                            Discount = (invoicedetail.Discount > CheckOutOff) ? invoicedetail.Discount : CheckOutOff,
-                            GiftAmount = invoicedetail.GiftAmount,
-                        });
-                        DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount = DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount - (invoicedetail.Amount + invoicedetail.GiftAmount);
-                    }
-                    DataProvider.Ins.DB.SaveChanges();
-                    InvoiceDetails = new AsyncObservableCollection<DetailInList>();
-                    DetailInListTotalPrice = "0";
-                    CallSearch();
+                if (newinvoice.PaymentMethod == 1)
+                {
+                    DirectPayment newdirectpayment = new DirectPayment() { InvoiceId = newinvoice.Id, Cash = int.Parse(CheckOutCash), Change = int.Parse(CheckOutChange), };
+                    DataProvider.Ins.DB.DirectPayments.Add(newdirectpayment);
                 }
                 else
                 {
-                    DataProvider.Ins.DB.Invoices.Remove(DataProvider.Ins.DB.Invoices.Find(CheckOutId));
-                    DataProvider.Ins.DB.SaveChanges();
+                    DeliveryPayment newdeliverypayment = new DeliveryPayment() { InvoiceId = newinvoice.Id, Address = CheckOutAddress, ShippingDate = CheckOutDateShip, PrePaid = int.Parse(CheckOutPrePaid), PostPaid = int.Parse(CheckOutPostPaid), };
+                    DataProvider.Ins.DB.DeliveryPayments.Add(newdeliverypayment);
                 }
+                foreach (var invoicedetail in InvoiceDetails)
+                {
+                    newinvoice.InvoiceDetails.Add(new InvoiceDetail
+                    {
+                        InvoiceId = CheckOutId,
+                        ProductId = invoicedetail.ProductId,
+                        Amount = invoicedetail.Amount,
+                        Discount = (invoicedetail.Discount > CheckOutOff) ? invoicedetail.Discount : CheckOutOff,
+                        GiftAmount = invoicedetail.GiftAmount,
+                    });
+                    DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount = DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount - (invoicedetail.Amount + invoicedetail.GiftAmount);
+                }
+                DataProvider.Ins.DB.SaveChanges();
+                InvoiceDetails = new AsyncObservableCollection<DetailInList>();
+                DetailInListTotalPrice = "0";
+                CallSearch();
+
+                try
+                {
+                        PrintDialog printDialog = new PrintDialog();
+                        if (printDialog.ShowDialog() == true)
+                        {
+                            printDialog.PrintVisual(param, "Invoice");
+                        }
+                    }
+                    finally
+                    {
+
+                    }
                 IsOpenCheckOutDialog = false;
             });
+
+            CancelInvoiceCommand = new RelayCommand<object>((param) => { return true; }, (param) =>
+            {
+                DataProvider.Ins.DB.Invoices.Remove(DataProvider.Ins.DB.Invoices.Find(CheckOutId));
+                DataProvider.Ins.DB.SaveChanges();
+            });
+
+               
             AddToCartCommand = new RelayCommand<dynamic>((param) => { return true; }, (param) =>
             {
                 InvoiceDetails.Add(new DetailInList

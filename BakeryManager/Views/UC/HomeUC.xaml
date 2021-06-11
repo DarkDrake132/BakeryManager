@@ -233,11 +233,11 @@
             </StackPanel>
         </Grid>
         <!--Check out Dialog-->
-        <materialDesign:DialogHost Grid.Column="0" Panel.ZIndex="1" Grid.ColumnSpan="2" IsOpen="{Binding IsOpenCheckOutDialog}"
+        <materialDesign:DialogHost  Grid.Column="0" Panel.ZIndex="1" Grid.ColumnSpan="2" IsOpen="{Binding IsOpenCheckOutDialog}"
                     Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
                     DialogMargin="8">
             <materialDesign:DialogHost.DialogContent>
-                <Grid Height="auto">
+                <Grid Height="auto" Name="print">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -515,7 +515,7 @@
                                   IsDefault="True"
                                   Margin="0 8 8 0"
                                 FontSize="20"
-                                  Command="{Binding AddInvoiceCommand}"  CommandParameter="true"
+                                  Command="{Binding AddInvoiceCommand}"  CommandParameter="{Binding ElementName=print}"
                                 IsEnabled="{Binding IsEnabledSecondCheckoutButton}">
                             CHECKOUT
                         </Button>
@@ -524,7 +524,7 @@
                                           IsCancel="True"
                                           Margin="0 8 8 0"
                                         FontSize="20"
-                                          Command="{Binding AddInvoiceCommand}"  CommandParameter="false">
+                                          Command="{Binding CancelInvoiceCommand}" >
                             CANCEL
                         </Button>
                     </StackPanel>
