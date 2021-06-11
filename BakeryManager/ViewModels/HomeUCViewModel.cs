@@ -458,18 +458,18 @@ namespace BakeryManager.ViewModels
                 DetailInListTotalPrice = "0";
                 CallSearch();
 
-                try
-                {
-                        PrintDialog printDialog = new PrintDialog();
-                        if (printDialog.ShowDialog() == true)
-                        {
-                            printDialog.PrintVisual(param, "Invoice");
-                        }
-                    }
-                    finally
-                    {
+                //try
+                //{
+                //        PrintDialog printDialog = new PrintDialog();
+                //        if (printDialog.ShowDialog() == true)
+                //        {
+                //            printDialog.PrintVisual(param, "Invoice");
+                //        }
+                //    }
+                //    finally
+                //    {
 
-                    }
+                //    }
                 IsOpenCheckOutDialog = false;
             });
 
@@ -477,6 +477,7 @@ namespace BakeryManager.ViewModels
             {
                 DataProvider.Ins.DB.Invoices.Remove(DataProvider.Ins.DB.Invoices.Find(CheckOutId));
                 DataProvider.Ins.DB.SaveChanges();
+                IsOpenCheckOutDialog = false;
             });
 
                
