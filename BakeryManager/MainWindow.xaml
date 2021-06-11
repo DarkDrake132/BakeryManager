@@ -64,8 +64,8 @@
                 <Button Margin="10 30 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}"  Width="90" Height="90" Command="{Binding HomeCommand}">
                     <Border CornerRadius="15" Margin="0"  Background="{Binding Source={StaticResource Global},Path=HomeColor}" Width="90" Height="90">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="StorefrontOutline" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}"/>
-                            <TextBlock Text="Home" Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
+                            <materialDesign:PackIcon Kind="Storefront" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}"/>
+                            <TextBlock Text="HOME" Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
                         </StackPanel>
                     </Border>
                 </Button>
@@ -73,8 +73,8 @@
                 <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}"  Width="90" Height="90" Command="{Binding InvoiceListCommand}">
                     <Border CornerRadius="15" Margin="0"  Background="{Binding Source={StaticResource Global},Path=InvoiceListColor}" Width="90" Height="90">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="PlaylistEdit" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}"/>
-                            <TextBlock Text="Invoices"  TextAlignment="Center" Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}" FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
+                            <materialDesign:PackIcon Kind="FileDocumentEditOutline" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}"/>
+                            <TextBlock Text="INVOICES"  TextAlignment="Center" Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}" FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
                         </StackPanel>
                     </Border>
                 </Button>
@@ -82,8 +82,8 @@
                 <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}"  Width="90" Height="90" Command="{Binding CakesCommand}">
                     <Border CornerRadius="15" Margin="0"  Background="{Binding Source={StaticResource Global},Path=CakesColor}" Width="90" Height="90">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="Cupcake" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}"/>
-                            <TextBlock Text="Cakes" Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}" FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
+                            <materialDesign:PackIcon Kind="Bread" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}"/>
+                            <TextBlock Text="ITEMS" Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}" FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
                         </StackPanel>
                     </Border>
                 </Button>
@@ -91,7 +91,7 @@
                 <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Width="90" Height="90" Command="{Binding StatisticCommand}">
                     <Border CornerRadius="15"  Background="{Binding Source={StaticResource Global},Path=StatisticColor}"  Width="90" Height="90">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="ChartLine" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=StatisticTextColor}" />
+                            <materialDesign:PackIcon Kind="ChartBoxOutline" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=StatisticTextColor}" />
                             <TextBlock Text="Statistic" Foreground="{Binding Source={StaticResource Global},Path=StatisticTextColor}"  FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
                         </StackPanel>
                     </Border>
@@ -100,8 +100,8 @@
                 <Button Margin="10 5 10 10" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Width="90" Height="90" Command="{Binding SettingCommand}">
                     <Border CornerRadius="15"  Background="{Binding Source={StaticResource Global},Path=SettingColor}"  Width="90" Height="90">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="CogOutline" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}" />
-                            <TextBlock Text="Setting" Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}"  FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
+                            <materialDesign:PackIcon Kind="ApplicationSettings" Width="50" Height="50" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}" />
+                            <TextBlock Text="SETTINGS" Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}"  FontSize="19" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
                         </StackPanel>
                     </Border>
                 </Button>
