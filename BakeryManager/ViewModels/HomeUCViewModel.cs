@@ -15,6 +15,15 @@ namespace BakeryManager.ViewModels
     class HomeUCViewModel : BaseViewModel
     {
         #region variables
+        private List<string> _listCategory = new List<string>() {
+            "Hamburger",
+            "CakeVariant",
+            "Bread",
+            "BreadSlice",
+            "CupCake",
+            "Loaf",
+            "Biscuit"
+        };
         private static HomeUCViewModel _instance = null;
         private static object m_lock = new object();
         private List<string> _listSort = new List<string>() {
@@ -205,10 +214,12 @@ namespace BakeryManager.ViewModels
             get => _checkOutCash; set
             {
                 _checkOutCash = value;
-                if (CheckOutCash != null && IsValidName == true && IsValidPhone == true && IsValidCheckoutOff == true)
+
+                if (CheckOutCash != null &&  IsValidCheckoutOff == true)
                 {
-                    IsEnabledSecondCheckoutButton = IsCheckOut();
                     CheckOutChange = (int.Parse(CheckOutCash) - int.Parse(CheckOutTotal)).ToString();
+                    if (IsValidName == true && IsValidPhone == true)
+                        IsEnabledSecondCheckoutButton = IsCheckOut();
                 }
                 if (value != null)
                 {
@@ -372,14 +383,16 @@ namespace BakeryManager.ViewModels
                 Name = "Tất cả",
                 PickIcon = "ArrowExpandAll"
             });
+            int i = 0;
             foreach (var category in DataProvider.Ins.DB.Categories)
             {
                 Categories.Add(new
                 {
                     Id = category.Id,
                     Name = category.Name,
-                    PickIcon = "FoodCroissant"
+                    PickIcon = _listCategory[i]
                 });
+                i++;
             }
             SelectedCategory = Categories.ElementAt(0);
 
@@ -453,14 +466,12 @@ namespace BakeryManager.ViewModels
                     });
                     DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount = DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount - (invoicedetail.Amount + invoicedetail.GiftAmount);
                 }
-                DataProvider.Ins.DB.SaveChanges();
-                InvoiceDetails = new AsyncObservableCollection<DetailInList>();
-                DetailInListTotalPrice = "0";
-                CallSearch();
-                PrintDialog printDialog = new PrintDialog();
+
 
                 try
                 {
+                    this.IsEnabledFirstCheckoutButton = false;
+                    PrintDialog printDialog = new PrintDialog();
                     if (printDialog.ShowDialog() == true)
                     {
                         printDialog.PrintVisual(param, "Invoice");
@@ -468,8 +479,15 @@ namespace BakeryManager.ViewModels
                 }
                 finally
                 {
-
+                    this.IsEnabledFirstCheckoutButton = true;
                 }
+
+                DataProvider.Ins.DB.SaveChanges();
+                InvoiceDetails = new AsyncObservableCollection<DetailInList>();
+                DetailInListTotalPrice = "0";
+                CallSearch();
+
+                
                 IsOpenCheckOutDialog = false;
             });
 
