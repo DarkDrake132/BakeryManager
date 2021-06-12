@@ -457,10 +457,10 @@ namespace BakeryManager.ViewModels
                 InvoiceDetails = new AsyncObservableCollection<DetailInList>();
                 DetailInListTotalPrice = "0";
                 CallSearch();
+                PrintDialog printDialog = new PrintDialog();
 
                 try
                 {
-                    PrintDialog printDialog = new PrintDialog();
                     if (printDialog.ShowDialog() == true)
                     {
                         printDialog.PrintVisual(param, "Invoice");
