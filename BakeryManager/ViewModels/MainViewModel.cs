@@ -14,6 +14,8 @@ namespace BakeryManager.ViewModels
         #region private variables
         //private BaseViewModel _currentPageViewModel = null;
         //private Visibility _leftPanelVisibility = Visibility.Visible;
+        private String PANEL_CLICK_COLOR = "#9E9E9E";
+        private String PANEL_COLOR = "#4A3933";
         private String _addPlaceColor = Brushes.White.ToString();
         private String _addMemberColor = Brushes.White.ToString();
         private String _settingColor = Brushes.White.ToString();
@@ -58,7 +60,7 @@ namespace BakeryManager.ViewModels
         public MainViewModel()
         {
             ResetPanelColor();
-            global.HomeColor = Brushes.SaddleBrown.ToString();
+            global.HomeColor = PANEL_CLICK_COLOR;
             global.HomeTextColor = Brushes.White.ToString();
 
 
@@ -69,7 +71,7 @@ namespace BakeryManager.ViewModels
             HomeCommand = new RelayCommand<object>((param) => { return true; }, (param) =>
             {
                 ResetPanelColor();
-                global.HomeColor = Brushes.SaddleBrown.ToString();
+                global.HomeColor = PANEL_CLICK_COLOR;
                 global.HomeTextColor = Brushes.White.ToString();
                 global.CurrentPageViewModel = HomeUCViewModel.GetInstance();
 
@@ -79,7 +81,7 @@ namespace BakeryManager.ViewModels
             InvoiceListCommand = new RelayCommand<object>((param) => { return true; }, (param) =>
             {
                 ResetPanelColor();
-                global.InvoiceListColor = Brushes.SaddleBrown.ToString();
+                global.InvoiceListColor = PANEL_CLICK_COLOR;
                 global.InvoiceListTextColor = Brushes.White.ToString();
                 global.CurrentPageViewModel = new InvoiceListUCViewModel();
             });
@@ -87,7 +89,7 @@ namespace BakeryManager.ViewModels
             CakesCommand = new RelayCommand<object>((param) => { return true; }, (param) =>
             {
                 ResetPanelColor();
-                global.CakesColor = Brushes.SaddleBrown.ToString();
+                global.CakesColor = PANEL_CLICK_COLOR;
                 global.CakesTextColor = Brushes.White.ToString();
                 global.CurrentPageViewModel = new CakesUCViewModel();
             });
@@ -95,7 +97,7 @@ namespace BakeryManager.ViewModels
             StatisticCommand = new RelayCommand<object>((param) => { return true; }, (param) =>
             {
                 ResetPanelColor();
-                global.StatisticColor = Brushes.SaddleBrown.ToString();
+                global.StatisticColor = PANEL_CLICK_COLOR;
                 global.StatisticTextColor = Brushes.White.ToString();
                 global.CurrentPageViewModel = new StatisticsUCViewModel();
             });
@@ -103,7 +105,7 @@ namespace BakeryManager.ViewModels
             SettingCommand = new RelayCommand<object>((param) => { return true; }, (param) =>
             {
                 ResetPanelColor();
-                global.SettingColor = Brushes.SaddleBrown.ToString();
+                global.SettingColor = PANEL_CLICK_COLOR;
                 global.SettingTextColor = Brushes.White.ToString();
                 global.CurrentPageViewModel = new SettingUCViewModel();
             });
@@ -111,23 +113,23 @@ namespace BakeryManager.ViewModels
 
         void ResetPanelColor()
         {
-            global.HomeColor = Brushes.White.ToString();
-            global.HomeTextColor = Brushes.Gray.ToString();
+            global.HomeColor = PANEL_COLOR;
+            global.HomeTextColor = Brushes.White.ToString();
 
-            global.CheckOutColor = Brushes.White.ToString();
-            global.CheckOutTextColor = Brushes.Gray.ToString();
+            global.CheckOutColor = PANEL_COLOR;
+            global.CheckOutTextColor = Brushes.White.ToString();
 
-            global.StatisticColor = Brushes.White.ToString();
-            global.StatisticTextColor = Brushes.Gray.ToString();
+            global.StatisticColor = PANEL_COLOR;
+            global.StatisticTextColor = Brushes.White.ToString();
 
-            global.SettingColor = Brushes.White.ToString();
-            global.SettingTextColor = Brushes.Gray.ToString();
+            global.SettingColor = PANEL_COLOR;
+            global.SettingTextColor = Brushes.White.ToString();
 
-            global.CakesColor = Brushes.White.ToString();
-            global.CakesTextColor = Brushes.Gray.ToString();
+            global.CakesColor = PANEL_COLOR;
+            global.CakesTextColor = Brushes.White.ToString();
 
-            global.InvoiceListColor = Brushes.White.ToString();
-            global.InvoiceListTextColor = Brushes.Gray.ToString();
+            global.InvoiceListColor = PANEL_COLOR;
+            global.InvoiceListTextColor = Brushes.White.ToString();
         }
     }
 }
