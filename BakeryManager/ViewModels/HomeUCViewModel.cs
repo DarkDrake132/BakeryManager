@@ -467,10 +467,14 @@ namespace BakeryManager.ViewModels
                     DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount = DataProvider.Ins.DB.Products.Find(invoicedetail.ProductId).InStockAmount - (invoicedetail.Amount + invoicedetail.GiftAmount);
                 }
 
+                DataProvider.Ins.DB.SaveChanges();
+                InvoiceDetails = new AsyncObservableCollection<DetailInList>();
+                DetailInListTotalPrice = "0";
+                CallSearch();
 
+                
                 try
                 {
-                    this.IsEnabledFirstCheckoutButton = false;
                     PrintDialog printDialog = new PrintDialog();
                     if (printDialog.ShowDialog() == true)
                     {
@@ -479,16 +483,8 @@ namespace BakeryManager.ViewModels
                 }
                 finally
                 {
-                    this.IsEnabledFirstCheckoutButton = true;
+                    IsOpenCheckOutDialog = false;
                 }
-
-                DataProvider.Ins.DB.SaveChanges();
-                InvoiceDetails = new AsyncObservableCollection<DetailInList>();
-                DetailInListTotalPrice = "0";
-                CallSearch();
-
-                
-                IsOpenCheckOutDialog = false;
             });
 
             CancelInvoiceCommand = new RelayCommand<object>((param) => { return true; }, (param) =>

@@ -61,7 +61,7 @@
                 <!--icon-->
                 <Image Source="pack://application:,,,/Assets/Icon.png" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Width="120"/>
                 <!--Home button-->
-                <Button Name="HomeBtn" Margin="0 30 0 0"  Height="auto" Width="auto" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding HomeCommand}">
+                <Button Name="HomeBtn" Margin="0 30 0 10"  Height="auto" Width="auto" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding HomeCommand}">
                     <Border Margin="0" Padding="0 7" Width="{Binding ActualWidth, ElementName=HomeBtn}" Background="{Binding Source={StaticResource Global},Path=HomeColor}" Height="auto" VerticalAlignment="Center">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="210" Height="auto" HorizontalAlignment="Center" >
                             <materialDesign:PackIcon Margin="10 0 0 0" HorizontalAlignment="Center" Kind="Storefront" Width="35" Height="35" Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}"/>
