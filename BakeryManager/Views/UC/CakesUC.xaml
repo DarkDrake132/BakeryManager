@@ -595,7 +595,7 @@
                         Header="Import $" Width="160">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="20" FontWeight="Medium" Margin="10 0" Text="{Binding ImportPrice, Converter={StaticResource MoneyComverter}}"></TextBlock>
+                                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Medium" Margin="10 0" Text="{Binding ImportPrice, Converter={StaticResource MoneyComverter}}"></TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -621,12 +621,12 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                                         <Button Margin="10 5" Height="auto" BorderBrush="SaddleBrown" Background="Gray" BorderThickness="1" Padding="0" HorizontalAlignment="Right"
-                                                Command="{Binding ElementName=ProductsListView, Path=DataContext.ClickEditProductButtonCommand}" CommandParameter="{Binding Id}" ToolTip="Edit">
-                                            <materialDesign:PackIcon Width="40" Height="40" Kind="Pencil" Background="SaddleBrown" />
+                                                Command="{Binding ElementName=ProductsListView, Path=DataContext.ClickEditProductButtonCommand}" CommandParameter="{Binding Id}" ToolTip="Edit Cake">
+                                            <TextBlock Text="EDIT" Padding="10"/>
                                         </Button>
                                         <Button Height="auto" Margin="10 5" BorderBrush="Red" Background="Transparent" BorderThickness="1" Padding="0" HorizontalAlignment="Right"
-                                                Command="{Binding ElementName=ProductsListView, Path=DataContext.DeleteProductCommand}" CommandParameter="{Binding}" ToolTip="Delete">
-                                            <materialDesign:PackIcon Width="40" Height="40" Kind="CloseCircle" Background="Red" />
+                                                Command="{Binding ElementName=ProductsListView, Path=DataContext.DeleteProductCommand}" CommandParameter="{Binding}" ToolTip="Delete Cake">
+                                            <materialDesign:PackIcon Width="50" Height="30" Kind="Trash" Background="Red" />
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>
