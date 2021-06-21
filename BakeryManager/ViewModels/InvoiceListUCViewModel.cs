@@ -60,8 +60,11 @@ namespace BakeryManager.ViewModels
                     Invoice invoice = DataProvider.Ins.DB.Invoices.Find(SelectedInvoice.Id);
                     DetailId = invoice.Id;
                     DetailDateCreate = invoice.CreatedDate.ToString().Split(' ')[0];
-                    DetailCash = (invoice.PaymentMethod == 1) ? invoice.DirectPayment.Cash.ToString() : null;
-                    DetailChange = (invoice.PaymentMethod == 1) ? invoice.DirectPayment.Change.ToString() : null;
+                    if (invoice.DirectPayment != null)
+                    {
+                        DetailCash = (invoice.PaymentMethod == 1) ? (invoice.DirectPayment.Cash != null) ? invoice.DirectPayment.Cash.ToString() : "0 vnd" : null;
+                        DetailChange = (invoice.PaymentMethod == 1) ? (invoice.DirectPayment.Change != 0) ? invoice.DirectPayment.Change.ToString() : "0 vnd" : null;
+                    }
                     DirectPaymentVisibility = (invoice.PaymentMethod == 1) ? Visibility.Visible : Visibility.Hidden;
                     DetailName = invoice.Name;
                     DetailPhone = invoice.Phone;
@@ -187,6 +190,11 @@ namespace BakeryManager.ViewModels
             var a = DataProvider.Ins.DB.Invoices.OrderByDescending(x => x.CreatedDate).ToList();
             foreach (var invoice in DataProvider.Ins.DB.Invoices.OrderByDescending(x => x.CreatedDate))
             {
+                if (invoice.Name == "" && invoice.Total == 0)
+                {
+                    DataProvider.Ins.DB.Invoices.Remove(invoice);
+                    continue;
+                }
                 string date;
                 if (invoice.PaymentMethod == 1)
                 {
@@ -213,6 +221,7 @@ namespace BakeryManager.ViewModels
                     UnCheckedInvoice++;
                 }
             }
+            DataProvider.Ins.DB.SaveChanges();
         }
         private void CallSearch()
         {

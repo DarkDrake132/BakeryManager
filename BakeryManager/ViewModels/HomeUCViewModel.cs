@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Data.Entity.Validation;
 using System.Windows.Controls;
 using System.Globalization;
+using System.Windows;
 
 namespace BakeryManager.ViewModels
 {
@@ -446,6 +447,11 @@ namespace BakeryManager.ViewModels
                     newinvoice.Total = int.Parse(CheckOutTotal);
                 if (newinvoice.PaymentMethod == 1)
                 {
+                    if (int.Parse(CheckOutCash) < int.Parse(CheckOutTotal))
+                    {
+                        MessageBox.Show("Vui làm kiểm tra lại số tiền khách chi trả !!!");
+                        return;
+                    }
                     DirectPayment newdirectpayment = new DirectPayment() { InvoiceId = newinvoice.Id, Cash = int.Parse(CheckOutCash), Change = int.Parse(CheckOutChange), };
                     DataProvider.Ins.DB.DirectPayments.Add(newdirectpayment);
                 }
