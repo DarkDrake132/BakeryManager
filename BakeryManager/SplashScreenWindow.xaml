@@ -33,8 +33,8 @@
             <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" CommandParameter="{Binding ElementName=SplashScreenWindow}"></i:InvokeCommandAction>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
-    <Border VerticalAlignment="Bottom" HorizontalAlignment="Center"
+    <Grid>
+        <Border VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="{Binding isOpenSplashScreen}"
                         CornerRadius="10" Height="600" Width="900"  RenderOptions.BitmapScalingMode="HighQuality">
         <Border.Background>
             <ImageBrush Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" ImageSource="{Binding ImageCover}">
@@ -43,7 +43,7 @@
                 </ImageBrush.RelativeTransform>
             </ImageBrush>
         </Border.Background>
-        
+
         <Grid Background="{x:Null}">
             <!--Middle Frame-->
             <DockPanel HorizontalAlignment="Right" Margin="0 0 60 0" Background="White" Width="350">
@@ -89,4 +89,20 @@
             </DockPanel>
         </Grid>
     </Border>
+
+
+        <!--Check out Dialog-->
+        <materialDesign:DialogHost Panel.ZIndex="1" IsOpen="{Binding IsOpenCheckOutDialog}"
+                    Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
+                    DialogMargin="8">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Orientation="Vertical" Background="White" Width="200" Height="130" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <PasswordBox HorizontalContentAlignment="Center" Margin="10" Name="txtPassword"  Width="180" />
+                    <Button Width="180" Content="Enter" Command="{Binding Path=OkCommand}"
+   CommandParameter="{Binding ElementName=txtPassword}"/>
+                    <Button Width="180" Margin="5" Content="Close" Background="Red" Command="{Binding Path=CloseAppFromSplash}"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+    </Grid>
 </Window>

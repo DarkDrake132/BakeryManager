@@ -7,6 +7,8 @@ using System.Configuration;
 using System.Windows.Input;
 using System.Collections.Generic;
 using BakeryManager;
+using System.Security;
+using System.Windows.Controls;
 
 namespace BakeryManager.ViewModels
 {
@@ -66,8 +68,42 @@ namespace BakeryManager.ViewModels
 
         };
         #endregion
-        #region Properties
 
+        #region Properties
+        private bool _isOpenCheckOutDialog;
+        public bool IsOpenCheckOutDialog
+        {
+            get => _isOpenCheckOutDialog; 
+            set
+            {
+                _isOpenCheckOutDialog = value;
+                if (value == true)
+                {
+                    IsOpenSplashScreen = true;
+                    IsOpenCheckOutDialog = false;
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        
+
+        private bool _isOpenSplashScreen;
+        public bool IsOpenSplashScreen
+        {
+            get => _isOpenCheckOutDialog; set
+            {
+                _isOpenCheckOutDialog = value;
+                if (value == true)
+                {
+
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        public Action CloseAction { get; set; }
+        private readonly IWindowFactory m_windowFactory;
 
         private string _cakeName;
         public string CakeName { get => _cakeName; set { _cakeName = value; OnPropertyChanged(); } }
@@ -80,13 +116,16 @@ namespace BakeryManager.ViewModels
 
 
         //public Global globalTheme = Global.GetInstance();
-
+        public ICommand CloseAppFromSplash { get; set; }
         public ICommand ChangeShow { get; set; }
+        public ICommand OkCommand { get; set; }
         public ICommand LoadedWindowCommand { get; set; }
         public int ProgressBarValue { get => _progressBarValue; set { _progressBarValue = value; OnPropertyChanged(); } }
         #endregion
         public SplashScreenViewModel()
         {
+            m_windowFactory = new ProductionWindowFactory();
+            IsOpenSplashScreen = true;
             int randomnum = MyRandom.Ins.Next(_name.Count);
             CakeName = _name[randomnum];
             CakeDescription = _description[randomnum];
@@ -110,10 +149,21 @@ namespace BakeryManager.ViewModels
                 else
                 {
                     splash.Show();
-                    dT.Elapsed += dt_Tick;
-                    dT.Start();
                 }
 
+            });
+
+            OkCommand = new RelayCommand<object>((param) => { return true; }, (param) =>
+            {
+                Execute(param);
+            });
+
+            CloseAppFromSplash = new RelayCommand<object>((param) => { return true; }, (param) =>
+            {
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    CloseAction();
+                });
             });
 
             ChangeShow = new RelayCommand<object>((param) => { return true; }, (param) => {
@@ -134,12 +184,74 @@ namespace BakeryManager.ViewModels
             if (ProgressBarValue >= _time_SplashScreen)
             {
                 dT.Dispose();
+                if (MainViewModel.IsShowed == false)
+                {
+                    Application.Current.Dispatcher.Invoke((Action)delegate {
+                        // your code
+                        m_windowFactory.CreateNewWindow();
+                        CloseAction();
+                    });
+                    
+                }
             }
             else
             {
                 dT.Start();
             }
 
+        }
+
+        void Execute(object parameter)
+        {
+            var passwordBox = parameter as PasswordBox;
+            var password = passwordBox.Password;
+            //Now go ahead and check the user name and password
+            if (password == ConfigurationManager.AppSettings["ManagerKey"])
+            {
+                var config = ConfigurationManager.OpenExeConfiguration(
+                ConfigurationUserLevel.None);
+                config.AppSettings.Settings["IsManager"].Value = true.ToString();
+                config.Save(ConfigurationSaveMode.Minimal);
+
+                IsOpenSplashScreen = true;
+                IsOpenCheckOutDialog = false;
+                dT.Elapsed += dt_Tick;
+                dT.Start();
+            } else if (password == ConfigurationManager.AppSettings["EmployeeKey"])
+            {
+                var config = ConfigurationManager.OpenExeConfiguration(
+                ConfigurationUserLevel.None);
+                config.AppSettings.Settings["IsManager"].Value = false.ToString();
+                config.Save(ConfigurationSaveMode.Minimal);
+
+                IsOpenSplashScreen = true;
+                IsOpenCheckOutDialog = false;
+                dT.Elapsed += dt_Tick;
+                dT.Start();
+            }
+        }
+
+        public interface IWindowFactory
+        {
+            void CreateNewWindow();
+        }
+
+        public class ProductionWindowFactory : IWindowFactory
+        {
+
+            #region Implementation of INewWindowFactory
+
+            public void CreateNewWindow()
+            {
+                MainWindow window = new MainWindow
+                {
+                    DataContext = new MainViewModel()
+                };
+                window.Show();
+                MainViewModel.IsShowed = true;
+            }
+
+            #endregion
         }
     }
 }

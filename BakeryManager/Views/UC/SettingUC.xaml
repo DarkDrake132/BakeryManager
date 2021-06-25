@@ -29,6 +29,28 @@
                 </CheckBox>
             </StackPanel>
         </materialDesign:Card>
+        <materialDesign:Card MinWidth="300" Padding="0 5" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="auto" UniformCornerRadius="10" Margin="10">
+            <StackPanel Orientation="Vertical" Margin="0 10">
+                <StackPanel Orientation="Horizontal" Margin="0 10 10 10">
+                    <TextBlock FontSize="30" FontWeight="Medium" Text="Manager Key" Margin="20 0" VerticalAlignment="Center"></TextBlock>
+                    <TextBox DockPanel.Dock="Right"
+                            VerticalAlignment="Center"
+                            Width="200"
+                            Height="30"
+                            AcceptsReturn="True"
+                            Text="{Binding ManagerKey,UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="0 10 10 10">
+                    <TextBlock FontSize="30" FontWeight="Medium" Text="Manager Key" Margin="20 0" VerticalAlignment="Center"></TextBlock>
+                    <TextBox DockPanel.Dock="Right"
+                            VerticalAlignment="Center"
+                            Width="200"
+                            Height="30"
+                            AcceptsReturn="True"
+                            Text="{Binding EmployeeKey,UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:Card>
         <StackPanel HorizontalAlignment="Left" Orientation="Vertical" VerticalAlignment="Top">
             <materialDesign:Card UniformCornerRadius="5" Margin="10 0 0 10">
                 <StackPanel Orientation="Vertical" Margin="20">

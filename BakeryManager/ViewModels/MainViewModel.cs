@@ -37,6 +37,8 @@ namespace BakeryManager.ViewModels
 
         #region Panel
 
+        public bool IsManger {get;set;}
+
         public String VersionTextBlock { get => _versionTextBlock; set { _versionTextBlock = value; OnPropertyChanged(); } }
 
         public Global global = Global.GetInstance();
@@ -63,6 +65,8 @@ namespace BakeryManager.ViewModels
             global.HomeColor = PANEL_CLICK_COLOR;
             global.HomeTextColor = Brushes.White.ToString();
 
+            enableMangerFeature();
+
 
             VersionTextBlock = GetPublishedVersion();
             if (VersionTextBlock == null || VersionTextBlock == "")
@@ -74,8 +78,6 @@ namespace BakeryManager.ViewModels
                 global.HomeColor = PANEL_CLICK_COLOR;
                 global.HomeTextColor = Brushes.White.ToString();
                 global.CurrentPageViewModel = HomeUCViewModel.GetInstance();
-
-
             });
 
             InvoiceListCommand = new RelayCommand<object>((param) => { return true; }, (param) =>
@@ -111,6 +113,11 @@ namespace BakeryManager.ViewModels
             });
         }
 
+
+        void enableMangerFeature()
+        {
+            IsManger = Boolean.Parse(ConfigurationManager.AppSettings["IsManager"]);
+        }
         void ResetPanelColor()
         {
             global.HomeColor = PANEL_COLOR;

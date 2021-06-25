@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Timers;
 using System.Windows;
+using System.Windows.Controls;
 using BakeryManager;
 using BakeryManager.ViewModels;
 
@@ -16,25 +17,10 @@ namespace BakeryManager
         public SplashScreen()
         {
             InitializeComponent();
-            this.DataContext = new SplashScreenViewModel();
-            dT.Elapsed += dt_Tick;
-            dT.Start();
-        }
-        void dt_Tick(object sender, EventArgs e)
-        {
-            dT.Dispose();
-            Dispatcher.Invoke(() =>
-            {
-                if (MainViewModel.IsShowed == false)
-                {
-                    MainWindow mW = new MainWindow();
-                    mW.Show();
-                    MainViewModel.IsShowed = true;
-                }
-                this.Close();
-            });
-
-
+            SplashScreenViewModel sp = new SplashScreenViewModel();
+            this.DataContext = sp; 
+            if (sp.CloseAction == null)
+                sp.CloseAction = new Action(this.Close);
         }
     }
 }
