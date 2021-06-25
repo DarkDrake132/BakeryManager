@@ -18,9 +18,8 @@ namespace BakeryManager
         {
             InitializeComponent();
             SplashScreenViewModel sp = new SplashScreenViewModel();
-            this.DataContext = sp; 
-            if (sp.CloseAction == null)
-                sp.CloseAction = new Action(this.Close);
+            this.DataContext = sp;
+            sp.CloseAction = new Action(this.Close);
         }
     }
 }

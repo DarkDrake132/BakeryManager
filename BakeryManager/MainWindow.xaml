@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BakeryManager"
         xmlns:viewmodels="clr-namespace:BakeryManager.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:uc="clr-namespace:BakeryManager.Views.UC"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -55,65 +56,99 @@
                       ObjectType="{x:Type local:Global}"
                       MethodName="GetInstance" />
     </Window.Resources>
-    <DockPanel LastChildFill="True">
-        <DockPanel DockPanel.Dock="Left" Background="#4A3933">
-            <StackPanel DockPanel.Dock="Top" Height="auto" Width="210" Orientation="Vertical">
-                <!--icon-->
-                <Image Source="pack://application:,,,/Assets/Icon.png" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Width="120"/>
-                <!--Home button-->
-                <Button Name="HomeBtn" Margin="0 30 0 10"  Height="auto" Width="auto" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding HomeCommand}">
-                    <Border Margin="0" Padding="0 7" Width="{Binding ActualWidth, ElementName=HomeBtn}" Background="{Binding Source={StaticResource Global},Path=HomeColor}" Height="auto" VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="210" Height="auto" HorizontalAlignment="Center" >
-                            <materialDesign:PackIcon Margin="10 0 0 0" HorizontalAlignment="Center" Kind="Storefront" Width="35" Height="35" Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}"/>
-                            <TextBlock Margin="5 0" Text="Home" VerticalAlignment="Center" Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}" FontSize="17" FontWeight="Medium"></TextBlock>
-                        </StackPanel>
-                    </Border>
-                </Button>
-                <!--Recipts List button-->
-                <Button Margin="0 10" Name="InvoiceBtn" Padding="0 5" Background="{x:Null}" BorderBrush="{x:Null}"  Width="auto" Height="auto" Command="{Binding InvoiceListCommand}">
-                    <Border Margin="0"  Padding="0 7" Background="{Binding Source={StaticResource Global},Path=InvoiceListColor}" Width="{Binding ActualWidth, ElementName=InvoiceBtn}" >
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Margin="10 0 0 0" Kind="FileDocumentEditOutline" Width="35" Height="35" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}"/>
-                            <TextBlock Margin="5 0" Text="Invoices"  TextAlignment="Center" VerticalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}" FontSize="17" FontWeight="Medium" ></TextBlock>
-                        </StackPanel>
-                    </Border>
-                </Button>
-                <!--Cakes button-->
-                <Button Name="CakesBtn" Margin="0 10" Padding="0 5" Background="{x:Null}" BorderBrush="{x:Null}" Width="auto" Height="auto" Command="{Binding CakesCommand}">
-                    <Border  Margin="0" Padding="0 7"  Background="{Binding Source={StaticResource Global},Path=CakesColor}" Width="{Binding ActualWidth, ElementName=CakesBtn}" Height="auto">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Margin="10 0 0 0" Kind="Bread" Width="35" Height="35" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}"/>
-                            <TextBlock Margin="5 0" Text="Items" Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}" FontSize="17" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                        </StackPanel>
-                    </Border>
-                </Button>
-                <!--Statistic button-->
-                <Button Name="StatisticBtn" Margin="0 10" Padding="0 5" Background="{x:Null}" BorderBrush="{x:Null}"  Width="auto" Height="auto" Command="{Binding StatisticCommand}">
-                    <Border Margin="0" Padding="0 7"   Background="{Binding Source={StaticResource Global},Path=StatisticColor}"  Width="{Binding ActualWidth, ElementName=StatisticBtn}"  Height="auto">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Margin="10 0 0 0" Kind="ChartBoxOutline" Width="35" Height="35" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=StatisticTextColor}" />
-                            <TextBlock Margin="5 0" Text="Statistic" Foreground="{Binding Source={StaticResource Global},Path=StatisticTextColor}"  FontSize="17" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                        </StackPanel>
-                    </Border>
-                </Button>
-                <!--Setting button-->
-                <Button Name="SettingsBtn" Margin="0 10" Padding="0 5" Background="{x:Null}" BorderBrush="{x:Null}" Width="auto" Height="auto" Command="{Binding SettingCommand}">
-                    <Border Margin="0" Padding="0 7"   Background="{Binding Source={StaticResource Global},Path=SettingColor}" Width="{Binding ActualWidth, ElementName=StatisticBtn}" Height="auto">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Margin="10 0 0 0" Kind="ApplicationSettings" Width="35" Height="35" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}" />
-                            <TextBlock Margin="5 0" Text="Settings" Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}" VerticalAlignment="Center" FontSize="17" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
-                        </StackPanel>
-                    </Border>
-                </Button>
-            </StackPanel>
-            <StackPanel DockPanel.Dock="Bottom" Height="30" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock FontSize="15" Foreground="Gray" Text="Version: "></TextBlock>
-                <TextBlock FontSize="15" Foreground="Gray" Text="{Binding VersionTextBlock}"></TextBlock>
-            </StackPanel>
+    <Grid>
+        <!--Check out Dialog-->
+        <materialDesign:DialogHost Panel.ZIndex="1" IsOpen="{Binding IsKeyOn}"
+                    Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
+                    DialogMargin="8">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Orientation="Vertical" Background="White" Width="200" Height="150" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Key" FontSize="20" FontWeight="Medium" Margin="0" HorizontalAlignment="Center"></TextBlock>
+                    <PasswordBox HorizontalContentAlignment="Center" Margin="10" Name="txtPassword"  Width="180" />
+                    <Button Width="180" Content="Enter" Command="{Binding Path=OkCommand}"
+   CommandParameter="{Binding ElementName=txtPassword}"/>
+                    <Button Width="180" Margin="5" Content="Close" Background="Red" Command="{Binding Path=CloseApp}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+
+        <DockPanel LastChildFill="True">
+            <DockPanel DockPanel.Dock="Left" Background="#4A3933">
+                <StackPanel DockPanel.Dock="Top" Height="auto" Width="210" Orientation="Vertical">
+                    <!--icon-->
+                    <Image Source="pack://application:,,,/Assets/Icon.png" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Width="120"/>
+                    <!--Home button-->
+                    <Button Name="HomeBtn" Margin="0 30 0 10"  Height="auto" Width="auto" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding HomeCommand}">
+                        <Border Margin="0" Padding="0 7" Width="{Binding ActualWidth, ElementName=HomeBtn}" Background="{Binding Source={StaticResource Global},Path=HomeColor}" Height="auto" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="210" Height="auto" HorizontalAlignment="Center" >
+                                <materialDesign:PackIcon Margin="10 0 0 0" HorizontalAlignment="Center" Kind="Storefront" Width="35" Height="35" Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}"/>
+                                <TextBlock Margin="5 0" Text="Home" VerticalAlignment="Center" Foreground="{Binding Source={StaticResource Global},Path=HomeTextColor}" FontSize="17" FontWeight="Medium"></TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                    <!--Recipts List button-->
+                    <Button IsEnabled="{Binding IsManager}" Margin="0 10" Name="InvoiceBtn" Padding="0 5" Background="{x:Null}" BorderBrush="{x:Null}"  Width="auto" Height="auto" Command="{Binding InvoiceListCommand}">
+                        <Border Margin="0"  Padding="0 7" Background="{Binding Source={StaticResource Global},Path=InvoiceListColor}" Width="{Binding ActualWidth, ElementName=InvoiceBtn}" >
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Margin="10 0 0 0" Kind="FileDocumentEditOutline" Width="35" Height="35" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}"/>
+                                <TextBlock Margin="5 0" Text="Invoices"  TextAlignment="Center" VerticalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}" FontSize="17" FontWeight="Medium" ></TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                    <!--Cakes button-->
+                    <Button  IsEnabled="{Binding IsManager}" Name="CakesBtn" Margin="0 10" Padding="0 5" Background="{x:Null}" BorderBrush="{x:Null}" Width="auto" Height="auto" Command="{Binding CakesCommand}">
+                        <Border  Margin="0" Padding="0 7"  Background="{Binding Source={StaticResource Global},Path=CakesColor}" Width="{Binding ActualWidth, ElementName=CakesBtn}" Height="auto">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Margin="10 0 0 0" Kind="Bread" Width="35" Height="35" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}"/>
+                                <TextBlock Margin="5 0" Text="Items" Foreground="{Binding Source={StaticResource Global},Path=CakesTextColor}" FontSize="17" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                    <!--Statistic button-->
+                    <Button  IsEnabled="{Binding IsManager}" Name="StatisticBtn" Margin="0 10" Padding="0 5" Background="{x:Null}" BorderBrush="{x:Null}"  Width="auto" Height="auto" Command="{Binding StatisticCommand}">
+                        <Border Margin="0" Padding="0 7"   Background="{Binding Source={StaticResource Global},Path=StatisticColor}"  Width="{Binding ActualWidth, ElementName=StatisticBtn}"  Height="auto">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Margin="10 0 0 0" Kind="ChartBoxOutline" Width="35" Height="35" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=StatisticTextColor}" />
+                                <TextBlock Margin="5 0" Text="Statistic" Foreground="{Binding Source={StaticResource Global},Path=StatisticTextColor}"  FontSize="17" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                    <!--Setting button-->
+                    <Button  IsEnabled="{Binding IsManager}" Name="SettingsBtn" Margin="0 10" Padding="0 5" Background="{x:Null}" BorderBrush="{x:Null}" Width="auto" Height="auto" Command="{Binding SettingCommand}">
+                        <Border Margin="0" Padding="0 7"   Background="{Binding Source={StaticResource Global},Path=SettingColor}" Width="{Binding ActualWidth, ElementName=StatisticBtn}" Height="auto">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Margin="10 0 0 0" Kind="ApplicationSettings" Width="35" Height="35" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}" />
+                                <TextBlock Margin="5 0" Text="Settings" Foreground="{Binding Source={StaticResource Global},Path=SettingTextColor}" VerticalAlignment="Center" FontSize="17" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                    <Button Name="SwitchModeBtn" Margin="0 10" Padding="0 5" Background="{x:Null}" BorderBrush="{x:Null}" Width="auto" Height="auto" Command="{Binding ModeSwitchingCommand}">
+                        <Border Margin="0" Padding="0 7"  Width="{Binding ActualWidth, ElementName=SwitchModeBtn}" Height="auto">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Margin="10 0 0 0" Kind="SwitchAccount" Width="35" Height="35" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=SwitchModeTextColor}" />
+                                <TextBlock Margin="5 0" Text="Mode Switching" Foreground="{Binding Source={StaticResource Global},Path=SwitchModeTextColor}" VerticalAlignment="Center" FontSize="17" FontWeight="Medium" HorizontalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Bottom" Height="30" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock FontSize="15" Foreground="Gray" Text="Version: "></TextBlock>
+                    <TextBlock FontSize="15" Foreground="Gray" Text="{Binding VersionTextBlock}"></TextBlock>
+                </StackPanel>
+            </DockPanel>
+
+            <ContentControl Grid.Column="1" DockPanel.Dock="Right" Margin="10 0" Content="{Binding Source={StaticResource Global},Path=CurrentPageViewModel}">
+
+            </ContentControl>
         </DockPanel>
-
-        <ContentControl Grid.Column="1" DockPanel.Dock="Right" Margin="10 0" Content="{Binding Source={StaticResource Global},Path=CurrentPageViewModel}">
-
-        </ContentControl>
-    </DockPanel>
+    </Grid>
 </Window>

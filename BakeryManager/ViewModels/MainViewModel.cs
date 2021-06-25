@@ -21,10 +21,22 @@ namespace BakeryManager.ViewModels
         private String _settingColor = Brushes.White.ToString();
         private String _aboutColor = Brushes.White.ToString();
         private String _versionTextBlock = Brushes.White.ToString();
+
+        private bool _isKeyOn;
+        public bool IsKeyOn
+        {
+            get => _isKeyOn;
+            set
+            {
+                _isKeyOn = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region Commands
 
+        public Action CloseAppAction { get; set; }
         public ICommand HomeCommand { get; set; }
         public ICommand CheckOutCommand { get; set; }
         public ICommand StatisticCommand { get; set; }
@@ -33,11 +45,17 @@ namespace BakeryManager.ViewModels
         public ICommand AboutCommand { get; set; }
         public ICommand OpenPanelCommand { get; set; }
         public ICommand InvoiceListCommand { get; set; }
+        public ICommand OkCommand { get; set; }
+        public ICommand ModeSwitchingCommand { get; set; }
+
+        public ICommand CloseApp { get; set; }
+
         #endregion
 
         #region Panel
 
-        public bool IsManger {get;set;}
+        private bool _isManager;
+        public bool IsManager { get => _isManager; set { _isManager = value; OnPropertyChanged(); } }
 
         public String VersionTextBlock { get => _versionTextBlock; set { _versionTextBlock = value; OnPropertyChanged(); } }
 
@@ -61,12 +79,11 @@ namespace BakeryManager.ViewModels
 
         public MainViewModel()
         {
+            IsKeyOn = true;
+            IsManager = false;
             ResetPanelColor();
             global.HomeColor = PANEL_CLICK_COLOR;
             global.HomeTextColor = Brushes.White.ToString();
-
-            enableMangerFeature();
-
 
             VersionTextBlock = GetPublishedVersion();
             if (VersionTextBlock == null || VersionTextBlock == "")
@@ -111,12 +128,48 @@ namespace BakeryManager.ViewModels
                 global.SettingTextColor = Brushes.White.ToString();
                 global.CurrentPageViewModel = new SettingUCViewModel();
             });
+
+            ModeSwitchingCommand = new RelayCommand<object>((param) => { return true; }, (param) => {
+                
+                IsKeyOn = true;
+                ResetPanelColor();
+                global.SwitchModeColor = PANEL_CLICK_COLOR;
+                global.SwitchModeTextColor = Brushes.White.ToString();
+            });
+
+
+            OkCommand = new RelayCommand<object>((param) => { return true; }, (param) =>
+            {
+                Execute(param);
+            });
+
+            CloseApp = new RelayCommand<object>((param) => { return true; }, (param) =>
+            { 
+                
+            });
         }
 
-
-        void enableMangerFeature()
+        void Execute(object parameter)
         {
-            IsManger = Boolean.Parse(ConfigurationManager.AppSettings["IsManager"]);
+            var passwordBox = parameter as PasswordBox;
+            var password = passwordBox.Password;
+            //Now go ahead and check the user name and password
+            if (password == ConfigurationManager.AppSettings["ManagerKey"])
+            {
+                IsManager = true;
+                IsKeyOn = false;
+            }
+            else if (password == ConfigurationManager.AppSettings["EmployeeKey"])
+            {
+                ResetPanelColor();
+                global.HomeColor = PANEL_CLICK_COLOR;
+                global.HomeTextColor = Brushes.White.ToString();
+                global.CurrentPageViewModel = HomeUCViewModel.GetInstance();
+                IsManager = false;
+                IsKeyOn = false;
+            }
+            (parameter as PasswordBox).Clear();
+            OnPropertyChanged();
         }
         void ResetPanelColor()
         {
@@ -137,6 +190,9 @@ namespace BakeryManager.ViewModels
 
             global.InvoiceListColor = PANEL_COLOR;
             global.InvoiceListTextColor = Brushes.White.ToString();
+
+            global.SwitchModeColor = PANEL_COLOR;
+            global.SwitchModeTextColor = Brushes.White.ToString();
         }
     }
 }

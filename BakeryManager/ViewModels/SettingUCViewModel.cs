@@ -20,6 +20,9 @@ namespace BakeryManager.ViewModels
                 ConfigurationUserLevel.None);
             config.AppSettings.Settings["ManagerKey"].Value = newKey;
             config.Save(ConfigurationSaveMode.Minimal);
+
+            ConfigurationManager.RefreshSection("appSettings");
+            OnPropertyChanged();
         }
 
         private string _employeeKey;
@@ -31,6 +34,9 @@ namespace BakeryManager.ViewModels
                 ConfigurationUserLevel.None);
             config.AppSettings.Settings["EmployeeKey"].Value = newKey;
             config.Save(ConfigurationSaveMode.Minimal);
+
+            ConfigurationManager.RefreshSection("appSettings");
+            OnPropertyChanged();
         }
 
         public bool IsShowSplash

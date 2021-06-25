@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using BakeryManager.ViewModels;
+using System;
+using System.Windows;
 
 namespace BakeryManager
 {
@@ -10,6 +12,9 @@ namespace BakeryManager
         public MainWindow()
         {
             InitializeComponent();
+            MainViewModel mvm = new MainViewModel();
+            this.DataContext = mvm;
+            mvm.CloseAppAction = new Action(this.Close);
         }
     }
 }

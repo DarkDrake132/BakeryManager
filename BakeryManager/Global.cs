@@ -65,6 +65,9 @@ namespace BakeryManager
 
         private String _statColor;
 
+        private String _modeColor;
+        private String _modeTextColor;
+
         private String _statTextColor;
 
         private String _settingColor;
@@ -99,6 +102,9 @@ namespace BakeryManager
 
         public String InvoiceListColor { get => _invoiceListColor; set { _invoiceListColor = value; OnPropertyChanged("InvoiceListColor"); } }
         public String InvoiceListTextColor { get => _invoiceListTextColor; set { _invoiceListTextColor = value; OnPropertyChanged("InvoiceListTextColor"); } }
+
+        public String SwitchModeColor { get => _modeColor; set { _modeColor = value; OnPropertyChanged("SwitchModeColor"); } }
+        public String SwitchModeTextColor { get => _modeTextColor; set { _modeTextColor = value; OnPropertyChanged("SwitchModeTextColor"); } }
 
         public BaseViewModel CurrentPageViewModel { get => _currentPageViewModel; set { _currentPageViewModel = value; OnPropertyChanged("CurrentPageViewModel"); } }
 

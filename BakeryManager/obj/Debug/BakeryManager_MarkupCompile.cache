@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\obj\Debug\
+D:\School Work\Semester 6\Design app\BakeryManager\a\BakeryManager\obj\Debug\
 BakeryManager
 none
 false
 DEBUG;TRACE
-C:\Users\Dell\Desktop\TKPM\TKPM_CakeShopApp\BakeryManager\BakeryManager\App.xaml
+D:\School Work\Semester 6\Design app\BakeryManager\a\BakeryManager\App.xaml
 9-237940198
 21628163737
 36-1162148317
-34-1096665114
+35509000518
 MainWindow.xaml;ResourceDictionaries\CommonStyle.xaml;ResourceDictionaries\MainResource.xaml;SplashScreenWindow.xaml;Views\UC\CakesUC.xaml;Views\UC\HomeUC.xaml;Views\UC\InvoiceListUC.xaml;Views\UC\SettingUC.xaml;Views\UC\StatisticsUC.xaml;
 
 False
