@@ -23,10 +23,9 @@
         ResizeMode="NoResize" WindowStyle="None" 
         Name="SplashScreenWindow">
     <Window.Resources>
-        <!--<ObjectDataProvider x:Key="themeColor"
+        <ObjectDataProvider x:Key="themeColor"
                       ObjectType="{x:Type local:Global}"
                       MethodName="GetInstance" />
-        <model:BytesToBitMapConverter x:Key="ImageConverter" />-->
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -49,7 +48,7 @@
             <DockPanel HorizontalAlignment="Right" Margin="0 0 60 0" Background="White" Width="350">
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Background="White">
                     <Image Source="/Assets/Icon.png" Width="180" Height="180" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Top" Margin="0 0 0 0"/>
-                    <TextBlock FontWeight="Bold" Text="Bakery Manager" HorizontalAlignment="Center" Margin="0 20" VerticalAlignment="Top"  Foreground="SaddleBrown" FontSize="40"/>
+                        <TextBlock FontWeight="Bold" Text="Bakery Manager" HorizontalAlignment="Center" Margin="0 20" VerticalAlignment="Top"  Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}" FontSize="40"/>
                     <!--Cake description-->
                     <TextBlock Text="{Binding CakeName}" FontSize="25" FontWeight="Medium" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <Border HorizontalAlignment="Center" Width="400"  Height="210" CornerRadius="20" BorderThickness="2" Background="Transparent" Padding="5">
@@ -63,8 +62,8 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="15" FontWeight="Medium" Foreground="White" Text="Không hiện cửa sổ này lần sau" Margin="12,18,5,16"/>
                             <ToggleButton
-                    Background="SaddleBrown"
-                    BorderBrush="SaddleBrown"
+                    Background="{Binding Source={StaticResource themeColor},Path=ThemeColor}"
+                    BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}"
                     Name="IsCloseSplashScreen"
                     IsChecked="False"
                     Command="{Binding ChangeShow}"
@@ -80,7 +79,7 @@
 
                         </StackPanel>
                     </Border>
-                    <ProgressBar x:Name ="timeProgessBar" Height="10" VerticalAlignment="Bottom" Width="300" Margin="0,0,0,50" Value="{Binding ProgressBarValue}" Maximum="3000" Minimum="0" Background="White" BorderBrush="Black" Foreground="SaddleBrown" >
+                        <ProgressBar x:Name ="timeProgessBar" Height="10" VerticalAlignment="Bottom" Width="300" Margin="0,0,0,50" Value="{Binding ProgressBarValue}" Maximum="3000" Minimum="0" Background="White" BorderBrush="Black" Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}" >
                         <ProgressBar.Effect>
                             <DropShadowEffect BlurRadius="10" ShadowDepth="5"></DropShadowEffect>
                         </ProgressBar.Effect>

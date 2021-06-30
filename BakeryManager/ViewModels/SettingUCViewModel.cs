@@ -1,14 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BakeryManager.ViewModels
 {
     class SettingUCViewModel : BaseViewModel
     {
+
+        private String[] _color = { "#FF8B4513", "#e91e63", "#ab47bc", "#7e57c2", "#5c6bc0", "#2196f3", "#03a9f4", "#00bcd4", "#009688", "#4caf50", "#7cb342", "#9e9d24", "#ef6c00", "#e64a19", "#8d6e83", "#607d8b" };
+
+        public String[] Colors { get => _color; set { _color = value; OnPropertyChanged(); } }
+
+        public ICommand ThemeButtonCommand { get; set; }
+
+        public Global globalTheme = Global.GetInstance();
+
         private bool _isShowSplash;
 
         private string _managerKey;
@@ -60,6 +71,30 @@ namespace BakeryManager.ViewModels
 
             ManagerKey = ConfigurationManager.AppSettings["ManagerKey"];
             EmployeeKey = ConfigurationManager.AppSettings["EmployeeKey"];
+
+
+
+            ThemeButtonCommand = new RelayCommand<String>((prop) => { return true; }, (prop) =>
+            {
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings["ThemeColor"].Value = prop;
+                config.Save(ConfigurationSaveMode.Minimal);
+
+                ConfigurationManager.RefreshSection("ThemeColor");
+
+                globalTheme.ThemeColor = prop;
+                globalTheme.OnPropertyChanged("ThemeColor");
+                globalTheme.StatisticColor = prop;
+                globalTheme.OnPropertyChanged("StatisticColor");
+                globalTheme.SettingColor = prop;
+                globalTheme.OnPropertyChanged("SettingColor");
+                globalTheme.HomeColor = prop;
+                globalTheme.OnPropertyChanged("HomeColor");
+                globalTheme.CakesColor = prop;
+                globalTheme.OnPropertyChanged("CakesColor");
+                globalTheme.InvoiceListColor = prop;
+                globalTheme.OnPropertyChanged("InvoiceListColor");
+            });
         }
 
     }

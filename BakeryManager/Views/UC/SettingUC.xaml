@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BakeryManager.Views.UC"
+             xmlns:xlocal="clr-namespace:BakeryManager"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:models="clr-namespace:BakeryManager.Models"
             
@@ -17,12 +17,17 @@
 
             mc:Ignorable="d" 
             d:DesignHeight="850" d:DesignWidth="1100">
-    <StackPanel Orientation="Vertical">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="themeColor"
+                      ObjectType="{x:Type xlocal:Global}"
+                      MethodName="GetInstance" />
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical" CanVerticallyScroll="True">
         <materialDesign:Card MinWidth="300" Padding="0 5" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="auto" UniformCornerRadius="10" Margin="10">
             <StackPanel Orientation="Horizontal">
                 <TextBlock FontSize="30" FontWeight="Medium" Text="Splash Screen" Margin="20 0" VerticalAlignment="Center"></TextBlock>
                 <CheckBox
-                                             Background ="SaddleBrown"
+                                             Background ="{Binding Source={StaticResource themeColor},Path=ThemeColor}"
                                                   Margin="30 5"
                                             IsChecked="{Binding IsShowSplash}"
                         materialDesign:CheckBoxAssist.CheckBoxSize="50">
@@ -56,6 +61,28 @@
                             AcceptsReturn="True"
                             Text="{Binding EmployeeKey,UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
+            </StackPanel>
+        </materialDesign:Card>
+        <materialDesign:Card Margin="10 10" MinWidth="650" Padding="0 5" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="auto" UniformCornerRadius="10">
+            <StackPanel>
+                <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="APP THEME" FontSize="30" FontWeight="DemiBold" Foreground="Black" Margin="10 0 0 0" />
+                <ItemsControl x:Name="colorList" ItemsSource="{Binding Colors}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10" MinWidth="650">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Background="{x:Null}" BorderBrush="{x:Null}" Padding="0"  Margin="0 20 40 20" Width="100" Height="100" Command="{Binding ElementName=colorList,Path=DataContext.ThemeButtonCommand}" CommandParameter="{Binding}">
+                                <Button.Effect>
+                                    <DropShadowEffect BlurRadius="10" ShadowDepth="5"/>
+                                </Button.Effect>
+                                <Border x:Name="colorBorder" Background="{Binding}" BorderBrush="{Binding}" BorderThickness="2" Width="100" Height="100" Style="{StaticResource onBorderOver}"/>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
             </StackPanel>
         </materialDesign:Card>
         <StackPanel HorizontalAlignment="Left" Orientation="Vertical" VerticalAlignment="Top">

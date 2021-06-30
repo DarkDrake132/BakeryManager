@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BakeryManager.Views.UC"
+              xmlns:xlocal ="clr-namespace:BakeryManager"
              xmlns:models="clr-namespace:BakeryManager.Models"
              xmlns:vm="clr-namespace:BakeryManager.ViewModels"
              
@@ -21,6 +22,10 @@
             mc:Ignorable="d" 
             d:DesignHeight="850" d:DesignWidth="1100">
     <UserControl.Resources>
+        <ObjectDataProvider x:Key="themeColor"
+                      ObjectType="{x:Type xlocal:Global}"
+                      MethodName="GetInstance" />
+
         <models:BytesToBitMapConverter x:Key="ImageConverter"/>
         <models:NumberToVNDConverter x:Key="MoneyComverter"/>
         <models:DateConverter x:Key="DateConverter"/>
@@ -37,7 +42,7 @@
             <Setter Property="Background" Value="WhiteSmoke"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="SaddleBrown"></Setter>
+                    <Setter Property="Background" Value="{Binding Source={StaticResource themeColor},Path=ThemeColor}"></Setter>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -159,16 +164,16 @@
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  VerticalAlignment="Center" Text="{Binding NewProductDescription}" Height="130" Width="450"/>
                             <StackPanel Orientation="Horizontal">
-                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Thêm ảnh" Width="100"  Command="{Binding AddImageCommand}"></Button>
-                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Đặt làm ảnh chính" Width="150"  Command="{Binding SetThumbnailCommand}" IsEnabled="{Binding IsEnabledSetImageButton}"></Button>
-                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Xóa" Width="60"  Command="{Binding DeleteImageCommand}" IsEnabled="{Binding IsEnabledDeleteImageButton}"></Button>
+                                <Button Background="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderBrush="{x:Null}" Margin="5 20" Content="Thêm ảnh" Width="100"  Command="{Binding AddImageCommand}"></Button>
+                                <Button Background="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderBrush="{x:Null}" Margin="5 20" Content="Đặt làm ảnh chính" Width="150"  Command="{Binding SetThumbnailCommand}" IsEnabled="{Binding IsEnabledSetImageButton}"></Button>
+                                <Button Background="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderBrush="{x:Null}" Margin="5 20" Content="Xóa" Width="60"  Command="{Binding DeleteImageCommand}" IsEnabled="{Binding IsEnabledDeleteImageButton}"></Button>
 
                             </StackPanel>
-                            <ListView ItemsSource="{Binding NewProductImages}" SelectedItem="{Binding SelectedNewProductImage}" BorderBrush="SaddleBrown" BorderThickness="1" Background="LightGray">
+                            <ListView ItemsSource="{Binding NewProductImages}" SelectedItem="{Binding SelectedNewProductImage}" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderThickness="1" Background="LightGray">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="SaddleBrown" Height="120" Width="120" HorizontalAlignment="Left">
+                                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Height="120" Width="120" HorizontalAlignment="Left">
                                                 <Image Source="{Binding ByteImage, Converter={StaticResource ImageConverter}}" Width="110" Height="110" Margin="5"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -331,16 +336,16 @@
                                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                              VerticalAlignment="Center" Text="{Binding NewProductDescription}" Height="130" Width="450"/>
                             <StackPanel Orientation="Horizontal">
-                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Thêm ảnh" Width="100"  Command="{Binding AddImageCommand}"></Button>
-                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Đặt làm ảnh chính" Width="150"  Command="{Binding SetThumbnailCommand}" IsEnabled="{Binding IsEnabledSetImageButton}"></Button>
-                                <Button Background="SaddleBrown" BorderBrush="{x:Null}" Margin="5 20" Content="Xóa" Width="60"  Command="{Binding DeleteImageCommand}" IsEnabled="{Binding IsEnabledDeleteImageButton}"></Button>
+                                <Button Background="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderBrush="{x:Null}" Margin="5 20" Content="Thêm ảnh" Width="100"  Command="{Binding AddImageCommand}"></Button>
+                                <Button Background="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderBrush="{x:Null}" Margin="5 20" Content="Đặt làm ảnh chính" Width="150"  Command="{Binding SetThumbnailCommand}" IsEnabled="{Binding IsEnabledSetImageButton}"></Button>
+                                <Button Background="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderBrush="{x:Null}" Margin="5 20" Content="Xóa" Width="60"  Command="{Binding DeleteImageCommand}" IsEnabled="{Binding IsEnabledDeleteImageButton}"></Button>
 
                             </StackPanel>
-                            <ListView ItemsSource="{Binding NewProductImages}" SelectedItem="{Binding SelectedNewProductImage}" BorderBrush="SaddleBrown" BorderThickness="1" Background="LightGray">
+                            <ListView ItemsSource="{Binding NewProductImages}" SelectedItem="{Binding SelectedNewProductImage}" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderThickness="1" Background="LightGray">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="SaddleBrown" Height="120" Width="120" HorizontalAlignment="Left">
+                                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Height="120" Width="120" HorizontalAlignment="Left">
                                                 <Image Source="{Binding ByteImage, Converter={StaticResource ImageConverter}}" Width="110" Height="110" Margin="5"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -468,32 +473,32 @@
                                     </TextBox>
                                 </Grid>
                             </StackPanel>
-                            <TextBlock Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="SaddleBrown">ẢNH</TextBlock>
+                            <TextBlock Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}">ẢNH</TextBlock>
                             <Border Name="Mask2"
                                     Background="White"
-                                    BorderBrush="SaddleBrown"
+                                    BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}"
                                     BorderThickness="2"
                                     CornerRadius="30" Margin="20" Height="300" Grid.Column="1">
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                     <Button Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Margin="0" Command="{Binding PrevImageCommand}" CommandParameter="{Binding ElementName=ImageHolder}" Visibility="{Binding ChangeImageVisibility}">
                                         <Border Style="{StaticResource HolderButton}">
-                                            <materialDesign:PackIcon Kind="ChevronLeft" Width="35" Height="35" Foreground="SaddleBrown" />
+                                            <materialDesign:PackIcon Kind="ChevronLeft" Width="35" Height="35" Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}" />
                                         </Border>
                                     </Button>
                                     <Image x:Name="ImageHolder" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" Source="{Binding ImageHolder, Converter={StaticResource ImageConverter}}" Width="330" Height="280"/>
                                     <Button Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Command="{Binding NextImageCommand}"  CommandParameter="{Binding ElementName=ImageHolder}" Visibility="{Binding ChangeImageVisibility}">
                                         <Border Style="{StaticResource HolderButton}">
-                                            <materialDesign:PackIcon Kind="ChevronRight" Width="35" Height="35" Foreground="SaddleBrown" />
+                                            <materialDesign:PackIcon Kind="ChevronRight" Width="35" Height="35" Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}" />
                                         </Border>
                                     </Button>
                                 </StackPanel>
                             </Border>
                         </Grid>
-                        <TextBlock Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="SaddleBrown">MÔ TẢ</TextBlock>
+                        <TextBlock Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}">MÔ TẢ</TextBlock>
                         <Grid Grid.Row="1" Width="900">
                             <Border Name="Mask1"
                                     Background="White"
-                                    BorderBrush="SaddleBrown"
+                                    BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}"
                                     BorderThickness="2"
                                     CornerRadius="30" Margin="20" Height="300" Grid.Row="0" Padding="10">
                                 <TextBlock Text="{Binding DetailProductDescription}" Grid.Row="0" FontSize="15" FontWeight="Medium" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap">
@@ -521,7 +526,7 @@
         <DockPanel>
             <StackPanel DockPanel.Dock="Top" Height="75" Orientation="Horizontal">
                 <!--Search Bar-->
-                <Border BorderThickness="1" BorderBrush="SaddleBrown" CornerRadius="10" Margin="5 10 20 10">
+                <Border BorderThickness="1" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" CornerRadius="10" Margin="5 10 20 10">
                     <StackPanel  Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Foreground="Gray" VerticalAlignment="Center" Kind="Magnify" Width="30" Height="30" />
                         <TextBox DockPanel.Dock="Right"
@@ -535,16 +540,16 @@
                 </Border>
 
                 <!--Nút thêm sản phẩm-->
-                <Button Width="170" Height="55" Background="White" BorderThickness="1" BorderBrush="SaddleBrown"  ToolTip="Add New Cake" HorizontalAlignment="Left"
+                <Button Width="170" Height="55" Background="White" BorderThickness="1" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}"  ToolTip="Add New Cake" HorizontalAlignment="Left"
                         Command="{Binding ClickAddProductButtonCommand}" VerticalAlignment="Top" Margin="10">
-                    <materialDesign:PackIcon Foreground="SaddleBrown"  Width="50" Height="40" Kind="Plus"/>
+                    <materialDesign:PackIcon Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}"  Width="50" Height="40" Kind="Plus"/>
                 </Button>
             </StackPanel>
 
             <!--Categories Tree-->
             <StackPanel DockPanel.Dock="Right" Width="230" Margin="0 10" >
                 <TextBlock FontSize="20" HorizontalAlignment="Right" FontWeight="Medium" Text="Categories Tree"></TextBlock>
-                <Grid Height="2" Background="SaddleBrown" Margin="10 10 0 5"></Grid>
+                <Grid Height="2" Background="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Margin="10 10 0 5"></Grid>
                 <TreeView x:Name="categories" Padding="0" ItemsSource="{Binding Categories}" FlowDirection="RightToLeft" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectedItemChanged">
@@ -587,7 +592,7 @@
                         Header="Name" Width="150">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap"  FontSize="15" FontWeight="Medium" Margin="10 5" Foreground="SaddleBrown" Text="{Binding Name}" ></TextBlock>
+                                    <TextBlock TextWrapping="Wrap"  FontSize="15" FontWeight="Medium" Margin="10 5" Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Text="{Binding Name}" ></TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -620,7 +625,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                                        <Button Margin="10 5" Height="auto" BorderBrush="SaddleBrown" Background="Gray" BorderThickness="1" Padding="0" HorizontalAlignment="Right"
+                                        <Button Margin="10 5" Height="auto" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Background="Gray" BorderThickness="1" Padding="0" HorizontalAlignment="Right"
                                                 Command="{Binding ElementName=ProductsListView, Path=DataContext.ClickEditProductButtonCommand}" CommandParameter="{Binding Id}" ToolTip="Edit Cake">
                                             <TextBlock Text="EDIT" Padding="10"/>
                                         </Button>

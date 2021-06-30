@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BakeryManager.Views.UC"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:models="clr-namespace:BakeryManager.Models"
-            
+             xmlns:xlocal="clr-namespace:BakeryManager"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
@@ -18,6 +18,9 @@
             mc:Ignorable="d" 
             d:DesignHeight="850" d:DesignWidth="1100">
     <UserControl.Resources>
+        <ObjectDataProvider x:Key="themeColor"
+                      ObjectType="{x:Type xlocal:Global}"
+                      MethodName="GetInstance" />
         <models:DateConverter x:Key="DateConverter"/>
         <models:NumberToVNDConverter x:Key="MoneyConverter"/>
     </UserControl.Resources>
@@ -53,7 +56,7 @@
                             <TextBlock FontSize="17" FontWeight="Medium" Margin="10" Text="Phone                 : "/>
                             <TextBlock FontSize="17" FontWeight="Medium" Margin="10" Text="{Binding DetailPhone}"></TextBlock>
                         </StackPanel>
-                        <Border BorderBrush="SaddleBrown" BorderThickness="2" Padding="5" CornerRadius="10">
+                        <Border BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderThickness="2" Padding="5" CornerRadius="10">
                             <ListView
                             ItemsSource="{Binding DetailInvoices}">
                                 <ListView.View>
@@ -91,13 +94,13 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Vertical">
-                        <Border CornerRadius="10" BorderThickness="2" BorderBrush="SaddleBrown" Margin="5">
+                        <Border CornerRadius="10" BorderThickness="2" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Margin="5">
                             <StackPanel Orientation="Horizontal" Margin="10">
                                 <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Medium" Text="Date Create: "></TextBlock>
                                 <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Medium" Text="{Binding DetailDateCreate, Converter={StaticResource DateConverter}}"></TextBlock>
                             </StackPanel>
                         </Border>
-                        <Border CornerRadius="10" BorderThickness="2" BorderBrush="SaddleBrown" Margin="5">
+                        <Border CornerRadius="10" BorderThickness="2" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Margin="5">
                             <Grid Margin="5">
                                 <StackPanel Visibility="{Binding DirectPaymentVisibility}">
                                     <StackPanel Orientation="Horizontal" Margin="10">
@@ -162,7 +165,7 @@
                                 </Grid>
                             </Grid>
                         </Border>
-                        <Border BorderBrush="SaddleBrown" BorderThickness="2" Background="{x:Null}" CornerRadius="10" Margin="5">
+                        <Border BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderThickness="2" Background="{x:Null}" CornerRadius="10" Margin="5">
                             <StackPanel Orientation="Horizontal" Margin="10">
                                 <TextBlock VerticalAlignment="Center" Text="Total: " FontSize="15" FontWeight="Medium"></TextBlock>
                                 <TextBlock Width="100" Text="{Binding DetailTotal, Converter={StaticResource MoneyConverter}}"
@@ -186,7 +189,7 @@
         </materialDesign:DialogHost>
         <DockPanel>
             <!--Search Bar-->
-            <Border BorderThickness="1" BorderBrush="SaddleBrown" CornerRadius="10" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 10">
+            <Border BorderThickness="1" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" CornerRadius="10" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 10">
                 <StackPanel  Orientation="Horizontal" Margin="10" Width="300">
                     <materialDesign:PackIcon Foreground="Gray" VerticalAlignment="Center" Kind="Magnify" Width="30" Height="30" />
                     <TextBox DockPanel.Dock="Right"
@@ -206,7 +209,7 @@
                         Header="ID" Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap"  FontSize="15" FontWeight="Medium" Margin="10 5" Foreground="SaddleBrown" Text="{Binding Id}" ></TextBlock>
+                                    <TextBlock TextWrapping="Wrap"  FontSize="15" FontWeight="Medium" Margin="10 5" Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Text="{Binding Id}" ></TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -214,7 +217,7 @@
                         Header="Customer Name" Width="150">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap"  FontSize="15" FontWeight="Medium" Margin="10 5" Foreground="SaddleBrown" Text="{Binding Name}" ></TextBlock>
+                                    <TextBlock TextWrapping="Wrap"  FontSize="15" FontWeight="Medium" Margin="10 5" Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Text="{Binding Name}" ></TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -275,12 +278,12 @@
             </ListView>
 
             <!--Status Bar-->
-            <Border BorderThickness="1" VerticalAlignment="Top" BorderBrush="SaddleBrown" CornerRadius="10" Margin="0 10 20 10" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="250" Height="200">
+            <Border BorderThickness="1" VerticalAlignment="Top" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" CornerRadius="10" Margin="0 10 20 10" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="250" Height="200">
                 <StackPanel Margin="10" HorizontalAlignment="Center" Height="100" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" >
                         <TextBlock  Text="Tổng số hóa đơn" FontSize="20"></TextBlock>
                         <TextBlock  Text=":" FontSize="20" HorizontalAlignment="Right"></TextBlock>
-                        <TextBlock  Margin="10 0" Text="{Binding TotalInvoice}" Foreground="SaddleBrown" FontSize="20" HorizontalAlignment="Right"></TextBlock>
+                        <TextBlock  Margin="10 0" Text="{Binding TotalInvoice}" Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}" FontSize="20" HorizontalAlignment="Right"></TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" >
                         <TextBlock  Text="Đã thanh toán" FontSize="20"></TextBlock>

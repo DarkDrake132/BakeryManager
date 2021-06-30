@@ -15,7 +15,7 @@ namespace BakeryManager.ViewModels
         //private BaseViewModel _currentPageViewModel = null;
         //private Visibility _leftPanelVisibility = Visibility.Visible;
         private String PANEL_CLICK_COLOR = "#9E9E9E";
-        private String PANEL_COLOR = "#4A3933";
+        private String PANEL_COLOR = Global.GetInstance().ThemeColor;
         private String _addPlaceColor = Brushes.White.ToString();
         private String _addMemberColor = Brushes.White.ToString();
         private String _settingColor = Brushes.White.ToString();
@@ -173,6 +173,7 @@ namespace BakeryManager.ViewModels
         }
         void ResetPanelColor()
         {
+            PANEL_COLOR = Global.GetInstance().ThemeColor;
             global.HomeColor = PANEL_COLOR;
             global.HomeTextColor = Brushes.White.ToString();
 

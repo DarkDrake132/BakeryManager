@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BakeryManager.Views.UC"
+             xmlns:xlocal="clr-namespace:BakeryManager"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:models="clr-namespace:BakeryManager.Models"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
@@ -18,6 +19,11 @@
 
             mc:Ignorable="d" 
             d:DesignHeight="850" d:DesignWidth="1100">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="themeColor"
+                      ObjectType="{x:Type xlocal:Global}"
+                      MethodName="GetInstance" />
+    </UserControl.Resources>
     <Grid>
         <!-- chart list -->
         <Border  Background="white" CornerRadius="20" Margin="10 10 10 0"  >
@@ -27,7 +33,7 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <DockPanel LastChildFill="True">
-                    <Border DockPanel.Dock="Top" HorizontalAlignment="Center" CornerRadius="10" BorderBrush="SaddleBrown" BorderThickness="2">
+                    <Border DockPanel.Dock="Top" HorizontalAlignment="Center" CornerRadius="10" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderThickness="2">
                         <TextBlock Margin="10" FontSize="20" FontWeight="Medium"  Text="Statistics by Cakes Category "></TextBlock>
                     </Border>
                     <StackPanel Orientation="Vertical">
@@ -72,7 +78,7 @@
 
 
                 <DockPanel Grid.Row="1">
-                    <Border DockPanel.Dock="Top" HorizontalAlignment="Center" CornerRadius="10" BorderBrush="SaddleBrown" BorderThickness="2">
+                    <Border DockPanel.Dock="Top" HorizontalAlignment="Center" CornerRadius="10" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderThickness="2">
                         <TextBlock Margin="10" FontSize="20" FontWeight="Medium"  Text="Statistics by Months"></TextBlock>
                     </Border>
 
@@ -81,7 +87,7 @@
                             <lvc:DefaultTooltip BulletSize="20" Background="LightGray" SelectionMode="SharedXValues" FontSize="20"/>
                         </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Month" Labels="{Binding Labels}" Foreground="SaddleBrown" FontSize="15"></lvc:Axis>
+                            <lvc:Axis Title="Month" Labels="{Binding Labels}" Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}" FontSize="15"></lvc:Axis>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis Title="Revenue" LabelFormatter="{Binding Formatter}" FontSize="15"></lvc:Axis>

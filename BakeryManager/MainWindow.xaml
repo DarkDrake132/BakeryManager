@@ -63,10 +63,15 @@
                     DialogMargin="8">
             <materialDesign:DialogHost.DialogContent>
                 <StackPanel Orientation="Vertical" Background="White" Width="200" Height="150" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="Key" FontSize="20" FontWeight="Medium" Margin="0" HorizontalAlignment="Center"></TextBlock>
-                    <PasswordBox HorizontalContentAlignment="Center" Margin="10" Name="txtPassword"  Width="180" />
+                    <TextBlock Text="Key" FontSize="20" FontWeight="Medium" Margin="0" HorizontalAlignment="Center"/>
+                    <PasswordBox  HorizontalContentAlignment="Center" Margin="10" Name="txtPassword"  Width="180" Focusable="True" FocusManager.FocusedElement="{Binding ElementName=txtPassword}">
+                        <PasswordBox.InputBindings>
+                            <KeyBinding Command="{Binding OkCommand}" CommandParameter="{Binding ElementName=txtPassword}" Key="Enter"/>
+                        </PasswordBox.InputBindings>
+                    </PasswordBox>
                     <Button Width="180" Content="Enter" Command="{Binding Path=OkCommand}"
-   CommandParameter="{Binding ElementName=txtPassword}"/>
+   CommandParameter="{Binding ElementName=txtPassword}">
+                    </Button>
                     <Button Width="180" Margin="5" Content="Close" Background="Red" Command="{Binding Path=CloseApp}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
@@ -82,7 +87,7 @@
         </materialDesign:DialogHost>
 
         <DockPanel LastChildFill="True">
-            <DockPanel DockPanel.Dock="Left" Background="#4A3933">
+            <DockPanel DockPanel.Dock="Left" Background="{Binding Source={StaticResource themeColor},Path=ThemeColor}">
                 <StackPanel DockPanel.Dock="Top" Height="auto" Width="210" Orientation="Vertical">
                     <!--icon-->
                     <Image Source="pack://application:,,,/Assets/Icon.png" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Width="120"/>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xlocal="clr-namespace:BakeryManager"
              xmlns:local="clr-namespace:BakeryManager.Views.UC"
              xmlns:vm="clr-namespace:BakeryManager.ViewModels"
              
@@ -19,6 +20,10 @@
             mc:Ignorable="d" 
             d:DesignHeight="850" d:DesignWidth="1100">
     <UserControl.Resources>
+        <ObjectDataProvider x:Key="themeColor"
+                      ObjectType="{x:Type xlocal:Global}"
+                      MethodName="GetInstance" />
+        
         <models:BytesToBitMapConverter x:Key="ImageConverter"/>
         <models:NumberToVNDConverter x:Key="MoneyConverter"/>
         <models:DateConverter x:Key="DateConverter"/>
@@ -220,7 +225,7 @@
                                     </StackPanel>
                                     
                                 </StackPanel>
-                                <Border Margin="0 20 0 0" BorderBrush="SaddleBrown" BorderThickness="2" HorizontalAlignment="Center">
+                                <Border Margin="0 20 0 0" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderThickness="2" HorizontalAlignment="Center">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
                                         <TextBlock Text="Tổng: " FontSize="15" FontWeight="Medium" VerticalAlignment="Center"  ></TextBlock>
                                         <TextBlock  Text="{Binding SummaryPrice, Converter={StaticResource MoneyConverter}}" VerticalAlignment="Center" FontSize="15" FontWeight="Medium" ></TextBlock>
@@ -288,7 +293,7 @@
                                 </vm:RoutedEventTrigger>
                             </i:Interaction.Triggers>
                         </TextBox>
-                        <Border BorderBrush="SaddleBrown" BorderThickness="2" Padding="5" CornerRadius="10">
+                        <Border BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderThickness="2" Padding="5" CornerRadius="10">
                             <ListView
                             ItemsSource="{Binding CheckOutDetails}">
                                 <ListView.View>
@@ -326,7 +331,7 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Vertical">
-                        <Border CornerRadius="10" BorderThickness="2" BorderBrush="SaddleBrown" Margin="5">
+                        <Border CornerRadius="10" BorderThickness="2" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Margin="5">
                             <materialDesign:Flipper Margin="10">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="IsFlippedChanged">
@@ -415,7 +420,7 @@
                                                 Margin="5"
                                               Width="auto" FontSize="20"
                                               materialDesign:HintAssist.Hint="Create Date"
-                                                        Foreground="SaddleBrown"
+                                                        Foreground="{Binding Source={StaticResource themeColor},Path=ThemeColor}"
                                                         Background="White"
                                               Style="{StaticResource MaterialDesignOutlinedDatePicker}">
                                                 <DatePicker.SelectedDate>
@@ -477,7 +482,7 @@
                                 </materialDesign:Flipper.BackContent>
                             </materialDesign:Flipper>
                         </Border>
-                        <Border BorderBrush="SaddleBrown" BorderThickness="2" Background="{x:Null}" CornerRadius="10" Margin="5">
+                        <Border BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderThickness="2" Background="{x:Null}" CornerRadius="10" Margin="5">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal" Margin="10">
                                     <TextBlock VerticalAlignment="Center" Text="% Off: " FontSize="15" FontWeight="Medium"></TextBlock>
@@ -535,7 +540,7 @@
                         ToolTip="Thanh toán đơn hàng"
                     IsEnabled="{Binding IsEnabledFirstCheckoutButton}"
                     Margin="0 0 30 0">
-                <Border CornerRadius="10" Background="SaddleBrown">
+                <Border CornerRadius="10" Background="{Binding Source={StaticResource themeColor},Path=ThemeColor}">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <TextBlock Text="Check Out: " FontSize="25" ></TextBlock>
                         <TextBlock Text="{Binding DetailInListTotalPrice, Converter={StaticResource MoneyConverter}}" FontSize="25" ></TextBlock>
