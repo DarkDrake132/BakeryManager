@@ -12,7 +12,8 @@ namespace BakeryManager.ViewModels
     class SettingUCViewModel : BaseViewModel
     {
 
-        private String[] _color = { "#FF8B4513", "#e91e63", "#ab47bc", "#7e57c2", "#5c6bc0", "#2196f3", "#03a9f4", "#00bcd4", "#009688", "#4caf50", "#7cb342", "#9e9d24", "#ef6c00", "#e64a19", "#8d6e83", "#607d8b" };
+        private String[] _color = { "#FF8B4513", "#e91e63", "#ab47bc", "#7e57c2", "#5c6bc0", "#2196f3", "#03a9f4", "#00bcd4", "#009688", "#4caf50", "#7cb342", "#9e9d24", "#ef6c00", "#e64a19", "#8d6e83", "#607d8b",
+                                   "#8A2BE2", "#DEB887", "#5F9EA0", "#D2691E", "#FF7F50", "#6495ED", "#DC143C"};
 
         public String[] Colors { get => _color; set { _color = value; OnPropertyChanged(); } }
 
