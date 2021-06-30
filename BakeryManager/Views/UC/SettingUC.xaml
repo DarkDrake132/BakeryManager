@@ -22,125 +22,127 @@
                       ObjectType="{x:Type xlocal:Global}"
                       MethodName="GetInstance" />
     </UserControl.Resources>
-    <StackPanel Orientation="Vertical" CanVerticallyScroll="True">
-        <materialDesign:Card MinWidth="300" Padding="0 5" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="auto" UniformCornerRadius="10" Margin="10">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock FontSize="30" FontWeight="Medium" Text="Splash Screen" Margin="20 0" VerticalAlignment="Center"></TextBlock>
-                <CheckBox
-                                             Background ="{Binding Source={StaticResource themeColor},Path=ThemeColor}"
-                                                  Margin="30 5"
-                                            IsChecked="{Binding IsShowSplash}"
-                        materialDesign:CheckBoxAssist.CheckBoxSize="50">
-                </CheckBox>
-            </StackPanel>
-        </materialDesign:Card>
-        <materialDesign:Card MinWidth="300" Padding="0 5" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="auto" UniformCornerRadius="10" Margin="10">
-            <StackPanel Orientation="Vertical" Margin="0 10">
-                <StackPanel Orientation="Horizontal" Margin="0 10 10 10">
-                    <TextBlock FontSize="30" FontWeight="Medium" Text="Manager Key" Margin="20 0" VerticalAlignment="Center"></TextBlock>
-                    <TextBox DockPanel.Dock="Right"
-                            VerticalAlignment="Center"
-                            Width="200"
-                            Height="30"
-                            AcceptsReturn="True"
-                            FontSize="25"
-                             TextAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             Padding="0"
-                            Text="{Binding ManagerKey,UpdateSourceTrigger=PropertyChanged}"/>
+    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" MaxWidth="1100" Width="1100" Height="850">
+        <StackPanel Orientation="Vertical" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="1100" Margin="10">
+            <materialDesign:Card MinWidth="300" Padding="0 5" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="auto" UniformCornerRadius="10" Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontSize="30" FontWeight="Medium" Text="Splash Screen" Margin="20 0" VerticalAlignment="Center"></TextBlock>
+                    <CheckBox
+                                                 Background ="{Binding Source={StaticResource themeColor},Path=ThemeColor}"
+                                                      Margin="30 5"
+                                                IsChecked="{Binding IsShowSplash}"
+                            materialDesign:CheckBoxAssist.CheckBoxSize="50">
+                    </CheckBox>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal"  Margin="0 10 10 10">
-                    <TextBlock FontSize="30" FontWeight="Medium" Text="Employee Key" Margin="20 0" VerticalAlignment="Center"></TextBlock>
-                    <TextBox DockPanel.Dock="Right"
-                            VerticalAlignment="Center"
-                            Width="200"
-                             Padding="0"
-                            FontSize="25"
-                              TextAlignment="Center"
-                            Height="30"
-                            AcceptsReturn="True"
-                            Text="{Binding EmployeeKey,UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
-            </StackPanel>
-        </materialDesign:Card>
-        <materialDesign:Card Margin="10 10" MinWidth="650" Padding="0 5" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="auto" UniformCornerRadius="10">
-            <StackPanel>
-                <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="APP THEME" FontSize="30" FontWeight="DemiBold" Foreground="Black" Margin="10 0 0 0" />
-                <ItemsControl x:Name="colorList" ItemsSource="{Binding Colors}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10" MinWidth="650">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button Background="{x:Null}" BorderBrush="{x:Null}" Padding="0"  Margin="0 20 40 20" Width="100" Height="100" Command="{Binding ElementName=colorList,Path=DataContext.ThemeButtonCommand}" CommandParameter="{Binding}">
-                                <Button.Effect>
-                                    <DropShadowEffect BlurRadius="10" ShadowDepth="5"/>
-                                </Button.Effect>
-                                <Border x:Name="colorBorder" Background="{Binding}" BorderBrush="{Binding}" BorderThickness="2" Width="100" Height="100" Style="{StaticResource onBorderOver}"/>
-                            </Button>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel></WrapPanel>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </StackPanel>
-        </materialDesign:Card>
-        <StackPanel HorizontalAlignment="Left" Orientation="Vertical" VerticalAlignment="Top">
-            <materialDesign:Card UniformCornerRadius="5" Margin="10 0 0 10">
-                <StackPanel Orientation="Vertical" Margin="20">
-                    <TextBlock Text="About BakeryManager Application" FontSize="40" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
-
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="CodeNotEqualVariant" Width="40" Height="40" VerticalAlignment="Center" Margin="10 5"/>
-                            <StackPanel Orientation="Vertical" Margin="2">
-                                <TextBlock Text="WPF - Window Programming" FontSize="30" FontWeight="Medium" VerticalAlignment="Center" Margin="5 5 0 0"></TextBlock>
-                                <TextBlock Text="Languague: C Sharp (100%)" FontSize="30" FontWeight="Medium" VerticalAlignment="Center" Margin="5 5 0 5"></TextBlock>
-                                <TextBlock Text="Version: 1.0.0" FontSize="15" FontWeight="Medium" VerticalAlignment="Center" Margin="5 5 0 5"></TextBlock>
-                            </StackPanel>
-
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="AccountBox" Width="40" Height="40" VerticalAlignment="Center" Margin="10 5"/>
-                            <StackPanel Orientation="Vertical" Margin="5 0">
-                                <StackPanel Orientation="Horizontal" Margin="0 2">
-                                    <materialDesign:PackIcon Kind="Call" Width="40" Height="40" VerticalAlignment="Center" />
-                                    <TextBlock VerticalAlignment="Center" FontSize="20">
-                                    Contact for work - 0399477967
-                                    </TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0 2">
-                                    <materialDesign:PackIcon Kind="Gmail" Width="30" Height="30" VerticalAlignment="Center" />
-                                    <TextBlock Margin="5" FontSize="40" Text="ntminduy123@gmail.com">
-                                    </TextBlock>
-                                </StackPanel>
-                            </StackPanel>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Margin="10 0">
-                            <TextBlock Text="Copy right" FontWeight="Medium" VerticalAlignment="Center" Margin="5 0"></TextBlock>
-                            <materialDesign:PackIcon Kind="Copyright" Width="25" Height="25" VerticalAlignment="Center" Margin="5" />
-                            <TextBlock Margin="5" Text="2020" VerticalAlignment="Center" FontWeight="Medium">
-                            </TextBlock>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="DevTo" Width="40" Height="40" VerticalAlignment="Center" Margin="10 5 0 0"/>
-                            <StackPanel Orientation="Vertical" Margin="5 0">
-                                <StackPanel Orientation="Horizontal" Margin="0 2">
-                                    <materialDesign:PackIcon Kind="AccountTie" Width="35" Height="35" VerticalAlignment="Center" />
-                                    <TextBlock Margin="5" Text="Nguyễn Thanh Minh Duy - 18120172" FontSize="35"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0 2">
-                                    <materialDesign:PackIcon Kind="AccountTie" Width="35" Height="35" VerticalAlignment="Center" />
-                                    <TextBlock Margin="5" Text="Đoàn Xuân Bách - 18120156" FontSize="35"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0 2"/>
-                            </StackPanel>
-                        </StackPanel>
+            </materialDesign:Card>
+            <materialDesign:Card MinWidth="300" Padding="0 5" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="auto" UniformCornerRadius="10" Margin="10">
+                <StackPanel Orientation="Vertical" Margin="0 10">
+                    <StackPanel Orientation="Horizontal" Margin="0 10 10 10">
+                        <TextBlock FontSize="30" FontWeight="Medium" Text="Manager Key" Margin="20 0" VerticalAlignment="Center"></TextBlock>
+                        <TextBox DockPanel.Dock="Right"
+                                VerticalAlignment="Center"
+                                Width="200"
+                                Height="30"
+                                AcceptsReturn="True"
+                                FontSize="25"
+                                 TextAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Padding="0"
+                                Text="{Binding ManagerKey,UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  Margin="0 10 10 10">
+                        <TextBlock FontSize="30" FontWeight="Medium" Text="Employee Key" Margin="20 0" VerticalAlignment="Center"></TextBlock>
+                        <TextBox DockPanel.Dock="Right"
+                                VerticalAlignment="Center"
+                                Width="200"
+                                 Padding="0"
+                                FontSize="25"
+                                  TextAlignment="Center"
+                                Height="30"
+                                AcceptsReturn="True"
+                                Text="{Binding EmployeeKey,UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
             </materialDesign:Card>
+            <materialDesign:Card Margin="10 10" MinWidth="650" Padding="0 5" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="auto" UniformCornerRadius="10">
+                <StackPanel>
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Text="APP THEME" FontSize="30" FontWeight="DemiBold" Foreground="Black" Margin="10 0 0 0" />
+                    <ItemsControl x:Name="colorList" ItemsSource="{Binding Colors}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10" MinWidth="650">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Background="{x:Null}" BorderBrush="{x:Null}" Padding="0"  Margin="0 20 40 20" Width="100" Height="100" Command="{Binding ElementName=colorList,Path=DataContext.ThemeButtonCommand}" CommandParameter="{Binding}">
+                                    <Button.Effect>
+                                        <DropShadowEffect BlurRadius="10" ShadowDepth="5"/>
+                                    </Button.Effect>
+                                    <Border x:Name="colorBorder" Background="{Binding}" BorderBrush="{Binding}" BorderThickness="2" Width="100" Height="100" Style="{StaticResource onBorderOver}"/>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+            </materialDesign:Card>
+            <StackPanel HorizontalAlignment="Left" Orientation="Vertical" VerticalAlignment="Top">
+                <materialDesign:Card UniformCornerRadius="5" Margin="10 0 0 10">
+                    <StackPanel Orientation="Vertical" Margin="20">
+                        <TextBlock Text="About BakeryManager Application" FontSize="40" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="CodeNotEqualVariant" Width="40" Height="40" VerticalAlignment="Center" Margin="10 5"/>
+                                <StackPanel Orientation="Vertical" Margin="2">
+                                    <TextBlock Text="WPF - Window Programming" FontSize="30" FontWeight="Medium" VerticalAlignment="Center" Margin="5 5 0 0"></TextBlock>
+                                    <TextBlock Text="Languague: C Sharp (100%)" FontSize="30" FontWeight="Medium" VerticalAlignment="Center" Margin="5 5 0 5"></TextBlock>
+                                    <TextBlock Text="Version: 1.0.0" FontSize="15" FontWeight="Medium" VerticalAlignment="Center" Margin="5 5 0 5"></TextBlock>
+                                </StackPanel>
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccountBox" Width="40" Height="40" VerticalAlignment="Center" Margin="10 5"/>
+                                <StackPanel Orientation="Vertical" Margin="5 0">
+                                    <StackPanel Orientation="Horizontal" Margin="0 2">
+                                        <materialDesign:PackIcon Kind="Call" Width="40" Height="40" VerticalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" FontSize="20">
+                                        Contact for work - 0399477967
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0 2">
+                                        <materialDesign:PackIcon Kind="Gmail" Width="30" Height="30" VerticalAlignment="Center" />
+                                        <TextBlock Margin="5" FontSize="40" Text="ntminduy123@gmail.com">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="10 0">
+                                <TextBlock Text="Copy right" FontWeight="Medium" VerticalAlignment="Center" Margin="5 0"></TextBlock>
+                                <materialDesign:PackIcon Kind="Copyright" Width="25" Height="25" VerticalAlignment="Center" Margin="5" />
+                                <TextBlock Margin="5" Text="2020" VerticalAlignment="Center" FontWeight="Medium">
+                                </TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="DevTo" Width="40" Height="40" VerticalAlignment="Center" Margin="10 5 0 0"/>
+                                <StackPanel Orientation="Vertical" Margin="5 0">
+                                    <StackPanel Orientation="Horizontal" Margin="0 2">
+                                        <materialDesign:PackIcon Kind="AccountTie" Width="35" Height="35" VerticalAlignment="Center" />
+                                        <TextBlock Margin="5" Text="Nguyễn Thanh Minh Duy - 18120172" FontSize="35"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0 2">
+                                        <materialDesign:PackIcon Kind="AccountTie" Width="35" Height="35" VerticalAlignment="Center" />
+                                        <TextBlock Margin="5" Text="Đoàn Xuân Bách - 18120156" FontSize="35"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0 2"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </ScrollViewer>
 </UserControl>
