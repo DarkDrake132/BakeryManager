@@ -101,7 +101,7 @@
                         </Border>
                     </Button>
                     <!--Recipts List button-->
-                    <Button Margin="0 10" Name="InvoiceBtn" Padding="0 5" Background="{x:Null}" BorderBrush="{x:Null}"  Width="auto" Height="auto" Command="{Binding InvoiceListCommand}">
+                    <Button IsEnabled="{Binding IsManager}" Margin="0 10" Name="InvoiceBtn" Padding="0 5" Background="{x:Null}" BorderBrush="{x:Null}"  Width="auto" Height="auto" Command="{Binding InvoiceListCommand}">
                         <Border Margin="0"  Padding="0 7" Background="{Binding Source={StaticResource Global},Path=InvoiceListColor}" Width="{Binding ActualWidth, ElementName=InvoiceBtn}" >
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <materialDesign:PackIcon Margin="10 0 0 0" Kind="FileDocumentEditOutline" Width="35" Height="35" HorizontalAlignment="Center"  Foreground="{Binding Source={StaticResource Global},Path=InvoiceListTextColor}"/>
