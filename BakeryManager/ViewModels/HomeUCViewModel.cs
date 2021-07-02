@@ -226,12 +226,12 @@ namespace BakeryManager.ViewModels
                 {
                     IsValidCheckoutCash = true;
                 }
-                OnPropertyChanged("_checkOutCash");
+                OnPropertyChanged("CheckOutCash");
             }
         }
 
         private string _checkOutChange;
-        public string CheckOutChange { get => _checkOutChange; set { _checkOutChange = value; OnPropertyChanged("_checkOutChange"); } }
+        public string CheckOutChange { get => _checkOutChange; set { _checkOutChange = value; OnPropertyChanged("CheckOutChange"); } }
 
         private DateTime _checkOutDateShip;
         public DateTime CheckOutDateShip
@@ -391,6 +391,9 @@ namespace BakeryManager.ViewModels
         }
         public HomeUCViewModel()
         {
+            IsDelivery = false;
+            IsCash = true;
+
             // khởi tạo dữ liệu
             InvoiceDetails = new AsyncObservableCollection<DetailInList>();
 
