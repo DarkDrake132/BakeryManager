@@ -226,12 +226,12 @@ namespace BakeryManager.ViewModels
                 {
                     IsValidCheckoutCash = true;
                 }
-                OnPropertyChanged();
+                OnPropertyChanged("_checkOutCash");
             }
         }
 
         private string _checkOutChange;
-        public string CheckOutChange { get => _checkOutChange; set { _checkOutChange = value; OnPropertyChanged(); } }
+        public string CheckOutChange { get => _checkOutChange; set { _checkOutChange = value; OnPropertyChanged("_checkOutChange"); } }
 
         private DateTime _checkOutDateShip;
         public DateTime CheckOutDateShip
@@ -285,8 +285,21 @@ namespace BakeryManager.ViewModels
             get => _isDelivery; set
             {
                 _isDelivery = value;
+                IsCash = !value;
                 IsEnabledSecondCheckoutButton = IsCheckOut();
-                OnPropertyChanged();
+                OnPropertyChanged("IsDelivery");
+                OnPropertyChanged("IsCash");
+            }
+        }
+
+        private bool _isCash;
+        public bool IsCash
+        {
+            get => _isCash; set
+            {
+                _isCash = value;
+                IsEnabledSecondCheckoutButton = IsCheckOut();
+                OnPropertyChanged("IsCash");
             }
         }
 
@@ -369,6 +382,12 @@ namespace BakeryManager.ViewModels
                 }
             }
             return _instance;
+        }
+
+        public void reset()
+        {
+            CheckOutCash = null;
+            CheckOutChange = null;
         }
         public HomeUCViewModel()
         {
@@ -477,7 +496,6 @@ namespace BakeryManager.ViewModels
                 InvoiceDetails = new AsyncObservableCollection<DetailInList>();
                 DetailInListTotalPrice = "0";
                 CallSearch();
-
                 
                 try
                 {
@@ -486,10 +504,14 @@ namespace BakeryManager.ViewModels
                     {
                         printDialog.PrintVisual(param, "Invoice");
                     }
+                    
                 }
                 finally
                 {
                     IsOpenCheckOutDialog = false;
+                    _instance = new HomeUCViewModel();
+                    reset();
+                    Global.GetInstance().CurrentPageViewModel = HomeUCViewModel.GetInstance();
                 }
             });
 
@@ -520,6 +542,7 @@ namespace BakeryManager.ViewModels
             });
             ChangedFlippedCommand = new RelayCommand<object>((param) => { return true; }, (param) => {
                 IsDelivery = !IsDelivery;
+                IsCash = !IsCash;
             });
             ChangeCategoryCommand = new RelayCommand<dynamic>((param) => { return true; }, (param) => {
                 SelectedCategory = param;
@@ -866,7 +889,10 @@ namespace BakeryManager.ViewModels
                 IsEnabledCheckoutButton = false;
             });
         }
+        
     }
+
+   
     public class IsPercentRule : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)

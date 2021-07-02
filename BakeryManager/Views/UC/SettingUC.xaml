@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xlocal="clr-namespace:BakeryManager"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             xmlns:models="clr-namespace:BakeryManager.Models"
             
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -16,14 +15,14 @@
             DataContext="{StaticResource SETUCVM}"
 
             mc:Ignorable="d" 
-            d:DesignHeight="850" d:DesignWidth="1100">
+            d:DesignHeight="850" d:DesignWidth="1110">
     <UserControl.Resources>
         <ObjectDataProvider x:Key="themeColor"
                       ObjectType="{x:Type xlocal:Global}"
                       MethodName="GetInstance" />
     </UserControl.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" MaxWidth="1100" Width="1100" Height="850">
-        <StackPanel Orientation="Vertical" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="1100" Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" Width="1100" Height="850">
+        <StackPanel Orientation="Vertical" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="1090" Margin="10">
             <materialDesign:Card MinWidth="300" Padding="0 5" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="auto" UniformCornerRadius="10" Margin="10">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontSize="30" FontWeight="Medium" Text="Splash Screen" Margin="20 0" VerticalAlignment="Center"></TextBlock>

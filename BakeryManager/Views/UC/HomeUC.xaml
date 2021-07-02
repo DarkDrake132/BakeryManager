@@ -23,12 +23,12 @@
         <ObjectDataProvider x:Key="themeColor"
                       ObjectType="{x:Type xlocal:Global}"
                       MethodName="GetInstance" />
-        
+
         <models:BytesToBitMapConverter x:Key="ImageConverter"/>
         <models:NumberToVNDConverter x:Key="MoneyConverter"/>
         <models:DateConverter x:Key="DateConverter"/>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -51,7 +51,9 @@
                     </StackPanel>
                 </Border>
             </DockPanel>
+
             <!--pick to bar-->
+
             <ListView Name="Categories" Margin="0 20 0 0" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.CanContentScroll="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -75,7 +77,9 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>
+
             <!--3 bar-->
+
             <DockPanel LastChildFill="False">
                 <TextBlock DockPanel.Dock="Left" Text="Order Menu" VerticalAlignment="Center" FontSize="30" Margin="20 0" FontWeight="Medium"></TextBlock>
                 <Border DockPanel.Dock="Right" BorderThickness="0" Background="White" CornerRadius="10" Margin="10 10 20 10">
@@ -95,7 +99,9 @@
                 </Border>
             </DockPanel>
 
+
             <!--List Item-->
+
             <ListView Name="Products" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" HorizontalAlignment="Left"  Width="660" Height="450" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -124,14 +130,15 @@
                 </ListView.ItemsPanel>
             </ListView>
         </StackPanel>
+
         <!--Right Panel-->
+
         <Grid Grid.Column="1">
             <StackPanel  VerticalAlignment="Top">
                 <!-- First bar -->
-                <DockPanel LastChildFill="False" Margin="20">
-                    <TextBlock DockPanel.Dock="Left" Text="Cart" VerticalAlignment="Center" FontSize="30" Margin="20 0" FontWeight="Medium"></TextBlock>
+                <DockPanel LastChildFill="false" Margin="20">
+                    <TextBlock DockPanel.Dock="left" Text="cart" VerticalAlignment="center" FontSize="30" Margin="20 0" FontWeight="medium"></TextBlock>
                 </DockPanel>
-                
                 <!--Cart List-->
                 <ListView x:Name="Invoice" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="600" ItemsSource="{Binding InvoiceDetails}" ScrollViewer.CanContentScroll="False">
                     <ListView.ItemTemplate>
@@ -223,7 +230,7 @@
                                             </i:Interaction.Triggers>
                                         </TextBox>
                                     </StackPanel>
-                                    
+
                                 </StackPanel>
                                 <Border Margin="0 20 0 0" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderThickness="2" HorizontalAlignment="Center">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
@@ -237,7 +244,9 @@
                 </ListView>
             </StackPanel>
         </Grid>
+
         <!--Check out Dialog-->
+
         <materialDesign:DialogHost  Grid.Column="0" Panel.ZIndex="1" Grid.ColumnSpan="2" IsOpen="{Binding IsOpenCheckOutDialog}"
                     Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
                     DialogMargin="8">
@@ -331,27 +340,16 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Vertical">
-                        <Border CornerRadius="10" BorderThickness="2" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Margin="5">
-                            <materialDesign:Flipper Margin="10">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="IsFlippedChanged">
-                                        <i:InvokeCommandAction Command="{Binding ChangedFlippedCommand}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <materialDesign:Flipper.FrontContent>
-                                    <StackPanel Margin="10 20">
-                                        <Button
-                                          Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                          Margin="5"
-                                          Width="190">
-                                            DELIVERY...
-                                        </Button>
-                                        <StackPanel Orientation="Horizontal" Margin="10">
-
+                        <StackPanel Grid.Column="1" Orientation="Vertical">
+                            <Border CornerRadius="10" BorderThickness="2" BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" Margin="5">
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel Margin="10" Orientation="Vertical">
+                                        <CheckBox Margin="10"  FontSize="15" Content="Delivery" IsChecked="{Binding IsDelivery}" Width="100" Height="50" ></CheckBox>
+                                        <StackPanel Orientation="Horizontal" Margin="10" IsEnabled="{Binding IsCash}">
                                             <TextBlock VerticalAlignment="Center" Text="Cash: " FontSize="15" FontWeight="Medium"></TextBlock>
                                             <TextBox Width="100"
-                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                  VerticalAlignment="Center">
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center">
                                                 <TextBox.Text>
                                                     <Binding Path="CheckOutCash" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
                                                         <Binding.ValidationRules>
@@ -367,44 +365,23 @@
                                             </TextBox>
                                         </StackPanel>
 
-                                        <StackPanel Orientation="Horizontal" Margin="10">
+                                        <StackPanel IsEnabled="{Binding IsCash}" Orientation="Horizontal" Margin="10">
                                             <TextBlock VerticalAlignment="Center" Text="Change: " FontSize="15" FontWeight="Medium"></TextBlock>
                                             <TextBox Width="100" Text="{Binding CheckOutChange, Converter={StaticResource MoneyConverter}}"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center" IsReadOnly="True"/>
                                         </StackPanel>
                                     </StackPanel>
-                                </materialDesign:Flipper.FrontContent>
-                                <materialDesign:Flipper.BackContent>
-                                    <Grid
+
+                                    <Grid IsEnabled="{Binding IsDelivery}"
                                       Height="auto"
-                                      Width="auto">
+                                      Width="250">
                                         <Grid.RowDefinitions>
                                             <RowDefinition
                                            Height="Auto" />
                                             <RowDefinition
                                             Height="*" />
                                         </Grid.RowDefinitions>
-                                        <materialDesign:ColorZone
-                                        Mode="Dark"
-                                        Padding="5">
-                                            <StackPanel
-                                         Orientation="Horizontal">
-                                                <Button
-                                                Style="{StaticResource MaterialDesignToolForegroundButton}"
-                                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                                HorizontalAlignment="Left">
-                                                    <materialDesign:PackIcon
-                                              Kind="ArrowLeft"
-                                              HorizontalAlignment="Right" />
-                                                </Button>
-                                                <TextBlock
-                                                Margin="5 0 0 0"
-                                                VerticalAlignment="Center">
-                                              DELIVERY INFORMATION
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </materialDesign:ColorZone>
                                         <Grid
                                         Grid.Row="1"
                                         HorizontalAlignment="Center"
@@ -479,9 +456,9 @@
                                             </TextBox>
                                         </Grid>
                                     </Grid>
-                                </materialDesign:Flipper.BackContent>
-                            </materialDesign:Flipper>
-                        </Border>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
                         <Border BorderBrush="{Binding Source={StaticResource themeColor},Path=ThemeColor}" BorderThickness="2" Background="{x:Null}" CornerRadius="10" Margin="5">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal" Margin="10">
